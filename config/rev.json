@@ -23,6 +23,8 @@
     "js/bootstrap-decorator",
 
   "/bower_components/requirejs/require.js": "js/require.js",
+  "/src/js/app.application": "js/app.application",
+  "/src/js/app.patch": "js/app.patch",
 
   "/src/modules/acc/module": "js/modules.acc",
 

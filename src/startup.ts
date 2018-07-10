@@ -6,7 +6,7 @@
     map: options.map || {},
     waitSeconds: 0
   };
-  var references = options['references'];
+  var references = options['configs'];
   var requires = ['app/application'];
 
   for (var name in references) {
@@ -40,4 +40,4 @@
         .addClass('ng-app');
     });
   });
-})(window['configs']);
+})(window['options']);

@@ -13,11 +13,13 @@ class Config {
       requires: ['modules/acc/requires']
     });
 
-    // $stateProvider.state('master.index', {
-    //   url: '/index',
-    //   templateUrl: 'modules/acc/views/master.html',
-    //   requires: ['modules/acc/requires']
-    // });
+    $stateProvider.state('master.index', {
+      url: '/index',
+      templateUrl: 'modules/acc/components/home/index.html',
+      requires: ['modules/acc/requires']
+    });
+
+    $urlRouterProvider.otherwise('/master/index');
   }
 }
 

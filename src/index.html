@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
@@ -20,12 +20,85 @@
             var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function () { };
             return c;
         })();
-        window.configs = window.configs || {};
-        window.configs.requires = window.configs.requires || [];
-        window.configs.requires = [
-            'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
-            'modules/acc/module'
-        ];
+        window.options = {
+            configs: {
+                // patch
+                'es5-shim': '/src/js/app.patch',
+                'es5-sham': {
+                    path: '/src/js/app.patch',
+                    shim: {
+                        deps: ['es5-shim']
+                    }
+                },
+                html5shiv: 'js/app.patch',
+                json2: '/src/js/app.patch',
+                respond: '/src/js/app.patch',
+                // app
+                'rcss': {
+                    path: '/src/js/app.application'
+                },
+                'angular-base': {
+                    path: '/src/js/app.application'
+                },
+                'angular': {
+                    path: '/src/js/app.application',
+                    shim: { deps: ['angular-base'] }
+                },
+                'angular-ui-router': {
+                    path: '/src/js/app.application',
+                    shim: { deps: ['angular'] }
+                },
+                'angular-ui-bootstrap': {
+                    path: '/src/js/app.application',
+                    shim: { deps: ['angular'] }
+                },
+                'angular-sanitize': {
+                    path: '/src/js/app.application'
+                },
+                'angular-cookies': {
+                    path: '/src/js/app.application'
+                },
+                'bootstrap': {
+                    path: '/src/js/app.application',
+                    shim: { deps: ['jquery'] }
+                },
+                'jquery': '/src/js/app.application',
+
+                // extends
+
+                // application
+                'app/application': {
+                    path: '/src/js/app.application',
+                    shim: {
+                        deps: [
+                            'angular-ui-router',
+                            'angular-ui-bootstrap',
+                            'jquery'
+                        ]
+                    }
+                },
+                'modules/acc/module': {
+                    path: '/src/modules/acc/module',
+                    shim: {
+                        deps: ['app/application']
+                    }
+                },
+                'modules/acc/requires': {
+                    path: '/src/modules/acc/requires'
+                }
+            },
+            patchs: [
+                'es5-shim',
+                'es5-sham',
+                'html5shiv',
+                'json2',
+                'respond'
+            ],
+            requires: [
+                'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
+                'modules/acc/module'
+            ]
+        };
     </script>
     <script id="app" src="/bower_components/requirejs/require.js" data-main="startup.js" data-server="http://localhost:48907"
         data-args="v=0.0.1" data-index="views-pien/views.html"></script>
