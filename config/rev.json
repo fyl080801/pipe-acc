@@ -1,0 +1,30 @@
+{
+  "/bower_components/es5-shim/es5-shim.min": "js/app.patch",
+  "/bower_components/es5-shim/es5-sham.min": "js/app.patch",
+  "/bower_components/html5shiv/dist/html5shiv.min": "js/app.patch",
+  "/bower_components/json2/json2": "js/app.patch",
+  "/bower_components/respond/dest/respond.min": "js/app.patch",
+
+  "/bower_components/bootstrap/dist/css/bootstrap.min.css":
+    "css/bootstrap.min.css",
+  "/bower_components/bootstrap/dist/css/bootstrap.css": "css/bootstrap.min.css",
+  "/bower_components/bootstrap/dist/css/bootstrap-theme.css":
+    "css/bootstrap-theme.min.css",
+  "../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css":
+    "css/fontawesome-all.min.css",
+
+  "/bower_components/signalr/jquery.signalR": "js/jquery.signalR",
+  "/bower_components/angular-signalr-hub/signalr-hub": "js/signalr-hub",
+  "/bower_components/angular-sanitize/angular-sanitize": "js/app.application",
+  "/bower_components/tv4/tv4": "js/tv4",
+  "/bower_components/objectpath/lib/ObjectPath": "js/ObjectPath",
+  "/bower_components/angular-schema-form/dist/schema-form": "js/schema-form",
+  "/bower_components/angular-schema-form-bootstrap/bootstrap-decorator":
+    "js/bootstrap-decorator",
+
+  "/bower_components/requirejs/require.js": "js/require.js",
+
+  "/src/modules/acc/module": "js/modules.acc",
+
+  "/src/modules/acc/requires": "js/requires.acc"
+}

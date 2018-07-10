@@ -1,0 +1,18 @@
+[
+  "jquery",
+  "rcss",
+  "angular",
+  "angular-ui-bootstrap",
+  "angular-ui-router",
+  "angular-cookies",
+  "bootstrap",
+  "angular-tree-control",
+  "signalr",
+  "angular-signalr-hub",
+  "angular-sanitize",
+  "schema-form",
+  "schema-form-bootstrap",
+  "tv4",
+  "objectpath",
+  "app/application"
+]

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="zh-cn" data-html-type="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+
+    <script>
+
+    </script>
+    <script>
+        window.console = window.console || (function () {
+            var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function () { };
+            return c;
+        })();
+        window.configs = window.configs || {};
+        window.configs.requires = window.configs.requires || [];
+        window.configs.requires = [
+            'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
+            'modules/acc/module'
+        ];
+    </script>
+    <script id="app" src="/bower_components/requirejs/require.js" data-main="startup.js" data-server="http://localhost:48907"
+        data-args="v=0.0.1" data-index="views-pien/views.html"></script>
+</head>
+
+<body ui-view>
+</body>
+
+</html>

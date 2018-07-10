@@ -1,0 +1,51 @@
+{
+  "bootstrap": {
+    "css": [
+      "./bower_components/bootstrap/dist/css/bootstrap.min.css",
+      "./bower_components/bootstrap/dist/css/bootstrap.min.css.map",
+      "./bower_components/bootstrap/dist/css/bootstrap-theme.min.css",
+      "./bower_components/bootstrap/dist/css/bootstrap-theme.min.css.map"
+    ],
+    "fonts": ["./bower_components/bootstrap/dist/fonts/*"]
+  },
+  "font-awesome": {
+    "css": ["./bower_components/font-awesome/web-fonts-with-css/css/*.css"],
+    "webfonts": [
+      "./bower_components/font-awesome/web-fonts-with-css/webfonts/*"
+    ]
+  },
+  "schema-form": {
+    "js": [
+      "./bower_components/angular-schema-form/dist/schema-form.js",
+      "./bower_components/angular-schema-form/dist/schema-form.min.js"
+    ]
+  },
+  "schema-form-bootstrap": {
+    "js": [
+      "./bower_components/angular-schema-form-bootstrap/bootstrap-decorator.js",
+      "./bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min.js"
+    ]
+  },
+  "tv4": {
+    "js": ["./bower_components/tv4/tv4.js"]
+  },
+  "objectpath": {
+    "js": ["./bower_components/objectpath/lib/ObjectPath.js"]
+  },
+  "signalr": {
+    "js": [
+      "./bower_components/signalr/jquery.signalR.js",
+      "./bower_components/signalr/jquery.signalR.min.js"
+    ]
+  },
+  "angular-signalr-hub": {
+    "js": [
+      "./bower_components/angular-signalr-hub/signalr-hub.js",
+      "./bower_components/angular-signalr-hub/signalr-hub.min.js"
+    ]
+  },
+  "angular-tree-control": {
+    "js": ["./bower_components/angular-tree-control/angular-tree-control.js"],
+    "css": ["./bower_components/angular-tree-control/css/*.css"]
+  }
+}
