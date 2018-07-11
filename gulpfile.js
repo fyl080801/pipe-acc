@@ -144,19 +144,17 @@ gulp.task('pack_modules', function() {
   });
 });
 
+gulp.task('pack_rev', ['pack_resources'], function() {
+  gulp
+    .src(['dist/**/*.html', 'dist/startup.js'])
+    .pipe(revCollector(['config/rev.json']))
+    .pipe(gulp.dest('dist'));
+});
+
 /**
  * 执行build
  */
-gulp.task(
-  'build',
-  ['pack_require', 'pack_modules', 'pack_resources'],
-  function() {
-    gulp
-      .src(['dist/**/*.html', 'dist/startup.js', 'dist/configs.js'])
-      .pipe(revCollector(['config/rev.json']))
-      .pipe(gulp.dest('dist'));
-  }
-);
+gulp.task('build', ['pack_require', 'pack_modules', 'pack_rev']);
 
 gulp.task('replace', function() {
   gulp
