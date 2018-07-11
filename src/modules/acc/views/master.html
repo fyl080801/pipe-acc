@@ -1,10 +1,37 @@
 <div ng-controller="modules/acc/controllers/master">
     <div class="navbar navbar-inverse navbar-static-top">
         <div class="navbar-header">
-            <a href="" class="navbar-brand">
-                <i class="glyphicon glyphicon-home"></i>
-            </a>
+            <ul class="navbar-nav nav navbar-left">
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li>
+                            <a href="">aaa</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="container-fluid pull-right">
+            <ul class="navbar-nav nav navbar-right">
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-comment"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-cog"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="navbar-collapse collapse text-center">
+            <h4 class="navbar-text" style="display: inline-block; float: none;">管廊智能平台</h4>
         </div>
     </div>
-    <div ui-view></div>
+    <div ui-view class="acc-container navbar-under"></div>
 </div>

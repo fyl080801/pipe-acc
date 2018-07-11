@@ -13,13 +13,19 @@ class Config {
       requires: ['modules/acc/requires']
     });
 
-    $stateProvider.state('master.index', {
-      url: '/index',
+    $stateProvider.state('master.homeindex', {
+      url: '/homeindex',
       templateUrl: 'modules/acc/components/home/index.html',
       requires: ['modules/acc/requires']
     });
 
-    $urlRouterProvider.otherwise('/master/index');
+    $stateProvider.state('master.gisindex', {
+      url: '/gisindex',
+      templateUrl: 'modules/acc/components/gis/index.html',
+      requires: ['modules/acc/requires']
+    });
+
+    $urlRouterProvider.otherwise('/master/homeindex');
   }
 }
 
