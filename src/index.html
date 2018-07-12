@@ -61,6 +61,18 @@
                 'jquery': '/src/js/app.application',
 
                 // extends
+                leaflet: {
+                    path: '/bower_components/leaflet/dist/leaflet'
+                },
+                proj4: {
+                    path: '/bower_components/proj4/dist/proj4'
+                },
+                proj4leaflet: {
+                    path: '/bower_components/Proj4Leaflet/src/proj4leaflet',
+                    shim: {
+                        deps: ['leaflet', 'proj4']
+                    }
+                },
 
                 // application
                 'app/application': {
@@ -92,6 +104,7 @@
             ],
             requires: [
                 'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
+                'rcss!../bower_components/leaflet/dist/leaflet.css',
                 'rcss!css/acc.css',
                 'modules/acc/module'
             ]

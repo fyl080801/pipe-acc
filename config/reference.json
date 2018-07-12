@@ -47,5 +47,9 @@
   "angular-tree-control": {
     "js": ["./bower_components/angular-tree-control/angular-tree-control.js"],
     "css": ["./bower_components/angular-tree-control/css/*.css"]
+  },
+  "leaflet": {
+    "css": ["./bower_components/leaflet/dist/leaflet.css"],
+    "js/images": ["./bower_components/leaflet/dist/images/*"]
   }
 }

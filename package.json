@@ -6,7 +6,8 @@
   "scripts": {
     "webserver": "gulp webserver",
     "tsc": "tsc --watch -p tsconfig.json",
-    "start": "concurrently \"npm run tsc\" \"npm run webserver\""
+    "start": "concurrently \"npm run tsc\" \"npm run webserver\"",
+    "build": "gulp build && gulp pack_rev"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +18,9 @@
     "@types/angular-ui-bootstrap": "^0.13.46",
     "@types/angular-ui-router": "^1.1.40",
     "@types/jquery": "^3.3.1",
+    "@types/leaflet": "^1.2.8",
     "@types/popper.js": "^1.11.0",
+    "@types/proj4leaflet": "^1.0.5",
     "@types/requirejs": "^2.1.31",
     "@types/signalr": "^2.2.35",
     "@types/swfobject": "^2.2.27",
@@ -44,5 +47,6 @@
     "rimraf": "^2.6.2",
     "sog-gulp-rev-collector": "0.0.1",
     "typescript": "^2.9.1"
-  }
+  },
+  "dependencies": {}
 }

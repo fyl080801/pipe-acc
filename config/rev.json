@@ -21,6 +21,10 @@
   "/bower_components/angular-schema-form/dist/schema-form": "js/schema-form",
   "/bower_components/angular-schema-form-bootstrap/bootstrap-decorator":
     "js/bootstrap-decorator",
+  "/bower_components/leaflet/dist/leaflet": "js/requires.acc",
+  "/bower_components/proj4/dist/proj4": "js/requires.acc",
+  "/bower_components/Proj4Leaflet/src/proj4leaflet": "js/requires.acc",
+  "../bower_components/leaflet/dist/leaflet.css": "css/leaflet.css",
 
   "/bower_components/requirejs/require.js": "js/require.js",
   "/src/js/app.application": "js/app.application",

@@ -36,8 +36,10 @@ require.config({
       '../bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min',
     tv4: '../bower_components/tv4/tv4',
     objectpath: '../bower_components/objectpath/lib/ObjectPath',
+    leaflet: '../bower_components/leaflet/dist/leaflet',
+    proj4: '../bower_components/proj4/dist/proj4',
+    proj4leaflet: '../bower_components/Proj4Leaflet/src/proj4leaflet',
     'app/application': '../src/js/app.application'
   },
-  shim: {},
   exclude: []
 });

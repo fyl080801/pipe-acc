@@ -144,7 +144,7 @@ gulp.task('pack_modules', function() {
   });
 });
 
-gulp.task('pack_rev', ['pack_resources'], function() {
+gulp.task('pack_rev', function() {
   gulp
     .src(['dist/**/*.html', 'dist/startup.js'])
     .pipe(revCollector(['config/rev.json']))
@@ -154,7 +154,7 @@ gulp.task('pack_rev', ['pack_resources'], function() {
 /**
  * 执行build
  */
-gulp.task('build', ['pack_require', 'pack_modules', 'pack_rev']);
+gulp.task('build', ['pack_require', 'pack_modules', 'pack_resources']);
 
 gulp.task('replace', function() {
   gulp
