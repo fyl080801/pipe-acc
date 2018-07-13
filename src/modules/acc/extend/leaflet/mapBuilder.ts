@@ -2,7 +2,7 @@ import L = require('leaflet');
 import angular = require('angular');
 import 'proj4leaflet';
 
-export class MapBuilder implements acc.IMapBuilder {
+export class MapBuilder implements acc.extend.IMapBuilder {
   map() {
     return this._map;
   }

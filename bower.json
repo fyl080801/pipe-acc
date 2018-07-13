@@ -34,6 +34,7 @@
     "angular-schema-form-bootstrap": "^0.2.0",
     "angular-signalr-hub": "^1.6.3",
     "angular-leaflet-directive": "^0.10.0",
-    "Proj4Leaflet": "proj4leaflet#^1.0.2"
+    "Proj4Leaflet": "proj4leaflet#^1.0.2",
+    "jquery.nicescroll": "^3.7.6"
   }
 }

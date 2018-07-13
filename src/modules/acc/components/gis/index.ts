@@ -1,11 +1,21 @@
 import mod = require('modules/acc/module');
-import { MapBuilder } from 'modules/acc/factories/mapBuilder';
+import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
+import L = require('leaflet');
+import MapTools = require('modules/acc/extend/leaflet/mapTools');
 
 class Controller {
-  static $inject = ['$scope', '$element'];
-  constructor(private $scope, private $element: JQLite) {
+  static $inject = ['$scope', '$element', 'modules/acc/factories/mapControl'];
+  constructor(
+    private $scope,
+    private $element: JQLite,
+    private mapControl: acc.IMapLayerFactory
+  ) {
     $scope.vm = this;
     $scope.map = new MapBuilder($element.find('[map-area]').get(0)).map();
+
+    mapControl({
+      templateUrl: 'modules/acc/views/gisTools.html'
+    }).addTo($scope.map);
   }
 }
 
