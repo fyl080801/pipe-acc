@@ -1,14 +1,25 @@
 <div class="form-inline" ng-controller="modules/acc/controllers/gisTools">
-    <div class="btn-group leaflet-bar">
+    <div class="btn-group leaflet-bar dropdown">
         <button class="btn btn-primary" ng-click="vm.test()">
             <i class="glyphicon glyphicon-cog"></i>
         </button>
         <button class="btn btn-default" ng-click="vm.test()">
             <i class="glyphicon glyphicon-search"></i>
         </button>
-        <button class="btn btn-success" ng-click="vm.test()">
+        <button class="btn btn-success" data-toggle="dropdown">
             <i class="glyphicon glyphicon-road"></i>
         </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+                <a href="">显示1</a>
+            </li>
+            <li>
+                <a href="">显示1</a>
+            </li>
+            <li>
+                <a href="">显示1</a>
+            </li>
+        </ul>
     </div>
     <div class="btn-group leaflet-bar">
         <button class="btn btn-default" ng-click="vm.test()">
