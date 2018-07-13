@@ -24,6 +24,8 @@
   "/bower_components/leaflet/dist/leaflet": "js/requires.acc",
   "/bower_components/proj4/dist/proj4": "js/requires.acc",
   "/bower_components/Proj4Leaflet/src/proj4leaflet": "js/requires.acc",
+  "../bower_components/signalr/jquery.signalR": "jquery.signalR",
+  "../bower_components/angular-signalr-hub/signalr-hub": "signalr-hub",
   "../bower_components/leaflet/dist/leaflet.css": "css/leaflet.css",
 
   "/bower_components/requirejs/require.js": "js/require.js",
