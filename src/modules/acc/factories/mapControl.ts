@@ -67,7 +67,7 @@ function factory(
       }
 
       //
-      var angularDomEl = angular.element('<div></div>');
+      var angularDomEl = $(angular.element('<div></div>'));
 
       angularDomEl.attr('template-url', controlOptions.templateUrl);
       angularDomEl.html(tplAndVars[0]);

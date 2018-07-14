@@ -30,8 +30,8 @@
     requires = options.patchs.concat(requires);
   }
 
-  require.config(configs);
-  require(requires.concat(options['requires']), function() {
+  requirejs.config(configs);
+  requirejs(requires.concat(options['requires']), function() {
     angular.element(document).ready(function() {
       angular.bootstrap(document, ['app.application']);
       angular

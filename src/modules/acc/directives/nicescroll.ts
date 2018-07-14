@@ -4,7 +4,7 @@ import '../../../../bower_components/jquery.nicescroll/dist/jquery.nicescroll.mi
 function directive(): ng.IDirective {
   return {
     link: (scope, instanceElement: JQLite) => {
-      instanceElement.niceScroll();
+      $(instanceElement).niceScroll();
     }
   };
 }

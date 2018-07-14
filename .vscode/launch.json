@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "electron",
+      "request": "launch",
+      "name": "Launch Electron",
+      "appDir": "${workspaceFolder}",
+      "sourceMaps": true
+    },
+    {
       "type": "chrome",
       "request": "launch",
       "name": "启动 Chrome 并打开 localhost",

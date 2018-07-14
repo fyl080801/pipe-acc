@@ -11,7 +11,11 @@ class Controller {
     private mapControl: acc.IMapLayerFactory
   ) {
     $scope.vm = this;
-    $scope.map = new MapBuilder($element.find('[map-area]').get(0)).map();
+    $scope.map = new MapBuilder(
+      $($element)
+        .find('.map-area')
+        .get(0)
+    ).map();
 
     mapControl({
       templateUrl: 'modules/acc/views/gisTools.html'
