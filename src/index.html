@@ -11,6 +11,18 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <style>
+        .view-loading {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-image: url('images/loading.gif');
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
     <script>
         window.console = window.console || (function () {
             var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function () { };
@@ -124,6 +136,8 @@
         data-args="v=0.0.1"></script>
 </head>
 
-<body ui-view></body>
+<body ui-view>
+    <div class="view-loading"></div>
+</body>
 
 </html>
