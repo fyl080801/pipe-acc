@@ -8,14 +8,30 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-left">
                         <li>
-                            <a href="#/master/gisindex">gis视图</a>
+                            <a href="#/master/gisindex">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                                GIS视图
+                            </a>
                         </li>
                         <li>
-                            <a href="#/master/homeindex">点位视图</a>
+                            <a href="#/master/homeindex">
+                                <i class="glyphicon glyphicon-th"></i>
+                                点位视图
+                            </a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="">管理</a>
+                            <a href="#/master/manage">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                管理
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="" ng-click="vm.exit()">
+                                <i class="glyphicon glyphicon-off"></i>
+                                退出
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -28,15 +44,10 @@
                         <i class="glyphicon glyphicon-comment"></i>
                     </a>
                 </li>
-                <li>
-                    <a href="">
-                        <i class="glyphicon glyphicon-cog"></i>
-                    </a>
-                </li>
             </ul>
         </div>
         <div class="navbar-collapse collapse text-center">
-            <h4 class="navbar-text" style="display: inline-block; float: none;">管廊智能平台</h4>
+            <h4 class="navbar-text" style="display: inline-block; float: none;">智能管廊管理平台</h4>
         </div>
     </div>
     <div ui-view class="acc-container navbar-under"></div>

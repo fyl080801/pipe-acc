@@ -1,0 +1,38 @@
+<div class="acc-container acc-manage" ng-controller="modules/manage/controllers/manage">
+    <div class="sidebar">
+        <div class="panel-group" id="acc_menu" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default" ng-repeat="m in menu">
+                <div class="panel-heading" role="tab" id="acc_menu_heading_{{$index}}">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#acc_menu" href="#acc_menu_{{$index}}" aria-expanded="true" aria-controls="acc_menu_{{$index}}">
+                            <i class="{{m.icon}}"></i>
+                            {{m.text}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="acc_menu_{{$index}}" class="list-group panel-collapse collapse" ng-class="{'in': $index===0}" role="tabpanel" aria-labelledby="acc_menu_heading_{{$index}}">
+                    <a href="#{{sm.href}}" class="list-group-item" ng-repeat="sm in m.menu">
+                        {{sm.text}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="acc-container content">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/master/manage">
+                    <i class="glyphicon glyphicon-home"></i>
+                    工作台
+                </a>
+            </li>
+            <li>
+                <span>{{$state.current.title}}</span>
+            </li>
+        </ol>
+        <div class="acc-container view" ui-view>
+            <p>管理界面</p>
+            <p>可显示待处理的报警信息、设备信息、事件等内容的数量及状态</p>
+        </div>
+    </div>
+</div>

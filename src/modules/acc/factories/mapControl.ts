@@ -28,7 +28,7 @@ function factory(
 
   function getResolvePromises(resolves) {
     var promisesArr = [];
-    angular.forEach(resolves, function(value) {
+    angular.forEach(resolves, value => {
       if (angular.isFunction(value) || angular.isArray(value)) {
         promisesArr.push($q.when($injector.invoke(value)));
       }
@@ -80,7 +80,7 @@ function factory(
       options: {
         position: 'topright'
       },
-      initialize: options => {
+      initialize: function(options) {
         L.Util.extend(this.options, options);
       },
       onAdd: function(map: L.Map) {

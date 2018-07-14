@@ -35,6 +35,8 @@
   "/src/js/app.patch": "js/app.patch",
 
   "/src/modules/acc/module": "js/modules.acc",
+  "/src/modules/manage/module": "js/modules.manage",
 
-  "/src/modules/acc/requires": "js/requires.acc"
+  "/src/modules/acc/requires": "js/requires.acc",
+  "/src/modules/manage/requires": "js/requires.manage"
 }

@@ -93,6 +93,15 @@
                 },
                 'modules/acc/requires': {
                     path: '/src/modules/acc/requires'
+                },
+                'modules/manage/module': {
+                    path: '/src/modules/manage/module',
+                    shim: {
+                        deps: ['app/application']
+                    }
+                },
+                'modules/manage/requires': {
+                    path: '/src/modules/manage/requires'
                 }
             },
             patchs: [
@@ -106,11 +115,12 @@
                 'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
                 'rcss!../bower_components/leaflet/dist/leaflet.css',
                 'rcss!css/acc.css',
-                'modules/acc/module'
+                'modules/acc/module',
+                'modules/manage/module'
             ]
         };
     </script>
-    <script id="app" src="/bower_components/requirejs/require.js" data-main="startup.js" data-server="http://localhost:48907"
+    <script id="app" src="/bower_components/requirejs/require.js" data-main="startup.js" data-server="http://localhost:5000"
         data-args="v=0.0.1"></script>
 </head>
 
