@@ -22,6 +22,7 @@ var gulp = require('gulp'),
   revCollector = require('sog-gulp-rev-collector'),
   sourcemaps = require('gulp-sourcemaps'),
   ts = require('gulp-typescript'),
+  less = require('gulp-less'),
   fs = require('fs');
 
 /**
@@ -55,7 +56,8 @@ gulp.task('pack_resources', function() {
       '!src/modules/**/*.map',
       '!src/app/**/*.js',
       '!src/app/**/*.ts',
-      '!src/app/**/*.map'
+      '!src/app/**/*.map',
+      '!src/**/*.less'
     ])
     .pipe(gulp.dest('dist'));
 
@@ -163,6 +165,14 @@ gulp.task('replace', function() {
     .pipe(gulp.dest('dist'));
 });
 
+// 编译所有less文件
+gulp.task('lessc', function() {
+  gulp
+    .src('src/less/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('src/css'));
+});
+
 gulp.task('tsc', function() {
   var tsProject = ts.createProject('tsconfig.json', { sourceMap: true });
   tsProject
@@ -188,6 +198,6 @@ gulp.task('webserver', function() {
   );
 });
 
-gulp.task('watch', ['tsc'], function() {
-  gulp.watch('src/**/*.ts', ['tsc']);
+gulp.task('watch', ['lessc'], function() {
+  gulp.watch('src/**/*.less', ['lessc']);
 });

@@ -5,28 +5,23 @@
   left: 0;
   right: 0;
 }
-
 .acc-container.body {
   top: 43px;
   overflow: auto;
 }
-
 .acc-container.navbar-under {
   margin-top: 50px;
 }
-
 .acc-container.bottom {
   margin-left: 15px;
   margin-right: 15px;
   margin-bottom: 20px;
 }
-
 .acc-container.top {
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px;
 }
-
 .acc-bar {
   position: absolute;
   top: 0;
@@ -34,25 +29,44 @@
   width: 320px;
   padding-top: 1px;
 }
-
-.acc-bg {
-  background-color: #222;
-}
-
 .acc-bar.left {
   left: 0;
 }
-
 .acc-bar.right {
   right: 0;
 }
-
+.acc-bg {
+  background-color: #222;
+}
 .acc-bar-center {
   margin: 1px 320px 20px;
 }
-
 .acc-map {
   position: relative;
   width: 100%;
   height: 100%;
+}
+.leaflet-touch .leaflet-bar .navbar a,
+.leaflet-touch .leaflet-bar .dropdown-menu a {
+  width: inherit;
+}
+.leaflet-bar .navbar a,
+.leaflet-bar .dropdown-menu a,
+.leaflet-bar .navbar a:hover,
+.leaflet-bar .dropdown-menu a:hover {
+  width: inherit;
+  height: inherit;
+  line-height: inherit;
+  display: inherit;
+  text-align: inherit;
+}
+.leaflet-bar .navbar a:first-child,
+.leaflet-bar .dropdown-menu a:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.leaflet-bar .navbar a:last-child,
+.leaflet-bar .dropdown-menu a:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
 }

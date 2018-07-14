@@ -6,7 +6,7 @@
   "scripts": {
     "webserver": "gulp webserver",
     "tsc": "tsc --watch -p tsconfig.json",
-    "start": "concurrently \"npm run tsc\" \"npm run webserver\"",
+    "start": "concurrently \"npm run tsc\" \"npm run webserver\" \"gulp watch\"",
     "build": "gulp build && gulp pack_rev"
   },
   "author": "",
