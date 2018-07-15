@@ -9,6 +9,13 @@ class Config {
       requires: ['modules/acc/requires', 'modules/manage/requires']
     });
 
+    $stateProvider.state('master.manage.settings', {
+      url: '/settings',
+      title: '参数管理',
+      templateUrl: 'modules/manage/components/settings/page.html',
+      requires: ['modules/manage/requires']
+    });
+
     $stateProvider.state('master.manage.varlist', {
       url: '/varlist',
       title: '点位管理',

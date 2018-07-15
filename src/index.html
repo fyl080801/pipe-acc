@@ -85,6 +85,24 @@
                         deps: ['leaflet', 'proj4']
                     }
                 },
+                'tv4': {
+                    path: '/bower_components/tv4/tv4'
+                },
+                'objectpath': {
+                    path: '/bower_components/objectpath/lib/ObjectPath'
+                },
+                'schema-form': {
+                    path: '/bower_components/angular-schema-form/dist/schema-form',
+                    shim: {
+                        deps: ['tv4', 'objectpath']
+                    }
+                },
+                'schema-form-bootstrap': {
+                    path: '/bower_components/angular-schema-form-bootstrap/bootstrap-decorator',
+                    shim: {
+                        deps: ['schema-form']
+                    }
+                },
 
                 // application
                 'app/application': {
@@ -97,6 +115,8 @@
                         ]
                     }
                 },
+
+                // acc
                 'modules/acc/module': {
                     path: '/src/modules/acc/module',
                     shim: {
@@ -106,6 +126,8 @@
                 'modules/acc/requires': {
                     path: '/src/modules/acc/requires'
                 },
+
+                // manage
                 'modules/manage/module': {
                     path: '/src/modules/manage/module',
                     shim: {

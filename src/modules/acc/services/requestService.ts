@@ -48,7 +48,7 @@ class WebApi implements acc.services.IWebApi {
     var loading =
       this.options.showLoading !== false
         ? this.$modal.open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
+            templateUrl: 'modules/acc/templates/loading.html',
             size: 'sm'
           })
         : null;

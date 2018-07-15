@@ -14,24 +14,6 @@
       "./bower_components/font-awesome/web-fonts-with-css/webfonts/*"
     ]
   },
-  "schema-form": {
-    "js": [
-      "./bower_components/angular-schema-form/dist/schema-form.js",
-      "./bower_components/angular-schema-form/dist/schema-form.min.js"
-    ]
-  },
-  "schema-form-bootstrap": {
-    "js": [
-      "./bower_components/angular-schema-form-bootstrap/bootstrap-decorator.js",
-      "./bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min.js"
-    ]
-  },
-  "tv4": {
-    "js": ["./bower_components/tv4/tv4.js"]
-  },
-  "objectpath": {
-    "js": ["./bower_components/objectpath/lib/ObjectPath.js"]
-  },
   "angular-tree-control": {
     "js": ["./bower_components/angular-tree-control/angular-tree-control.js"],
     "css": ["./bower_components/angular-tree-control/css/*.css"]

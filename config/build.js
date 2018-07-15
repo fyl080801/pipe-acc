@@ -41,10 +41,10 @@ require.config({
     proj4leaflet: '../bower_components/Proj4Leaflet/src/proj4leaflet',
     'app/application': '../src/js/app.application'
   },
-  // shim: {
-  //   'angular-signalr-hub': {
-  //     deps: ['angular']
-  //   }
-  // },
+  shim: {
+    'schema-form-bootstrap': {
+      deps: ['schema-form']
+    }
+  },
   exclude: []
 });
