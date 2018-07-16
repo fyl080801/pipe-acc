@@ -6,13 +6,13 @@
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#acc_menu" href="#acc_menu_{{$index}}" aria-expanded="true" aria-controls="acc_menu_{{$index}}">
                             <i class="{{m.icon}}"></i>
-                            {{m.text}}
+                            <span>{{m.text}}</span>
                         </a>
                     </h4>
                 </div>
                 <div id="acc_menu_{{$index}}" class="list-group panel-collapse collapse" ng-class="{'in': $index===0}" role="tabpanel" aria-labelledby="acc_menu_heading_{{$index}}">
-                    <a href="#{{sm.href}}" class="list-group-item" ng-repeat="sm in m.menu">
-                        {{sm.text}}
+                    <a href="" class="list-group-item" ng-click="vm.action(sm)" ng-repeat="sm in m.menu">
+                        <span>{{sm.text}}</span>
                     </a>
                 </div>
             </div>

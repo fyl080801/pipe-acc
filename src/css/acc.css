@@ -1,6 +1,15 @@
 body {
   font-family: Helvetica Neue, Helvetica, Arial, PingFang SC, Hiragino Sans GB, WenQuanYi Micro Hei, Microsoft Yahei, sans-serif;
 }
+.panel-heading input,
+.panel-heading input:active,
+.panel-heading input:focus,
+.panel-heading input:hover {
+  height: 20px;
+  border: none;
+  border-color: transparent;
+  background-color: transparent;
+}
 .acc-container {
   position: absolute;
   top: 0;
@@ -55,6 +64,17 @@ body {
 .acc-manage .sidebar {
   width: 250px;
   padding: 0 15px;
+}
+.acc-manage .sidebar .panel-title a,
+.acc-manage .sidebar .list-group-item a {
+  clear: both;
+}
+.acc-manage .sidebar .panel-title span,
+.acc-manage .sidebar .list-group-item span {
+  margin-left: 35px;
+}
+.acc-manage .sidebar .panel-title i {
+  position: absolute;
 }
 .acc-manage .content {
   margin-left: 250px;

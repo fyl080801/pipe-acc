@@ -35,6 +35,7 @@
     "angular-signalr-hub": "^1.6.3",
     "angular-leaflet-directive": "^0.10.0",
     "Proj4Leaflet": "proj4leaflet#^1.0.2",
-    "jquery.nicescroll": "^3.7.6"
+    "jquery.nicescroll": "^3.7.6",
+    "angular-ui-tree": "^2.22.6"
   }
 }

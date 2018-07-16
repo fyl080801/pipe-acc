@@ -1,8 +1,15 @@
 import mod = require('modules/manage/module');
+import angular = require('angular');
 
 class Controller {
-  static $inject = ['$scope'];
-  constructor(private $scope) {
+  static $inject = ['$scope', '$state', '$location', '$modal'];
+  constructor(
+    private $scope,
+    private $state: ng.ui.IStateService,
+    private $location: ng.ILocationService,
+    private $modal: ng.ui.bootstrap.IModalService
+  ) {
+    $scope.vm = this;
     $scope.menu = [
       {
         icon: 'fas fa-toolbox fa-fw',
@@ -74,6 +81,16 @@ class Controller {
         ]
       }
     ];
+  }
+
+  action(menu) {
+    if (menu.state) {
+      this.$state.go(menu.href, {});
+    } else if (angular.isFunction(menu.action)) {
+      menu.action();
+    } else if (menu.href) {
+      this.$location.url(menu.href);
+    }
   }
 }
 

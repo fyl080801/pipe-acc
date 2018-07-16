@@ -43,7 +43,14 @@ class WebApi implements acc.services.IWebApi {
       this.options
     );
 
-    configs.url = this.$appConfig.siteSettings.prefix + this.options.url;
+    configs.url =
+      this.$appConfig.serverUrl +
+      (this.$appConfig.siteSettings.prefix &&
+      this.$appConfig.siteSettings.prefix.length > 0
+        ? '/'
+        : '') +
+      this.$appConfig.siteSettings.prefix +
+      this.options.url;
 
     var loading =
       this.options.showLoading !== false
@@ -52,6 +59,10 @@ class WebApi implements acc.services.IWebApi {
             size: 'sm'
           })
         : null;
+
+    defer.promise.finally(() => {
+      if (loading) loading.close();
+    });
 
     this.$http<app.services.IResponseContext<TOutput>>(configs)
       .then(response => {
@@ -152,7 +163,4 @@ class RequestService implements acc.services.IRequestService {
   ) {}
 }
 
-mod.service(
-  'SeedModules.AngularUI/modules/services/requestService',
-  RequestService
-);
+mod.service('modules/acc/services/requestService', RequestService);

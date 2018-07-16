@@ -28,6 +28,7 @@
   "../bower_components/angular-signalr-hub/signalr-hub": "signalr-hub",
   "../bower_components/jquery.nicescroll/dist/jquery.nicescroll.min":
     "jquery.nicescroll",
+  "../bower_components/angular-ui-tree/dist/angular-ui-tree": "angular-ui-tree",
   "../bower_components/leaflet/dist/leaflet.css": "css/leaflet.css",
 
   "/bower_components/requirejs/require.js": "js/require.js",

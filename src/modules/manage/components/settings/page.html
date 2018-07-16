@@ -1,9 +1,61 @@
-<div class="row" ng-controller="modules/manage/components/settings/page">
-    <div class="col-md-12">
-        <fieldset>
-            <legend>设备类型</legend>
-            <div class="form-group">
+<div ng-controller="modules/manage/components/settings/page">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">设备类型</a>
+        </li>
+        <li role="presentation">
+            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">区域</a>
+        </li>
+        <li class="pull-right">
+            <button class="btn btn-primary" ng-click="vm.save()">
+                <i class="glyphicon glyphicon-floppy-disk"></i>
+                保 存
+            </button>
+        </li>
+    </ul>
 
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane container active" id="home">
+            <div ui-tree>
+                <ol ui-tree-nodes class="panel-group" ng-model="categories">
+                    <li ng-repeat="item in categories" ui-tree-node ng-include="'modules/manage/templates/formnode.html'"></li>
+                </ol>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+
+        </div>
+    </div>
+    <!-- <div class="col-md-12">
+        <fieldset>
+            <legend>
+                设备类型
+            </legend>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <a href="" class="close">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                            <div style="margin-right: 36px">
+                                <span>aaaa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="" class="close">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </a>
+                            <div style="margin-right: 36px">
+                                <input placeholder="添加类型">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </fieldset>
         <fieldset>
@@ -12,8 +64,12 @@
 
             </div>
         </fieldset>
-    </div>
-    <div class="col-md-6">
+        <button class="btn btn-primary">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            保存
+        </button>
+    </div> -->
+    <!-- <div class="col-md-6">
         <form sf-schema="schema" sf-form="form" sf-model="model"></form>
-    </div>
+    </div> -->
 </div>
