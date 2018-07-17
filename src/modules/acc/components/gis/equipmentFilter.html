@@ -1,0 +1,80 @@
+<div ng-controller="modules/acc/components/gis/equipmentFilter">
+    <div class="modal-header">
+        <a href="" class="close" ng-click="$dismiss()">&times;</a>
+        <h4 class="modal-title">
+            <i class="glyphicon glyphicon-filter"></i>
+            请选择过滤方式
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>舱室</dt>
+                <dd>
+                    <label ng-repeat="(key, value) in selectedCabins">
+                        <span class="label label-default">
+                            {{value.name}} &nbsp;
+                            <a href="" style="color: white" ng-click="vm.selectCabin(value)">&times;</a>
+                        </span>&nbsp;
+                    </label>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>设备类型</dt>
+                <dd>
+                    <label ng-repeat="(key, value) in selectedCategories">
+                        <span class="label label-default">
+                            {{value.name}} &nbsp;
+                            <a href="" style="color: white" ng-click="vm.selectCategory(value)">&times;</a>
+                        </span>&nbsp;
+                    </label>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>设备</dt>
+                <dd>
+
+                </dd>
+            </dl>
+        </div>
+        <hr style="margin-top: 0">
+        <form class="form-inline" style="margin-bottom: 20px">
+            <div class="btn-group" data-toggle="buttons">
+                <button class="btn" ng-class="{'btn-default': filterType!==0, 'btn-primary active': filterType===0}" ng-click="filterType=0">按舱室</button>
+                <button class="btn" ng-class="{'btn-default': filterType!==1, 'btn-primary active': filterType===1}" ng-click="filterType=1">按类型</button>
+            </div>
+            <div class="input-group pull-right">
+                <input class="form-control" placeholder="输入设备代码或名称">
+                <div class="input-group-btn">
+                    <button class="btn btn-default">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="well well-sm" ng-show="filterType===0">
+            <dl class="dl-horizontal" ng-repeat="cab in cabins">
+                <dt>{{cab.name}}</dt>
+                <dd>
+                    <a href="" ng-click="vm.selectCabin(c)" ng-repeat="c in cab.children">
+                        <span class="label" ng-class="{'label-primary': selectedCabins[c.code], 'label-default': !selectedCabins[c.code]}">{{c.name}}</span>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+        <div class="well well-sm" ng-show="filterType===1">
+            <dl class="dl-horizontal" ng-repeat="cab in categories">
+                <dt>{{cab.name}}</dt>
+                <dd>
+                    <a href="" ng-click="vm.selectCategory(c)" ng-repeat="c in cab.children">
+                        <span class="label" ng-class="{'label-primary': selectedCategories[c.code], 'label-default': !selectedCategories[c.code]}">{{c.name}}</span>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="$close()">确定</button>
+        <button class="btn btn-default" ng-click="$dismiss()">取消</button>
+    </div>
+</div>

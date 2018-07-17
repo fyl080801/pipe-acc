@@ -18,12 +18,32 @@
         <div role="tabpanel" class="tab-pane container active" id="home">
             <div ui-tree>
                 <ol ui-tree-nodes class="panel-group" ng-model="categories">
-                    <li ng-repeat="item in categories" ui-tree-node ng-include="'modules/manage/templates/formnode.html'"></li>
+                    <li ng-repeat="item in categories" ui-tree-node ng-include="'modules/manage/templates/treenode.html'"></li>
                 </ol>
             </div>
+            <div class="form-inline">
+                <div class="input-group">
+                    <input class="form-control" ng-model="newCategory">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" ng-click="vm.addCategory()" ng-disabled="!newCategory||newCategory.length<=0">添加</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
-
+        <div role="tabpanel" class="tab-pane container" id="profile">
+            <div ui-tree>
+                <ol ui-tree-nodes class="panel-group" ng-model="cabins">
+                    <li ng-repeat="item in cabins" ui-tree-node ng-include="'modules/manage/templates/treenode.html'"></li>
+                </ol>
+            </div>
+            <div class="form-inline">
+                <div class="input-group">
+                    <input class="form-control" ng-model="newCabin">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" ng-click="vm.addCabin()" ng-disabled="!newCabin||newCabin.length<=0">添加</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- <div class="col-md-12">

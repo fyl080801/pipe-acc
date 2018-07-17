@@ -56,16 +56,14 @@ class WebApi implements acc.services.IWebApi {
       this.options.showLoading !== false
         ? this.$modal.open({
             templateUrl: 'modules/acc/templates/loading.html',
-            size: 'sm'
+            size: 'sm',
+            backdrop: true
           })
         : null;
 
-    defer.promise.finally(() => {
-      if (loading) loading.close();
-    });
-
     this.$http<app.services.IResponseContext<TOutput>>(configs)
       .then(response => {
+        if (loading) loading.dismiss();
         if (response.status >= 400) {
           this.httpDataHandler.doError(response, defer);
         } else {
@@ -73,10 +71,11 @@ class WebApi implements acc.services.IWebApi {
         }
       })
       .catch(response => {
+        if (loading) loading.dismiss();
         this.httpDataHandler.doError(response, defer);
       })
       .finally(() => {
-        if (loading) loading.close();
+        if (loading) loading.dismiss();
       });
 
     return defer;
