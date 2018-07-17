@@ -30,6 +30,8 @@
     "jquery.nicescroll",
   "../bower_components/angular-ui-tree/dist/angular-ui-tree": "angular-ui-tree",
   "../bower_components/leaflet/dist/leaflet.css": "css/leaflet.css",
+  "../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css":
+    "css/angular-ui-tree.min.css",
 
   "/bower_components/requirejs/require.js": "js/require.js",
   "/src/js/app.application": "js/app.application",
