@@ -71,6 +71,10 @@ class Controller {
             href: '/master/manage/settings'
           },
           {
+            text: '设备管理',
+            href: '/master/manage/equipment'
+          },
+          {
             text: '点位管理',
             href: '/master/manage/varlist'
           },

@@ -1,3 +1,12 @@
-<div>
-    设备列表
+<div ng-controller="modules/manage/components/equipment/list">
+    <form role="form" class="form-inline" style="margin-bottom: 20px">
+        <div trigger-input ng-model="search.keyword" mark="'关键字...'" callback="vm.keywordCallback()"></div>
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="vm.create()">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加
+            </button>
+        </div>
+    </form>
+    <div jexcel="jexcel" class="table-condensed"></div>
 </div>
