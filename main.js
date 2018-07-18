@@ -1,4 +1,3 @@
-//const electron = require('electron');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 function createWindow() {
@@ -18,6 +17,7 @@ function createWindow() {
 
   win.on('closed', () => {
     win = null;
+    app.exit();
   });
 
   ipcMain.on('win-close', (event, arg) => {
