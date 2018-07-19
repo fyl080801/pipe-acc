@@ -2,22 +2,24 @@
 
 declare namespace jexcel {
   interface IJExcelStatic {
+    (options: IJExcelOptions): jexcel.IJExcel;
+    (fn: string, element: JQuery<HTMLElement>, args: any);
     current: string;
   }
 
   interface IJExcel {
     init(options?: IJExcelOptions);
     prepareTable(id: string);
-    setData(data: any, ignoreSpare?: boolean);
+    setData(data: object | string, ignoreSpare?: boolean);
     updateSettings(options?: IJExcelOptions);
-    openEditor(cell, empty);
-    closeEditor(cell, save);
-    getCell(cell): ICell;
-    getValue(cell): any;
-    setValue(cell, value, force);
-    loadCells(cells, force);
-    updateCells(cells, force);
-    updateCell(v, force);
+    openEditor(cell: JQLite | string, empty);
+    closeEditor(cell: JQLite | string, save);
+    getCell(cell: string): JQLite;
+    getValue(cell: JQLite): string;
+    setValue(cell: JQLite, value: string, force: boolean);
+    loadCells(cells: JQLite[], force);
+    updateCells(cells: JQLite[], force);
+    updateCell(v, force: boolean);
     updateSelection(o, d, origin);
     resetSelection();
     getSelection(): any[];
@@ -30,7 +32,7 @@ declare namespace jexcel {
     getColumnData(columnNumber: number): any[];
     copy(highlighted: boolean, delimiter: any, returnData: string): string;
     cut();
-    paste(cell, data): string;
+    paste(cell: JQLite, data): string;
     insertColumn(mixed: number, properties: object, columnNumber: number);
     insertRow(mixed: number, rowNumber: number): void;
     deleteColumn(columnNumber: number, numOfColumns: number): void;
@@ -47,13 +49,19 @@ declare namespace jexcel {
   }
 
   interface IEditor {
-    closeEditor(cell, save): string;
-    openEditor(cell);
-    getValue(cell): string;
-    setValue(cell, value): boolean;
+    closeEditor(cell: JQLite, save: boolean): string;
+    openEditor(cell: JQLite);
+    getValue(cell: JQLite): string;
+    setValue(cell: JQLite, value: string): boolean;
   }
 
-  interface ICell {}
+  interface ICell {
+    cell: JQLite;
+    col: string;
+    newValue: string;
+    oldValue: string;
+    row: string;
+  }
 
   interface IColumn {
     type: string;
@@ -77,7 +85,7 @@ declare namespace jexcel {
     //
     columns?: IColumn[];
     // Column width sizes
-    colWidths: string[] | number[];
+    colWidths: (string | number)[];
     // Column alignment
     colAlignments: string[];
     // Colum header classes
@@ -136,17 +144,5 @@ declare namespace jexcel {
 }
 
 interface JQuery {
-  jexcel(options?: jexcel.IJExcelOptions): jexcel.IJExcel;
-  jexcel(command: string, element: JQuery<HTMLElement>, boolean);
+  jexcel: jexcel.IJExcelStatic;
 }
-
-declare namespace $ {
-  interface fn {
-    jexcel: jexcel.IJExcelStatic;
-  }
-}
-
-// interface JQuery<TElement extends Node = HTMLElement>
-//   extends Iterable<TElement> {
-//   jexcel(options?: jexcel.IJExcelOptions): void;
-// }
