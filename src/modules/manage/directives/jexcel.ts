@@ -17,7 +17,6 @@ function directive(): ng.IDirective {
       instanceElement = $(instanceElement);
       instanceElement.attr('id', 'seed_jexcel_' + scope.$id);
       instanceElement.jexcel(scope.jexcel);
-      //scope.jexcel = angular.extend(scope.jexcel, {});
     }
   };
 }

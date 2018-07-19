@@ -1,5 +1,14 @@
+import { extend } from '../acc/index';
+
 declare namespace manage {
-  type EquipmentCategory = () => jexcel.IEditor;
+  type JExcelEditorFunction = (...args: any[]) => jexcel.IEditor;
+
+  interface IJExcelEditorProvider extends ng.IServiceProvider {
+    register(
+      name: string | object,
+      factory: Function | ng.Injectable<JExcelEditorFunction>
+    );
+  }
 }
 
 export as namespace manage;

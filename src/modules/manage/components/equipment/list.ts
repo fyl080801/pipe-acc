@@ -1,15 +1,11 @@
 import mod = require('modules/manage/module');
 
 class Controller {
-  static $inject = [
-    '$scope',
-    '$element',
-    'modules/manage/factories/jexcel/equipmentCategory'
-  ];
+  static $inject = ['$scope', '$element', '$jexcelEditor'];
   constructor(
     private $scope: any | ng.IScope,
     private $element,
-    private equipmentCategory: manage.EquipmentCategory
+    private $jexcelEditor
   ) {
     $scope.vm = this;
     $scope.search = { keyword: '' };
@@ -18,8 +14,8 @@ class Controller {
       columns: [
         { type: 'text' },
         { type: 'text' },
-        { type: 'text', editor: equipmentCategory() },
-        { type: 'text', editor: equipmentCategory() }
+        { type: 'text', editor: $jexcelEditor('equipmentCategory') },
+        { type: 'text', editor: $jexcelEditor('equipmentCategory') }
       ]
     };
   }
