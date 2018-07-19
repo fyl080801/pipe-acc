@@ -45,7 +45,7 @@ declare namespace jexcel {
   }
 
   interface IColumnOptions {
-    format: string;
+    format?: string;
   }
 
   interface IEditor {
@@ -56,90 +56,90 @@ declare namespace jexcel {
   }
 
   interface ICell {
-    cell: JQLite;
-    col: string;
-    newValue: string;
-    oldValue: string;
-    row: string;
+    cell?: JQLite;
+    col?: string;
+    newValue?: string;
+    oldValue?: string;
+    row?: string;
   }
 
   interface IColumn {
-    type: string;
-    readOnly: boolean;
-    wordWrap: boolean;
-    cssClass: string;
-    source: any;
-    allowEmpty: boolean;
-    url: string;
-    editor: IEditor;
-    options: any;
+    type?: string;
+    readOnly?: boolean;
+    wordWrap?: boolean;
+    cssClass?: string;
+    source?: any;
+    allowEmpty?: boolean;
+    url?: string;
+    editor?: any | IEditor;
+    options?: IColumnOptions;
   }
 
   interface IJExcelOptions {
     // External data
-    url: string;
+    url?: string;
     // Data
-    data: object[][];
+    data?: object[][];
     // Column types and configurations
     colHeaders?: string[];
     //
     columns?: IColumn[];
     // Column width sizes
-    colWidths: (string | number)[];
+    colWidths?: (string | number)[];
     // Column alignment
-    colAlignments: string[];
+    colAlignments?: string[];
     // Colum header classes
-    colHeaderClasses: string[];
+    colHeaderClasses?: string[];
     // Column width that is used by default
-    defaultColWidth: number;
+    defaultColWidth?: number;
     // Minimal number of blank rows in the end
-    minSpareRows: number;
+    minSpareRows?: number;
     // Minimal number of blank cols in the end
-    minSpareCols: number;
+    minSpareCols?: number;
     // Minimal table dimensions
-    minDimensions: number[];
+    minDimensions?: number[];
     // Custom context menu
-    contextMenu: any;
+    contextMenu?: any;
     // Allow column sorting
-    columnSorting: boolean;
+    columnSorting?: boolean;
     // Allow column resizing
-    columnResize: boolean;
+    columnResize?: boolean;
     // Allow row dragging
-    rowDrag: boolean;
+    rowDrag?: boolean;
     // Allow table edition
-    editable: boolean;
+    editable?: boolean;
     // Allow new rows
-    allowInsertRow: boolean;
+    allowInsertRow?: boolean;
     // Allow new rows
-    allowManualInsertRow: boolean;
+    allowManualInsertRow?: boolean;
     // Allow new columns
-    allowInsertColumn: boolean;
+    allowInsertColumn?: boolean;
     // Allow new rows
-    allowManualInsertColumn: boolean;
+    allowManualInsertColumn?: boolean;
     // Allow row delete
-    allowDeleteRow: boolean;
+    allowDeleteRow?: boolean;
     // Allow column delete
-    allowDeleteColumn: boolean;
+    allowDeleteColumn?: boolean;
     // Global wrap
-    wordWrap: boolean;
+    wordWrap?: boolean;
     // CSV source
-    csv: any;
+    csv?: any;
     // Filename
-    csvFileName: string;
+    csvFileName?: string;
     // CSV headers
-    csvHeaders: boolean;
+    csvHeaders?: boolean;
     // Delimiters
-    csvDelimiter: string;
+    csvDelimiter?: string;
     // Disable corner selection
-    selectionCopy: boolean;
+    selectionCopy?: boolean;
     // Allow Overflow
-    tableOverflow: boolean;
+    tableOverflow?: boolean;
     // Allow Overflow
-    tableHeight: string;
+    tableHeight?: string;
     // History
-    history: any[];
+    history?: any[];
     // HistoryIndex
-    historyIndex: number;
+    historyIndex?: number;
   }
 }
 

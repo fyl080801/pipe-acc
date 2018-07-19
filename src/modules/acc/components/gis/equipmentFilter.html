@@ -43,14 +43,7 @@
                 <button class="btn" ng-class="{'btn-default': filterType!==0, 'btn-primary active': filterType===0}" ng-click="filterType=0">按舱室</button>
                 <button class="btn" ng-class="{'btn-default': filterType!==1, 'btn-primary active': filterType===1}" ng-click="filterType=1">按类型</button>
             </div>
-            <div class="input-group pull-right">
-                <input class="form-control" placeholder="输入设备代码或名称">
-                <div class="input-group-btn">
-                    <button class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </div>
-            </div>
+            <div trigger-input class="pull-right" ng-model="search.keyword" mark="'关键字...'" callback="vm.keywordCallback()"></div>
         </form>
         <div class="well well-sm" ng-show="filterType===0">
             <dl class="dl-horizontal" ng-repeat="cab in cabins">

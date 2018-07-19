@@ -83,6 +83,9 @@ body {
 .acc-manage .content > .view {
   margin-top: 56px;
 }
+.manage-table table {
+  width: 100%;
+}
 .leaflet-container .navbar a,
 .leaflet-container .dropdown-menu a {
   width: inherit;

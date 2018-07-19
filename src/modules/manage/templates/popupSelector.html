@@ -1,0 +1,16 @@
+<div>
+    <div class="modal-header">
+        <a href="" class="close" ng-click="$dismiss()">&times;</a>
+        <span class="modal-title">请选择</span>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal" ng-repeat="cab in list">
+            <dt>{{cab.name}}</dt>
+            <dd>
+                <a href="" ng-click="vm.select(c)" ng-repeat="c in cab.children">
+                    <span class="label label-default">{{c.name}}</span>
+                </a>
+            </dd>
+        </dl>
+    </div>
+</div>

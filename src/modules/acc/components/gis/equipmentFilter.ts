@@ -8,6 +8,7 @@ class Controller {
   ) {
     $scope.vm = this;
     $scope.filterType = 0;
+    $scope.search = { keyword: '' };
 
     $scope.cabins = [];
     $scope.categories = [];
@@ -57,6 +58,8 @@ class Controller {
       this.$scope.selectedCategories[item.code] = item;
     }
   }
+
+  keywordCallback() {}
 }
 
 mod.controller('modules/acc/components/gis/equipmentFilter', Controller);
