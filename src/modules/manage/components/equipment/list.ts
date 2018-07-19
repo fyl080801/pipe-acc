@@ -1,11 +1,12 @@
 import mod = require('modules/manage/module');
+import angular = require('angular');
 
 class Controller {
-  static $inject = ['$scope', '$element', '$jexcelEditor'];
+  static $inject = ['$scope', '$rootScope', '$jexcelEditor'];
   constructor(
     private $scope: any | ng.IScope,
-    private $element,
-    private $jexcelEditor
+    private $rootScope,
+    private $jexcelEditor: manage.IJExcelEditorFactory
   ) {
     $scope.vm = this;
     $scope.search = { keyword: '' };
@@ -14,8 +15,18 @@ class Controller {
       columns: [
         { type: 'text' },
         { type: 'text' },
-        { type: 'text', editor: $jexcelEditor('equipmentCategory') },
-        { type: 'text', editor: $jexcelEditor('equipmentCategory') }
+        {
+          type: 'text',
+          editor: $jexcelEditor('modalEditor')({
+            template: '<div>aaaaaaaaaaaaaaaaa</div>'
+          })
+        },
+        {
+          type: 'text',
+          editor: $jexcelEditor('modalEditor')({
+            templateUrl: 'modules/manage/configs/jexcel/equipmentCategory.html'
+          })
+        }
       ]
     };
   }

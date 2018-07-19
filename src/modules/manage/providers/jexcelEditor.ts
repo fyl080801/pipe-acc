@@ -9,8 +9,8 @@ class Provider implements manage.IJExcelEditorProvider {
   register(name: string | object, factory: Function) {
     if (angular.isObject(name)) {
       var editors = {};
-      angular.forEach(name, (filter, key) => {
-        editors[key] = this.register(key, filter);
+      angular.forEach(name, (editor, key) => {
+        editors[key] = this.register(key, editor);
       });
       return editors;
     } else {
