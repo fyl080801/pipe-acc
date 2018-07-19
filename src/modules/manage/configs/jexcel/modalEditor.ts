@@ -1,6 +1,6 @@
 import cfg = require('modules/manage/configs');
 import angular = require('angular');
-import { EditorBase } from './editorBase';
+import { EditorBase } from 'modules/manage/configs/jexcel/editorBase';
 
 class ModalEditor extends EditorBase {
   onEdit(cell: JQLite, value: any): angular.IPromise<any> {
