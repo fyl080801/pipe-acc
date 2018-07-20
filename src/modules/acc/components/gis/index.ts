@@ -6,7 +6,7 @@ class Controller {
   constructor(
     private $scope,
     private $element: JQLite,
-    private mapControl: acc.IMapLayerFactory
+    private mapControl: acc.factories.IMapLayerFactory
   ) {
     $scope.vm = this;
     $scope.map = new MapBuilder(

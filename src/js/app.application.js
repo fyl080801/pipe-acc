@@ -17088,6 +17088,69 @@ define('app/factories/httpDataHandler', [
     factory.$inject = ['app/services/popupService'];
     boot.factory('app/factories/httpDataHandler', factory);
 });
+define('app/factories/delayTimer', [
+    'require',
+    'exports',
+    'app/boot',
+    'angular'
+], function (require, exports, boot, angular) {
+    'use strict';
+    exports.__esModule = true;
+    var DelayTimerContext = function () {
+        function DelayTimerContext(defer) {
+            this.defer = defer;
+        }
+        DelayTimerContext.prototype.callback = function (fn) {
+            this.defer.promise.then(fn);
+            return this;
+        };
+        DelayTimerContext.prototype.canceling = function (fn) {
+            this.defer.promise['catch'](fn);
+            return this;
+        };
+        return DelayTimerContext;
+    }();
+    var DelayTimer = function () {
+        function DelayTimer($timeout, $q, baseOptions) {
+            this.$timeout = $timeout;
+            this.$q = $q;
+            this.baseOptions = baseOptions;
+            this._defaults = { timeout: 1024 };
+            this._defer = $q.defer();
+            this.context = new DelayTimerContext(this._defer);
+            this._options(baseOptions);
+        }
+        DelayTimer.prototype._options = function (opts) {
+            if (opts) {
+                this._defaults = angular.extend(this._defaults, opts);
+                return this;
+            }
+            return this._defaults;
+        };
+        DelayTimer.prototype.invoke = function () {
+            var _this = this;
+            this.cancel();
+            this._timer = this.$timeout(function () {
+                _this._defer.resolve();
+            }, this._defaults.timeout);
+        };
+        DelayTimer.prototype.cancel = function () {
+            this._defer.reject();
+            this.$timeout.cancel(this._timer);
+        };
+        return DelayTimer;
+    }();
+    function factory($timeout, $q) {
+        return function (options) {
+            return new DelayTimer($timeout, $q, options);
+        };
+    }
+    factory.$inject = [
+        '$timeout',
+        '$q'
+    ];
+    boot.factory('app/factories/delayTimer', factory);
+});
 define('app/services/ajaxService', ['app/boot'], function (boot) {
     'use strict';
     boot.service('app/services/ajaxService', [
@@ -17283,6 +17346,8 @@ define('app/services/popupService', [
                 } else {
                     defer.reject(result);
                 }
+            })['catch'](function () {
+                defer.reject();
             });
             return promise;
         };
@@ -17529,6 +17594,7 @@ define('app/application', [
     'app/configs/route',
     'app/factories/httpState',
     'app/factories/httpDataHandler',
+    'app/factories/delayTimer',
     'app/services/ajaxService',
     'app/services/httpService',
     'app/services/popupService',

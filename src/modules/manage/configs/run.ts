@@ -2,7 +2,7 @@ import cfg = require('modules/manage/configs');
 
 class Config {
   static $inject = ['$stateProvider'];
-  constructor($stateProvider: app.configs.IRequireStateProvider) {
+  constructor($stateProvider: app.IRequireStateProvider) {
     $stateProvider.state('master.manage', {
       url: '/manage',
       templateUrl: 'modules/manage/views/manage.html',

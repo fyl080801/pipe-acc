@@ -4,7 +4,7 @@ class Config {
   static $inject = ['$urlRouterProvider', '$stateProvider'];
   constructor(
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
-    $stateProvider: app.configs.IRequireStateProvider
+    $stateProvider: app.IRequireStateProvider
   ) {
     $stateProvider.state('master', {
       url: '/master',

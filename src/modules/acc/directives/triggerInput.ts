@@ -2,17 +2,21 @@ import mod = require('modules/acc/module');
 import angular = require('angular');
 
 class Controller {
-  private _delayTrigger;
+  private _delayTrigger: app.services.IDelayTimer;
 
-  static $inject = ['$scope', 'modules/acc/factories/delayTimer'];
-  constructor(private $scope, private delayTimer) {
+  static $inject = ['$scope', 'app/factories/delayTimer'];
+  constructor(
+    private $scope,
+    private delayTimer: app.factories.IDelayTimerFactory
+  ) {
     $scope.vm = this;
-
-    this._delayTrigger = new delayTimer({
-      callback: $scope.callback || angular.noop,
-      canceling: $scope.canceling || angular.noop,
+    this._delayTrigger = delayTimer({
       timeout: $scope.timeout ? $scope.timeout : 800
     });
+
+    this._delayTrigger.context
+      .callback($scope.callback || angular.noop)
+      .canceling($scope.canceling || angular.noop);
   }
 
   modelChanged() {

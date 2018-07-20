@@ -36,7 +36,7 @@ function factory(
     return promisesArr;
   }
 
-  return (controlOptions: acc.IMapControlOptions) => {
+  return (controlOptions: acc.factories.IMapControlOptions) => {
     var controlElm = L.DomUtil.create('div', 'leaflet-control-clegend');
 
     var templateAndResolvePromise = $q.all(
