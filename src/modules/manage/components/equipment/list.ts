@@ -6,6 +6,7 @@ interface IListScope extends ng.IScope {
   search: any;
   jexcel: jexcel.IJExcelOptions;
   data: any[];
+  table: any;
 }
 
 class Controller {
@@ -15,7 +16,8 @@ class Controller {
     '$modal',
     '$jexcelEditor',
     'modules/acc/factories/schemaFormParams',
-    'modules/acc/services/requestService'
+    'modules/acc/services/requestService',
+    'modules/acc/factories/ngTableRequest'
   ];
   constructor(
     private $scope: IListScope,
@@ -23,7 +25,8 @@ class Controller {
     private $modal: ng.ui.bootstrap.IModalService,
     private $jexcelEditor: manage.IJExcelEditorFactory,
     private schemaFormParams: acc.factories.ISchemaFormParamsFactory,
-    private requestService: acc.services.IRequestService
+    private requestService: acc.services.IRequestService,
+    private ngTableRequest
   ) {
     $scope.vm = this;
     $scope.search = { keyword: '' };
@@ -73,6 +76,11 @@ class Controller {
         }
       ]
     };
+
+    $scope.table = ngTableRequest({
+      url: '/api/acc/equipment/query',
+      showLoading: false
+    }).table();
 
     $scope.$watch(
       () => {

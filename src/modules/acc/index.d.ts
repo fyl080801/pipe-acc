@@ -83,6 +83,18 @@ declare namespace acc {
     }
   }
 
+  export namespace table {
+    interface INgTableColumn {
+      class(): string;
+      headerTemplateURL(): any | boolean;
+      headerTitle(): string;
+      sortable(): boolean;
+      show(): boolean;
+      title(): string;
+      titleAlt(): string;
+    }
+  }
+
   export namespace schema {
     interface ISchema {
       type?: string;

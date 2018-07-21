@@ -9,4 +9,11 @@
         </div>
     </form>
     <div nicescroll jexcel="jexcel" class="table-responsive manage-table"></div>
+
+    <!-- <table ng-table="table" class="table table-striped table-hover">
+        <tr ng-repeat="row in $data">
+
+        </tr>
+    </table> -->
+    <div ng-pager="table" ng-init="table.reload()"></div>
 </div>
