@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 
 mod.directive('ngPager', [
   function() {

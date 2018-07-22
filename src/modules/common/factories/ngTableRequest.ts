@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
 class Factory {
@@ -47,7 +47,7 @@ class Factory {
     return self;
   }
 
-  table(newParams, newSettings) {
+  table(newParams?, newSettings?) {
     return new this.ngTableParams(
       newParams,
       $.extend(newSettings, {
@@ -67,8 +67,8 @@ function factory($location, ngTableParams, requestService) {
 
 factory.$inject = [
   '$location',
-  'modules/acc/extend/table/ngTableParams',
-  'modules/acc/services/requestService'
+  'modules/common/extend/table/ngTableParams',
+  'modules/common/services/requestService'
 ];
 
-mod.factory('modules/acc/factories/ngTableRequest', factory);
+mod.factory('modules/common/factories/ngTableRequest', factory);

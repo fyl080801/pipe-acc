@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
 class Controller {
@@ -40,7 +40,7 @@ function directive() {
       canceling: '&',
       timeout: '@'
     },
-    templateUrl: 'modules/acc/templates/triggerInput.html',
+    templateUrl: 'modules/common/templates/triggerInput.html',
     controller: Controller
   };
 }

@@ -1,16 +1,16 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 
-mod.factory('modules/acc/extend/table/ngTableGetDataBcShim', [
+mod.factory('modules/common/extend/table/ngTableGetDataBcShim', [
   '$q',
   function($q) {
     return createWrapper;
 
     function createWrapper(getDataFn) {
-      return function getDataShim(/*args*/) {
+      return (...args) => {
         var $defer = $q.defer();
         var pData = getDataFn.apply(
           this,
-          [$defer].concat(Array.prototype.slice.call(arguments))
+          [$defer].concat(Array.prototype.slice.call(args))
         );
         if (!pData) {
           // If getData resolved the $defer, and didn't promise us data,

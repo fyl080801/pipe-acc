@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
 export class NgTableController {
@@ -96,9 +96,9 @@ export class NgTableController {
     '$compile',
     '$attrs',
     '$element',
-    'modules/acc/extend/table/ngTableParams',
-    'modules/acc/extend/table/ngTableColumn',
-    'modules/acc/extend/table/ngTableEventsChannel'
+    'modules/common/extend/table/ngTableParams',
+    'modules/common/extend/table/ngTableColumn',
+    'modules/common/extend/table/ngTableEventsChannel'
   ];
   constructor(
     private $scope,
@@ -206,4 +206,4 @@ export class NgTableController {
   }
 }
 
-mod.controller('modules/acc/extend/table/ngTableController', NgTableController);
+mod.controller('modules/common/extend/table/ngTableController', NgTableController);

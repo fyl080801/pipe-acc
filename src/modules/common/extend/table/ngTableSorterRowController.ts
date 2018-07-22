@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 
 class NgTableSorterRowController {
   static $inject = ['$scope'];
@@ -27,6 +27,6 @@ class NgTableSorterRowController {
 }
 
 mod.controller(
-  'modules/acc/extend/table/ngTableSorterRowController',
+  'modules/common/extend/table/ngTableSorterRowController',
   NgTableSorterRowController
 );

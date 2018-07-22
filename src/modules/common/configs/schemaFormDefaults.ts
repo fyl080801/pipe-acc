@@ -1,6 +1,6 @@
-import cfg = require('modules/acc/configs');
+import cfg = require('modules/common/configs');
 
-cfg.value('modules/acc/configs/schemaFormDefaults', {
+cfg.value('modules/common/configs/schemaFormDefaults', {
   schema: {},
   options: {
     validateOnRender: true,

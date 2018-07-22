@@ -1,6 +1,6 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
-import { NgTableController } from 'modules/acc/extend/table/ngTableController';
+import { NgTableController } from 'modules/common/extend/table/ngTableController';
 
 interface INgTableCompileScope extends ng.IScope {
   $columns: any[];
@@ -63,7 +63,7 @@ function ngTableDynamicDirective($parse): ng.IDirective {
         controller.setupBindingsToInternalScope(expr.tableParams);
         controller.compileDirectiveTemplates();
 
-        scope.$watchCollection(expr.columns, function(newCols /*, oldCols*/) {
+        scope.$watchCollection(expr.columns, (newCols /*, oldCols*/) => {
           scope.$columns = controller.buildColumns(newCols);
         });
       };

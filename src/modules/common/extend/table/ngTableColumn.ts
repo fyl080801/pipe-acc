@@ -1,7 +1,7 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
-let defaults: acc.table.INgTableColumn = {
+let defaults: common.table.INgTableColumn = {
   class: () => {
     return '';
   },
@@ -48,7 +48,7 @@ function ngTableColumnFactory() {
         // - this is to ensure consistency with how ngTable.compile builds columns
         // - note that the original column object is being "proxied"; this is important
         //   as it ensure that any changes to the original object will be returned by the "getter"
-        (function(prop1) {
+        (prop1 => {
           extendedCol[prop1] = () => {
             return column[prop1];
           };
@@ -57,11 +57,11 @@ function ngTableColumnFactory() {
       (function(prop1) {
         // satisfy the arguments expected by the function returned by parsedAttribute in the ngTable directive
         var getterFn = extendedCol[prop1];
-        extendedCol[prop1] = function() {
-          if (arguments.length === 0) {
+        extendedCol[prop1] = (...args) => {
+          if (args.length === 0) {
             return getterFn.call(column, defaultScope);
           } else {
-            return getterFn.apply(column, arguments);
+            return getterFn.apply(column, args);
           }
         };
       })(prop);
@@ -74,4 +74,4 @@ function ngTableColumnFactory() {
   };
 }
 
-mod.factory('modules/acc/extend/table/ngTableColumn', ngTableColumnFactory);
+mod.factory('modules/common/extend/table/ngTableColumn', ngTableColumnFactory);

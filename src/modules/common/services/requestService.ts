@@ -1,7 +1,8 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
-class RequestContext<TOutput> implements acc.services.IRequestContext<TOutput> {
+class RequestContext<TOutput>
+  implements common.services.IRequestContext<TOutput> {
   cancel() {
     this.defer.resolve();
   }
@@ -13,22 +14,22 @@ class RequestContext<TOutput> implements acc.services.IRequestContext<TOutput> {
   }
 }
 
-class WebApi implements acc.services.IWebApi {
-  get<TOutput>(): acc.services.IRequestContext<TOutput> {
+class WebApi implements common.services.IWebApi {
+  get<TOutput>(): common.services.IRequestContext<TOutput> {
     return new RequestContext<TOutput>(this.resolveHttp<TOutput>('GET'));
   }
-  post<TOutput>(data?: any): acc.services.IRequestContext<TOutput> {
+  post<TOutput>(data?: any): common.services.IRequestContext<TOutput> {
     return new RequestContext<TOutput>(this.resolveHttp<TOutput>('POST', data));
   }
-  put<TOutput>(data?: any): acc.services.IRequestContext<TOutput> {
+  put<TOutput>(data?: any): common.services.IRequestContext<TOutput> {
     return new RequestContext<TOutput>(this.resolveHttp<TOutput>('PUT', data));
   }
-  patch<TOutput>(data?: any): acc.services.IRequestContext<TOutput> {
+  patch<TOutput>(data?: any): common.services.IRequestContext<TOutput> {
     return new RequestContext<TOutput>(
       this.resolveHttp<TOutput>('PATCH', data)
     );
   }
-  drop<TOutput>(): acc.services.IRequestContext<TOutput> {
+  drop<TOutput>(): common.services.IRequestContext<TOutput> {
     return new RequestContext<TOutput>(this.resolveHttp<TOutput>('DELETE'));
   }
 
@@ -55,7 +56,7 @@ class WebApi implements acc.services.IWebApi {
     var loading =
       this.options.showLoading !== false
         ? this.$modal.open({
-            templateUrl: 'modules/acc/templates/loading.html',
+            templateUrl: 'modules/common/templates/loading.html',
             size: 'sm',
             backdrop: true
           })
@@ -85,29 +86,29 @@ class WebApi implements acc.services.IWebApi {
     private $q: ng.IQService,
     private $http: ng.IHttpService,
     private $modal: ng.ui.bootstrap.IModalService,
-    private $appConfig: acc.configs.ISeedAppConfig,
+    private $appConfig: common.configs.ISeedAppConfig,
     private httpDataHandler: app.factories.IHttpDataHandler,
-    private options: acc.services.IRequestOptions
+    private options: common.services.IRequestOptions
   ) {}
 }
 
-class WebApiContext implements acc.services.IWebApiContext {
-  get<TOutput>(): acc.services.IRequestContext<TOutput> {
+class WebApiContext implements common.services.IWebApiContext {
+  get<TOutput>(): common.services.IRequestContext<TOutput> {
     return this.api.get<TOutput>();
   }
-  post<TOutput>(data?: any): acc.services.IRequestContext<TOutput> {
+  post<TOutput>(data?: any): common.services.IRequestContext<TOutput> {
     return this.api.post<TOutput>(data);
   }
-  put<TOutput>(data?: any): acc.services.IRequestContext<TOutput> {
+  put<TOutput>(data?: any): common.services.IRequestContext<TOutput> {
     return this.api.put<TOutput>(data);
   }
-  patch<TOutput>(data?: any): acc.services.IRequestContext<TOutput> {
+  patch<TOutput>(data?: any): common.services.IRequestContext<TOutput> {
     return this.api.patch<TOutput>(data);
   }
-  drop<TOutput>(): acc.services.IRequestContext<TOutput> {
+  drop<TOutput>(): common.services.IRequestContext<TOutput> {
     return this.api.drop<TOutput>();
   }
-  options(options: acc.services.IRequestOptions): acc.services.IWebApi {
+  options(options: common.services.IRequestOptions): common.services.IWebApi {
     this.api = new WebApi(
       this.$q,
       this.$http,
@@ -119,13 +120,13 @@ class WebApiContext implements acc.services.IWebApiContext {
     return this;
   }
 
-  private api: acc.services.IWebApi;
+  private api: common.services.IWebApi;
 
   constructor(
     private $q: ng.IQService,
     private $http: ng.IHttpService,
     private $modal: ng.ui.bootstrap.IModalService,
-    private $appConfig: acc.configs.ISeedAppConfig,
+    private $appConfig: common.configs.ISeedAppConfig,
     private httpDataHandler: app.factories.IHttpDataHandler,
     private url: string
   ) {
@@ -133,8 +134,8 @@ class WebApiContext implements acc.services.IWebApiContext {
   }
 }
 
-class RequestService implements acc.services.IRequestService {
-  url(url: string): acc.services.IWebApiContext {
+class RequestService implements common.services.IRequestService {
+  url(url: string): common.services.IWebApiContext {
     return new WebApiContext(
       this.$q,
       this.$http,
@@ -157,9 +158,9 @@ class RequestService implements acc.services.IRequestService {
     private $q: ng.IQService,
     private $http: ng.IHttpService,
     private $modal: ng.ui.bootstrap.IModalService,
-    private $appConfig: acc.configs.ISeedAppConfig,
+    private $appConfig: common.configs.ISeedAppConfig,
     private httpDataHandler: app.factories.IHttpDataHandler
   ) {}
 }
 
-mod.service('modules/acc/services/requestService', RequestService);
+mod.service('modules/common/services/requestService', RequestService);

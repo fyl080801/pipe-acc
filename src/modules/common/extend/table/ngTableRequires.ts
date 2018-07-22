@@ -1,0 +1,11 @@
+import 'modules/common/extend/table/ngTableColumn';
+import 'modules/common/extend/table/ngTableEventsChannel';
+import 'modules/common/extend/table/ngTableGetDataBcShim';
+import 'modules/common/extend/table/ngTableParams';
+import 'modules/common/extend/table/ngTableController';
+import 'modules/common/extend/table/ngTableSorterRowController';
+import 'modules/common/extend/table/ngPager';
+import 'modules/common/extend/table/ngTable';
+import 'modules/common/extend/table/ngTableDynamic';
+import 'modules/common/extend/table/ngTablePagination';
+import 'modules/common/extend/table/ngTableSorterRow';

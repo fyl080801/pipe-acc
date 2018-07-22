@@ -1,4 +1,4 @@
-import boot = require('modules/acc/configs');
+import boot = require('modules/common/configs');
 
 class RunClass {
   static $inject = ['$templateCache'];

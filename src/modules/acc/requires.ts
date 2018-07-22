@@ -1,13 +1,7 @@
 import 'modules/acc/controllers/master';
 import 'modules/acc/controllers/gisTools';
-import 'modules/acc/extend/table/ngTableRequires';
 import 'modules/acc/components/home/index';
 import 'modules/acc/components/gis/index';
 import 'modules/acc/components/gis/equipmentFilter';
 import 'modules/acc/components/monitor/voiceAlert';
 import 'modules/acc/factories/mapControl';
-import 'modules/acc/factories/schemaFormParams';
-import 'modules/acc/factories/ngTableRequest';
-import 'modules/acc/directives/nicescroll';
-import 'modules/acc/directives/triggerInput';
-import 'modules/acc/services/requestService';

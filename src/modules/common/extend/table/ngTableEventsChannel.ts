@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
 function ngTableEventsChannelFactory($rootScope) {
@@ -78,6 +78,6 @@ function ngTableEventsChannelFactory($rootScope) {
 ngTableEventsChannelFactory.$inject = ['$rootScope'];
 
 mod.factory(
-  'modules/acc/extend/table/ngTableEventsChannel',
+  'modules/common/extend/table/ngTableEventsChannel',
   ngTableEventsChannelFactory
 );

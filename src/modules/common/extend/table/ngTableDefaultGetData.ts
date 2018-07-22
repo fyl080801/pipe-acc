@@ -1,4 +1,4 @@
-import boot = require('modules/acc/configs');
+import boot = require('modules/common/configs');
 
 class NgTableDefaultGetDataProvider implements ng.IServiceProvider {
   /**
@@ -42,6 +42,6 @@ class NgTableDefaultGetDataProvider implements ng.IServiceProvider {
 }
 
 boot.provider(
-  'modules/acc/extend/table/ngTableDefaultGetData',
+  'modules/common/extend/table/ngTableDefaultGetData',
   NgTableDefaultGetDataProvider
 );

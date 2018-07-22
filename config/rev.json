@@ -42,9 +42,11 @@
   "/src/js/app.application": "js/app.application",
   "/src/js/app.patch": "js/app.patch",
 
+  "/src/modules/common/module": "js/modules.common",
   "/src/modules/acc/module": "js/modules.acc",
   "/src/modules/manage/module": "js/modules.manage",
 
+  "/src/modules/common/requires": "js/requires.common",
   "/src/modules/acc/requires": "js/requires.acc",
   "/src/modules/manage/requires": "js/requires.manage"
 }

@@ -1,9 +1,9 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
 mod.directive('ngTablePagination', [
   '$compile',
-  'modules/acc/extend/table/ngTableEventsChannel',
+  'modules/common/extend/table/ngTableEventsChannel',
   function($compile, ngTableEventsChannel) {
     return {
       restrict: 'A',

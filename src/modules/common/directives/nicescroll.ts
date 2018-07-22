@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import '../../../../bower_components/jquery.nicescroll/dist/jquery.nicescroll.min';
 
 function directive(): ng.IDirective {

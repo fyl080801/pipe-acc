@@ -1,10 +1,10 @@
 import mod = require('modules/acc/module');
 
 class Controller {
-  static $inject = ['$scope', 'modules/acc/services/requestService'];
+  static $inject = ['$scope', 'modules/common/services/requestService'];
   constructor(
     private $scope,
-    private requestService: acc.services.IRequestService
+    private requestService: common.services.IRequestService
   ) {
     $scope.vm = this;
     $scope.filterType = 0;

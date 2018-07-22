@@ -1,4 +1,4 @@
-import cfg = require('modules/acc/configs');
+import cfg = require('modules/common/configs');
 
 class Decorator {
   static $inject = [

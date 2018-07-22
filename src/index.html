@@ -116,11 +116,22 @@
                     }
                 },
 
+                // common
+                'modules/common/module': {
+                    path: '/src/modules/common/module',
+                    shim: {
+                        deps: ['app/application']
+                    }
+                },
+                'modules/common/requires': {
+                    path: '/src/modules/common/requires'
+                },
+
                 // acc
                 'modules/acc/module': {
                     path: '/src/modules/acc/module',
                     shim: {
-                        deps: ['app/application']
+                        deps: ['app/application', 'modules/common/module']
                     }
                 },
                 'modules/acc/requires': {
@@ -131,7 +142,7 @@
                 'modules/manage/module': {
                     path: '/src/modules/manage/module',
                     shim: {
-                        deps: ['app/application']
+                        deps: ['app/application', 'modules/common/module']
                     }
                 },
                 'modules/manage/requires': {
@@ -150,6 +161,7 @@
                 'rcss!../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css',
                 'rcss!../bower_components/leaflet/dist/leaflet.css',
                 'rcss!css/acc.css',
+                'modules/common/module',
                 'modules/acc/module',
                 'modules/manage/module'
             ]

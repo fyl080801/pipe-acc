@@ -1,7 +1,7 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
-class SchemaFormParams implements acc.services.ISchemaFormParams {
+class SchemaFormParams implements common.services.ISchemaFormParams {
   private _options;
   private _schema;
 
@@ -83,12 +83,14 @@ class SchemaFormParams implements acc.services.ISchemaFormParams {
   }
 }
 
-function factory(schemaFormDefaults): acc.factories.ISchemaFormParamsFactory {
+function factory(
+  schemaFormDefaults
+): common.factories.ISchemaFormParamsFactory {
   return (schema, options?) => {
     return new SchemaFormParams(schemaFormDefaults, schema, options);
   };
 }
 
-factory.$inject = ['modules/acc/configs/schemaFormDefaults'];
+factory.$inject = ['modules/common/configs/schemaFormDefaults'];
 
-mod.factory('modules/acc/factories/schemaFormParams', factory);
+mod.factory('modules/common/factories/schemaFormParams', factory);

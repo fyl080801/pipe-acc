@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 
 mod.directive('ngTableSorterRow', [
   function ngTableSorterRow() {
@@ -7,7 +7,7 @@ mod.directive('ngTableSorterRow', [
       replace: true,
       templateUrl: 'ng-table/sorterRow.html',
       scope: true,
-      controller: 'modules/acc/extend/table/ngTableSorterRowController'
+      controller: 'modules/common/extend/table/ngTableSorterRowController'
     };
     return directive;
   }

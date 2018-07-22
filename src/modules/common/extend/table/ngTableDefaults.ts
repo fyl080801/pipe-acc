@@ -1,4 +1,4 @@
-import boot = require('modules/acc/configs');
+import boot = require('modules/common/configs');
 
 // var settings = JSON.parse(
 //   document.getElementById('seed-ui').getAttribute('data-site')
@@ -15,4 +15,4 @@ var ngTableDefaults = {
   }
 };
 
-boot.value('modules/acc/extend/table/ngTableDefaults', ngTableDefaults);
+boot.value('modules/common/extend/table/ngTableDefaults', ngTableDefaults);

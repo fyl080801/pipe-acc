@@ -1,4 +1,4 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
 
 function ngTableParamsFactory(
@@ -613,10 +613,10 @@ function ngTableParamsFactory(
 ngTableParamsFactory.$inject = [
   '$q',
   '$log',
-  'modules/acc/extend/table/ngTableDefaults',
-  'modules/acc/extend/table/ngTableGetDataBcShim',
-  'modules/acc/extend/table/ngTableDefaultGetData',
-  'modules/acc/extend/table/ngTableEventsChannel'
+  'modules/common/extend/table/ngTableDefaults',
+  'modules/common/extend/table/ngTableGetDataBcShim',
+  'modules/common/extend/table/ngTableDefaultGetData',
+  'modules/common/extend/table/ngTableEventsChannel'
 ];
 
-mod.factory('modules/acc/extend/table/ngTableParams', ngTableParamsFactory);
+mod.factory('modules/common/extend/table/ngTableParams', ngTableParamsFactory);

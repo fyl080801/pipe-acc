@@ -15,18 +15,18 @@ class Controller {
     '$rootScope',
     '$modal',
     '$jexcelEditor',
-    'modules/acc/factories/schemaFormParams',
-    'modules/acc/services/requestService',
-    'modules/acc/factories/ngTableRequest'
+    'modules/common/factories/schemaFormParams',
+    'modules/common/services/requestService',
+    'modules/common/factories/ngTableRequest'
   ];
   constructor(
     private $scope: IListScope,
     private $rootScope: ng.IRootScopeService,
     private $modal: ng.ui.bootstrap.IModalService,
     private $jexcelEditor: manage.IJExcelEditorFactory,
-    private schemaFormParams: acc.factories.ISchemaFormParamsFactory,
-    private requestService: acc.services.IRequestService,
-    private ngTableRequest
+    private schemaFormParams: common.factories.ISchemaFormParamsFactory,
+    private requestService: common.services.IRequestService,
+    private ngTableRequest: common.factories.INgTableRequestFactory
   ) {
     $scope.vm = this;
     $scope.search = { keyword: '' };
@@ -91,15 +91,7 @@ class Controller {
   }
 
   keywordCallback() {
-    // return this.requestService
-    //   .url('')
-    //   .options({
-    //     showLoading: false
-    //   })
-    //   .post({})
-    //   .result.then((result: any) => {
-    //     this.$scope.data = result.data;
-    //   });
+    this.$scope.table.reload();
   }
 
   create() {

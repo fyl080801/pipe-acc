@@ -1,6 +1,6 @@
-import mod = require('modules/acc/module');
+import mod = require('modules/common/module');
 import angular = require('angular');
-import { NgTableController } from 'modules/acc/extend/table/ngTableController';
+import { NgTableController } from 'modules/common/extend/table/ngTableController';
 
 interface INgTableCompileScope extends ng.IScope {
   $columns: any[];
