@@ -1,5 +1,6 @@
 import mod = require('modules/manage/module');
 import angular = require('angular');
+import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields';
 
 interface IListScope extends ng.IScope {
   vm: Controller;
@@ -10,6 +11,9 @@ interface IListScope extends ng.IScope {
 }
 
 class Controller {
+  private categorySelector;
+  private cabinSelector;
+
   static $inject = [
     '$scope',
     '$rootScope',
@@ -28,6 +32,36 @@ class Controller {
     private requestService: common.services.IRequestService,
     private ngTableRequest: common.factories.INgTableRequestFactory
   ) {
+    this.categorySelector = {
+      templateUrl: 'modules/manage/templates/popupSelector.html',
+      controller: 'modules/manage/controllers/popupSelector',
+      resolve: {
+        listPromise: () => {
+          return requestService
+            .url('/api/acc/equipment/category')
+            .get()
+            .result.then(result => {
+              return result;
+            });
+        }
+      }
+    };
+
+    this.cabinSelector = {
+      templateUrl: 'modules/manage/templates/popupSelector.html',
+      controller: 'modules/manage/controllers/popupSelector',
+      resolve: {
+        listPromise: () => {
+          return requestService
+            .url('/api/acc/cabin')
+            .get()
+            .result.then(result => {
+              return result;
+            });
+        }
+      }
+    } as ng.ui.bootstrap.IModalSettings;
+
     $scope.vm = this;
     $scope.search = { keyword: '' };
     $scope.jexcel = {
@@ -42,37 +76,11 @@ class Controller {
         { type: 'text' },
         {
           type: 'text',
-          editor: $jexcelEditor('modalEditor')({
-            templateUrl: 'modules/manage/templates/popupSelector.html',
-            controller: 'modules/manage/controllers/popupSelector',
-            resolve: {
-              listPromise: () => {
-                return requestService
-                  .url('/api/acc/equipment/category')
-                  .get()
-                  .result.then(result => {
-                    return result;
-                  });
-              }
-            }
-          } as ng.ui.bootstrap.IModalSettings)
+          editor: $jexcelEditor('modalEditor')(this.categorySelector)
         },
         {
           type: 'text',
-          editor: $jexcelEditor('modalEditor')({
-            templateUrl: 'modules/manage/templates/popupSelector.html',
-            controller: 'modules/manage/controllers/popupSelector',
-            resolve: {
-              listPromise: () => {
-                return requestService
-                  .url('/api/acc/cabin')
-                  .get()
-                  .result.then(result => {
-                    return result;
-                  });
-              }
-            }
-          } as ng.ui.bootstrap.IModalSettings)
+          editor: $jexcelEditor('modalEditor')(this.cabinSelector)
         }
       ]
     };
@@ -97,7 +105,7 @@ class Controller {
   create() {
     this.$modal
       .open({
-        templateUrl: 'modules/acc/templates/schemaConfirm.html',
+        templateUrl: 'modules/common/templates/schemaConfirm.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: {
             title: '添加设备',
@@ -113,12 +121,20 @@ class Controller {
                   type: 'string',
                   required: true
                 },
-                category: {
+                categoryCode: {
                   title: '类型',
                   type: 'string'
                 },
-                cabin: {
+                categoryName: {
+                  title: '类型名',
+                  type: 'string'
+                },
+                cabinCode: {
                   title: '所在舱室',
+                  type: 'string'
+                },
+                cabinName: {
+                  title: '所在舱室名',
                   type: 'string'
                 }
               }
@@ -133,12 +149,36 @@ class Controller {
                   {
                     type: 'section',
                     htmlClass: 'col-md-6',
-                    items: ['category']
+                    items: [
+                      {
+                        key: 'categoryCode',
+                        type: ExtendFormFields.actionField,
+                        action: (form, defer: ng.IDeferred<any>) => {
+                          this.$modal
+                            .open(this.categorySelector)
+                            .result.then(defer.resolve);
+                        },
+                        callback: result => {
+                          console.log(result);
+                        }
+                      }
+                    ]
                   },
                   {
                     type: 'section',
                     htmlClass: 'col-md-6',
-                    items: ['cabin']
+                    items: [
+                      {
+                        key: 'cabinCode',
+                        type: ExtendFormFields.actionField,
+                        action: (form, defer) => {
+                          this.$modal
+                            .open(this.cabinSelector)
+                            .result.then(defer.resolve);
+                        },
+                        callback: result => {}
+                      }
+                    ]
                   }
                 ]
               }

@@ -75,6 +75,69 @@ declare namespace common {
   }
 
   export namespace schema {
+    interface ISfBuilder {
+      sfField(args);
+      ngModel(args);
+      simpleTransclusion(args);
+      ngModelOptions(args);
+      transclusion(args);
+      condition(args);
+      array(args);
+    }
+
+    interface ISfBuilderProvider extends ng.IServiceProvider {
+      builders: ISfBuilder;
+      stdBuilders: Array<(args) => void>;
+    }
+
+    interface ISfPathProvider extends ng.IServiceProvider {
+      parse(str: string);
+      stringify(arr: string[] | string);
+      normalize(data: string[] | string);
+    }
+
+    interface ISchemaFormProvider {
+      defaults: {
+        [key: string]: Array<(name: string, schema, options) => void>;
+      };
+      stdFormObj(name, schema, options): fields.IField;
+      defaultFormDefinition(name, form: Array<any>, options);
+      postProcess(fn: Function);
+      appendRule(type, rule);
+      prependRule(type, rule);
+      createStandardForm(name, schema, options);
+    }
+
+    interface ISchemaFormDecoratorsProvider extends ng.IServiceProvider {
+      createDecorator(name: string, templates: { [type: string]: string });
+      defineDecorator(
+        name: string,
+        fields: { [type: string]: IFieldMap },
+        builders?: Array<any>
+      );
+      createDirective(type: string, templateUrl: string, transclude?: boolean);
+      createDirectives(templates: { [type: string]: string });
+      decorator(name): IFieldMap[];
+      addMapping(
+        name: string,
+        type: string,
+        url: string,
+        builder?: Function | Array<Function>,
+        replace?: boolean
+      );
+      defineAddOn(
+        name: string,
+        type: string,
+        url: string,
+        builder?: Function | Array<Function>
+      );
+    }
+
+    interface IFieldMap {
+      template: string;
+      builder: Function | Array<Function>;
+    }
+
     interface ISchema {
       type?: string;
       title?: string;
@@ -116,7 +179,8 @@ declare namespace common {
         | IColumn
         | IPanel
         | ITable
-        | INavbar;
+        | INavbar
+        | IActionField;
 
       interface IField {
         /**
@@ -180,6 +244,12 @@ declare namespace common {
 
       interface INavbar extends IField {
         theme?: string;
+      }
+
+      interface IActionField extends IField {
+        actionIcon?: string;
+        action?: (form, defer) => void;
+        callback?: (result) => void;
       }
     }
   }
