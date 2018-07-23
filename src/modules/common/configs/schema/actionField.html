@@ -1,16 +1,21 @@
 <div class="form-group schema-form-{{form.type}} {{form.htmlClass}}" ng-class="{'has-error': form.disableErrorState !== true && hasError(), 'has-success': form.disableSuccessState !== true && hasSuccess() }">
-    <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}">{{form.title}}</label>
-    <div ex-action-field>
-        <div class="input-group">
-            <input readonly="readonly" step="any" ng-show="form.key" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}">
-            <div class="input-group-btn">
-                <button class="btn btn-default" ng-disabled="form.readonly" ng-click="af.action()">
-                    <i class="{{!form.actionIcon ? 'glyphicon glyphicon-th' : form.actionIcon}}"></i>
-                </button>
-            </div>
+    <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
+    <div ex-action-field class="input-group">
+        <input ng-if="form.displayKey && form.displayKey.length>0" readonly="readonly" step="any" ng-show="form.key" ng-model="model[form.displayKey]"
+            placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}">
+        <input ng-if="!form.displayKey || form.displayKey.length<=0" readonly="readonly" step="any" ng-show="form.key" ng-model="$$value$$"
+            placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}">
+        <div class="input-group-btn">
+            <button class="btn btn-default" ng-disabled="form.readonly" ng-click="af.action()">
+                <i class="{{!form.actionIcon ? 'glyphicon glyphicon-th' : form.actionIcon}}"></i>
+            </button>
+            <!-- <button class="btn btn-danger" ng-show="false">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button> -->
         </div>
-        <input type="hidden" sf-changed="form" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-model="$$value$$" schema-validate="form"
-            name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">
     </div>
+    <input type="hidden" sf-changed="form" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-model="$$value$$" schema-validate="form"
+        name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">
+    <span ng-if="hasError() || hasSuccess()" id="{{form.key.slice(-1)[0] + 'Status'}}" class="sr-only">{{ hasSuccess() ? '(success)' : '(error)' }}</span>
     <div class="help-block" sf-message="form.description"></div>
 </div>

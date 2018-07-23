@@ -14,6 +14,99 @@ class Controller {
   private categorySelector;
   private cabinSelector;
 
+  private _modal(model) {
+    for (var n in model) {
+      if (model[n] === null || model[n] === undefined) {
+        delete model[n];
+      }
+    }
+    return this.$modal.open({
+      templateUrl: 'modules/common/templates/schemaConfirm.html',
+      scope: angular.extend(this.$rootScope.$new(), {
+        $data: {
+          title: '添加设备',
+          formParams: this.schemaFormParams({
+            properties: {
+              code: {
+                title: '设备编号',
+                type: 'string'
+              },
+              name: {
+                title: '设备名称',
+                type: 'string'
+              },
+              categoryCode: {
+                title: '类型',
+                type: 'string'
+              },
+              categoryName: {
+                title: '类型名',
+                type: 'string'
+              },
+              cabinCode: {
+                title: '所在舱室',
+                type: 'string'
+              },
+              cabinName: {
+                title: '所在舱室名',
+                type: 'string'
+              }
+            },
+            required: ['code', 'name']
+          }),
+          form: [
+            'code',
+            'name',
+            {
+              type: 'section',
+              htmlClass: 'row',
+              items: [
+                {
+                  type: 'section',
+                  htmlClass: 'col-md-6',
+                  items: [
+                    {
+                      key: 'categoryCode',
+                      displayKey: 'categoryName',
+                      type: ExtendFormFields.actionField,
+                      action: (form, model) => {
+                        return this.$modal.open(this.categorySelector).result;
+                      },
+                      callback: (result, model) => {
+                        model.categoryCode = result.code;
+                        model.categoryName = result.name;
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'section',
+                  htmlClass: 'col-md-6',
+                  items: [
+                    {
+                      key: 'cabinCode',
+                      displayKey: 'cabinName',
+                      type: ExtendFormFields.actionField,
+                      action: (form, model) => {
+                        this.$modal
+                          .open(this.cabinSelector)
+                          .result.then(data => {
+                            model.cabinCode = data.code;
+                            model.cabinName = data.name;
+                          });
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          model: model
+        }
+      })
+    }).result;
+  }
+
   static $inject = [
     '$scope',
     '$rootScope',
@@ -21,7 +114,8 @@ class Controller {
     '$jexcelEditor',
     'modules/common/factories/schemaFormParams',
     'modules/common/services/requestService',
-    'modules/common/factories/ngTableRequest'
+    'modules/common/factories/ngTableRequest',
+    'app/services/popupService'
   ];
   constructor(
     private $scope: IListScope,
@@ -30,7 +124,8 @@ class Controller {
     private $jexcelEditor: manage.IJExcelEditorFactory,
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private requestService: common.services.IRequestService,
-    private ngTableRequest: common.factories.INgTableRequestFactory
+    private ngTableRequest: common.factories.INgTableRequestFactory,
+    private popupService: app.services.IPopupService
   ) {
     this.categorySelector = {
       templateUrl: 'modules/manage/templates/popupSelector.html',
@@ -92,9 +187,18 @@ class Controller {
 
     $scope.$watch(
       () => {
-        return $scope.data;
+        return $scope.table.data;
       },
-      () => {}
+      newvalue => {
+        $scope.jexcel.data = [];
+        $.each(newvalue, (idx, item) => {
+          var row = [];
+          $.each(item, (name, col) => {
+            row.push(col);
+          });
+          $scope.jexcel.data.push(row);
+        });
+      }
     );
   }
 
@@ -103,91 +207,41 @@ class Controller {
   }
 
   create() {
-    this.$modal
-      .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
-        scope: angular.extend(this.$rootScope.$new(), {
-          $data: {
-            title: '添加设备',
-            formParams: this.schemaFormParams({
-              properties: {
-                code: {
-                  title: '设备编号',
-                  type: 'string',
-                  required: true
-                },
-                name: {
-                  title: '设备名称',
-                  type: 'string',
-                  required: true
-                },
-                categoryCode: {
-                  title: '类型',
-                  type: 'string'
-                },
-                categoryName: {
-                  title: '类型名',
-                  type: 'string'
-                },
-                cabinCode: {
-                  title: '所在舱室',
-                  type: 'string'
-                },
-                cabinName: {
-                  title: '所在舱室名',
-                  type: 'string'
-                }
-              }
-            }),
-            form: [
-              'code',
-              'name',
-              {
-                type: 'section',
-                htmlClass: 'row',
-                items: [
-                  {
-                    type: 'section',
-                    htmlClass: 'col-md-6',
-                    items: [
-                      {
-                        key: 'categoryCode',
-                        type: ExtendFormFields.actionField,
-                        action: (form, defer: ng.IDeferred<any>) => {
-                          this.$modal
-                            .open(this.categorySelector)
-                            .result.then(defer.resolve);
-                        },
-                        callback: result => {
-                          console.log(result);
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    type: 'section',
-                    htmlClass: 'col-md-6',
-                    items: [
-                      {
-                        key: 'cabinCode',
-                        type: ExtendFormFields.actionField,
-                        action: (form, defer) => {
-                          this.$modal
-                            .open(this.cabinSelector)
-                            .result.then(defer.resolve);
-                        },
-                        callback: result => {}
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            model: {}
-          }
-        })
-      })
-      .result.then(data => {});
+    this._modal({}).then(data => {
+      this.requestService
+        .url('/api/acc/equipment')
+        .post(data)
+        .result.then(() => {
+          this.$scope.table.reload();
+        });
+    });
+  }
+
+  edit(row) {
+    this.requestService
+      .url('/api/acc/equipment/' + row.id)
+      .get()
+      .result.then((result: any) => {
+        this._modal(result).then(data => {
+          this.requestService
+            .url('/api/acc/equipment')
+            .put(data)
+            .result.then(() => {
+              this.$scope.table.reload();
+            });
+        });
+      });
+  }
+
+  drop(row) {
+    this.popupService.confirm('是否删除？').ok(() => {
+      this.requestService
+        .url('/api/acc/equipment/' + row.id)
+        .drop()
+        .result.then(() => {
+          this.$scope.table.reload();
+        });
+    });
   }
 }
 

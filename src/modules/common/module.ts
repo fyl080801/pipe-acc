@@ -1,6 +1,7 @@
 import angular = require('angular');
 import 'modules/common/configs/site';
 import 'modules/common/configs/httpConfig';
+import 'modules/common/configs/location';
 import 'modules/common/configs/schemaFormDefaults';
 import 'modules/common/configs/schema/panel';
 import 'modules/common/configs/schema/switchField';

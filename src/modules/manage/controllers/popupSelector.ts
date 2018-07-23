@@ -8,7 +8,7 @@ class Controller {
   }
 
   select(item) {
-    this.$scope.$close(item.code);
+    this.$scope.$close(item);
   }
 }
 

@@ -248,8 +248,9 @@ declare namespace common {
 
       interface IActionField extends IField {
         actionIcon?: string;
-        action?: (form, defer) => void;
-        callback?: (result) => void;
+        displayKey?: string;
+        action?: (form, model) => ng.IDeferred<any>;
+        callback?: (result, model) => void;
       }
     }
   }

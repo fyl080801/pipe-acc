@@ -6,12 +6,14 @@ class Config {
   static $inject = [
     'schemaFormDecoratorsProvider',
     'schemaFormProvider',
-    'sfPathProvider'
+    'sfPathProvider',
+    'sfBuilderProvider'
   ];
   constructor(
     schemaFormDecoratorsProvider: common.schema.ISchemaFormDecoratorsProvider,
     schemaFormProvider: common.schema.ISchemaFormProvider,
-    sfPathProvider: common.schema.ISfPathProvider
+    sfPathProvider: common.schema.ISfPathProvider,
+    sfBuilderProvider: common.schema.ISfBuilderProvider
   ) {
     var base = 'modules/common/configs/schema/';
 
@@ -25,12 +27,13 @@ class Config {
       }
     };
 
-    schemaFormProvider.defaults.boolean.push(field);
+    schemaFormProvider.defaults.string.push(field);
 
     schemaFormDecoratorsProvider.addMapping(
       'bootstrapDecorator',
       ExtendFormFields.actionField,
-      base + 'actionField.html'
+      base + 'actionField.html',
+      sfBuilderProvider.stdBuilders
     );
 
     schemaFormDecoratorsProvider.createDirective(
@@ -41,20 +44,23 @@ class Config {
 }
 
 class Controller {
-  static $inject = ['$scope', '$q'];
-  constructor(private $scope, private $q: ng.IQService) {
+  static $inject = ['$scope'];
+  constructor(private $scope) {
     $scope.af = this;
-    $scope.callbackDefer = $q.defer();
-    $scope.callbackDefer.promise.then(result => {
-      (this.$scope.form.callback || angular.noop)(result);
-    });
   }
 
   action() {
-    (this.$scope.form.action || angular.noop)(
-      this.$scope.form,
-      this.$scope.callbackDefer
-    );
+    if (this.$scope.form.action) {
+      var promise = this.$scope.form.action(
+        this.$scope.form,
+        this.$scope.model
+      );
+      if (promise && angular.isFunction(promise.then)) {
+        promise.then(result => {
+          this.$scope.form.callback(result, this.$scope.model);
+        });
+      }
+    }
   }
 }
 
