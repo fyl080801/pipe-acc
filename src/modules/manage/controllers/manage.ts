@@ -80,7 +80,7 @@ class Controller {
           },
           {
             text: '地图设置',
-            href: '/master/manage/varlist'
+            href: '/master/gissettings'
           }
         ]
       }

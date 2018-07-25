@@ -1,0 +1,9 @@
+<div>
+    <div>
+        <span class="glyphicon" ng-click="vm.nodeToggle(this)" ng-class="{ 'far fa-plus-square': collapsed, 'far fa-minus-square': !collapsed }"></span>
+        {{item.name}}
+    </div>
+</div>
+<ol ui-tree-nodes ng-model="item.children" ng-class="{hidden: collapsed}">
+    <li ng-repeat="item in item.children" ui-tree-node ng-include="'modules/acc/templates/categoryNode.html'"></li>
+</ol>
