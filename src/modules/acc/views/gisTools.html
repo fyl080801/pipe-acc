@@ -1,17 +1,11 @@
-<div ng-controller="modules/acc/controllers/gisTools">
+<div>
     <div class="btn-group leaflet-bar dropdown">
         <button class="btn btn-primary" ng-click="vm.goSettings()">
             <i class="glyphicon glyphicon-cog"></i>
         </button>
-        <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-                <a href="">显示1</a>
-            </li>
-            <li>
-                <a href="">显示1</a>
-            </li>
-            <li>
-                <a href="">显示1</a>
+        <ul class="dropdown-menu dropdown-menu-right" ng-init="vm.loadAreas()">
+            <li ng-repeat="area in areas">
+                <a href="" ng-click="vm.changeLocation(area)">{{area.name}}</a>
             </li>
         </ul>
         <button class="btn btn-default" data-toggle="dropdown">

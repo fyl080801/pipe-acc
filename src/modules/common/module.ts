@@ -6,6 +6,7 @@ import 'modules/common/configs/schemaFormDefaults';
 import 'modules/common/configs/schema/panel';
 import 'modules/common/configs/schema/switchField';
 import 'modules/common/configs/schema/actionField';
+import 'modules/common/configs/schema/display';
 import 'modules/common/extend/table/ngTableModule';
 
 export = angular.module('modules.common', ['modules.common.configs']);

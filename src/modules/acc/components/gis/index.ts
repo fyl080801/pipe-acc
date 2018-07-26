@@ -2,11 +2,19 @@ import mod = require('modules/acc/module');
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
 
 class Controller {
-  static $inject = ['$scope', '$element', 'modules/acc/factories/mapControl'];
+  private _map: L.Map;
+
+  static $inject = [
+    '$scope',
+    '$element',
+    'modules/acc/factories/mapControl',
+    'modules/common/services/requestService'
+  ];
   constructor(
     private $scope,
     private $element: JQLite,
-    private mapControl: acc.factories.IMapLayerFactory
+    private mapControl: acc.factories.IMapLayerFactory,
+    private requestService: common.services.IRequestService
   ) {
     $scope.vm = this;
     $scope.map = new MapBuilder(
@@ -15,8 +23,16 @@ class Controller {
         .get(0)
     ).map();
 
+    this._map = $scope.map;
+
     mapControl({
-      templateUrl: 'modules/acc/views/gisTools.html'
+      templateUrl: 'modules/acc/views/gisTools.html',
+      controller: 'modules/acc/controllers/gisTools',
+      resolve: {
+        mapInstance: () => {
+          return this._map;
+        }
+      }
     }).addTo($scope.map);
   }
 }

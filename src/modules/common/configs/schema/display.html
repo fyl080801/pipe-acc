@@ -1,0 +1,7 @@
+<div class="form-group schema-form-{{form.type}} {{form.htmlClass}}" ng-class="{'has-error': form.disableErrorState !== true && hasError(), 'has-success': form.disableSuccessState !== true && hasSuccess() }">
+    <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
+    <div class="input-group">
+        <span id="{{form.key.slice(-1)[0]}}" sf-field-model="" class="form-control-static" aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">{{$$value$$}}</span>
+    </div>
+    <div class="help-block" sf-message="form.description"></div>
+</div>

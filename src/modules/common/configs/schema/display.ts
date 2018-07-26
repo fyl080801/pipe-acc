@@ -2,6 +2,8 @@ import boot = require('modules/common/configs');
 import angular = require('angular');
 import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields';
 
+var base = 'modules/common/configs/schema/';
+
 class Config {
   static $inject = [
     'schemaFormDecoratorsProvider',
@@ -15,59 +17,41 @@ class Config {
     sfPathProvider: common.schema.ISfPathProvider,
     sfBuilderProvider: common.schema.ISfBuilderProvider
   ) {
-    var base = 'modules/common/configs/schema/';
+    var defaultBuilders = [
+      sfBuilderProvider.builders.sfField,
+      sfBuilderProvider.builders.ngModelOptions,
+      sfBuilderProvider.builders.condition,
+      sfBuilderProvider.builders.transclusion
+    ];
 
     var field = (name, schema, options) => {
-      if (schema.type === 'string' && schema.format == 'html') {
+      if (
+        (schema.type === 'string' || schema.type === 'number') &&
+        schema.format == 'html'
+      ) {
         var f = schemaFormProvider.stdFormObj(name, schema, options);
         f.key = options.path;
-        f.type = ExtendFormFields.actionField;
+        f.type = ExtendFormFields.display;
         options.lookup[sfPathProvider.stringify(options.path)] = f;
         return f;
       }
     };
 
     schemaFormProvider.defaults.string.push(field);
+    schemaFormProvider.defaults.number.push(field);
 
     schemaFormDecoratorsProvider.createDirective(
-      ExtendFormFields.actionField,
-      base + 'actionField.html'
+      ExtendFormFields.display,
+      base + 'display.html'
     );
 
     schemaFormDecoratorsProvider.addMapping(
       'bootstrapDecorator',
-      ExtendFormFields.actionField,
-      base + 'actionField.html',
+      ExtendFormFields.display,
+      base + 'display.html',
       sfBuilderProvider.stdBuilders
     );
   }
 }
 
-class Controller {
-  static $inject = ['$scope'];
-  constructor(private $scope) {
-    $scope.af = this;
-  }
-
-  action() {
-    if (this.$scope.form.action) {
-      var promise = this.$scope.form.action(
-        this.$scope.form,
-        this.$scope.model
-      );
-      if (promise && angular.isFunction(promise.then)) {
-        promise.then(result => {
-          this.$scope.form.callback(result, this.$scope.model);
-        });
-      }
-    }
-  }
-}
-
-function directive(): ng.IDirective {
-  return {
-    controller: Controller
-  };
-}
-
-boot.config(Config).directive('exActionField', directive);
+boot.config(Config);
