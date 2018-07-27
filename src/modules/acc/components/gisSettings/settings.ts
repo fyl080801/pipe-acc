@@ -13,6 +13,7 @@ class Controller {
     '$modal',
     'modules/common/services/requestService',
     'modules/common/factories/schemaFormParams',
+    'modules/common/factories/ngTableRequest',
     'app/services/popupService'
   ];
   constructor(
@@ -22,17 +23,27 @@ class Controller {
     private $modal: ng.ui.bootstrap.IModalService,
     private requestService: common.services.IRequestService,
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
+    private ngTableRequest: common.factories.INgTableRequestFactory,
     private popupService: app.services.IPopupService
   ) {
     $scope.vm = this;
     $scope.categories = [];
     $scope.areas = [];
     $scope.current = null;
+    $scope.equipments = [];
+    $scope.categoryCode = null;
     $scope.map = new MapBuilder(
       $($element)
         .find('.map-area')
         .get(0)
     ).map();
+    $scope.categoryTable = ngTableRequest({
+      url: '/api/acc/equipment/query',
+      showLoading: false,
+      data: {
+        categoryCode: $scope.categoryCode
+      }
+    }).table();
 
     this._map = $scope.map;
 
@@ -62,8 +73,21 @@ class Controller {
       });
   }
 
-  nodeToggle(scope) {
-    scope.toggle();
+  loadEquipments() {
+    this.requestService
+      .url('/api/acc/equipment/category/' + this.$scope.categoryCode)
+      .options({
+        showLoading: false
+      })
+      .get()
+      .result.then(result => {
+        this.$scope.equipments = result;
+      });
+  }
+
+  selectCategory(cate) {
+    this.$scope.categoryCode = cate.code;
+    this.loadEquipments();
   }
 
   saveLocation() {
@@ -193,6 +217,17 @@ class Controller {
         area.name = data.name;
         this.requestService.url('/api/acc/location/areas').post(area);
       });
+  }
+
+  deleteArea(area) {
+    this.popupService.confirm('是否删除？').ok(() => {
+      this.requestService
+        .url('/api/acc/location/areas/' + area.code)
+        .drop()
+        .result.then(() => {
+          this.loadAreas();
+        });
+    });
   }
 }
 

@@ -30,13 +30,13 @@ function ngTableDirective($q: ng.IQService, $parse): ng.IDirective {
       if (!row) {
         return;
       }
-      angular.forEach(row.find('td'), function(item) {
+      angular.forEach(row.find('td'), item => {
         var el = angular.element(item);
         if (el.attr('ignore-cell') && 'true' === el.attr('ignore-cell')) {
           return;
         }
 
-        var getAttrValue = function(attr) {
+        var getAttrValue = attr => {
           return (
             el.attr('x-data-' + attr) ||
             el.attr('data-' + attr) ||
@@ -73,9 +73,9 @@ function ngTableDirective($q: ng.IQService, $parse): ng.IDirective {
           sortable: parsedAttribute('sortable'),
           class: parsedAttribute('header-class'),
           headerTemplateURL: parsedAttribute('header'),
-          show: (function() {
+          show: (() => {
             if (el.attr('ng-if')) {
-              return function(scope) {
+              return scope => {
                 return $parse(el.attr('ng-if'))(scope);
               };
             } else {

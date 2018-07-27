@@ -151,6 +151,7 @@ body {
 .nav-swiper.nav-swiper-success > li.active:after {
   background-color: #5cb85c;
 }
+/* table */
 .acc-container {
   position: absolute;
   top: 0;
