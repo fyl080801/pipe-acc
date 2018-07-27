@@ -19,15 +19,18 @@
                                             <a href="" ng-click="vm.changeLocation(area)">{{area.name}}</a>
                                         </div>
                                         <div>
-                                            <a href="" class="text-primary" ng-click="vm.renameArea(area)">
+                                            <a href="" class="text-muted" ng-click="vm.renameArea(area)">
                                                 <i class="glyphicon glyphicon-edit"></i>
                                                 重命名
                                             </a>
-                                            <a href="" class="text-primary" ng-click="vm.updateArea(area)">
+                                            <a href="" class="text-muted" ng-click="vm.updateArea(area)">
                                                 <i class="glyphicon glyphicon-map-marker"></i>
                                                 更新坐标
                                             </a>
-                                            <a href="" class="text-danger pull-right" ng-click="vm.deleteArea(area)">删除</a>
+                                            <a href="" class="text-danger pull-right" ng-click="vm.deleteArea(area)">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                                删除
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
