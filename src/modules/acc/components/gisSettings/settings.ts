@@ -14,7 +14,8 @@ class Controller {
     'modules/common/services/requestService',
     'modules/common/factories/schemaFormParams',
     'modules/common/factories/ngTableRequest',
-    'app/services/popupService'
+    'app/services/popupService',
+    'app/services/treeUtility'
   ];
   constructor(
     private $scope,
@@ -24,13 +25,15 @@ class Controller {
     private requestService: common.services.IRequestService,
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private ngTableRequest: common.factories.INgTableRequestFactory,
-    private popupService: app.services.IPopupService
+    private popupService: app.services.IPopupService,
+    private treeUtility: app.services.ITreeUtility
   ) {
     $scope.vm = this;
     $scope.categories = [];
     $scope.areas = [];
     $scope.current = null;
     $scope.equipments = [];
+    $scope.categoryText = null;
     $scope.categoryCode = null;
     $scope.map = new MapBuilder(
       $($element)
@@ -54,10 +57,18 @@ class Controller {
       })
       .get()
       .result.then((result: any) => {
-        $scope.categories =
-          result && result.children && result.children.length > 0
-            ? result.children
-            : [];
+        treeUtility
+          .resolveTree({
+            children:
+              result && result.children && result.children.length > 0
+                ? result.children
+                : []
+          })
+          .key('code')
+          .childrenKey('children')
+          .result.then(tree => {
+            $scope.categories = tree.$children;
+          });
       });
   }
 
@@ -85,8 +96,17 @@ class Controller {
       });
   }
 
-  selectCategory(cate) {
-    this.$scope.categoryCode = cate.code;
+  selectCategory(cate: app.services.ITreeItem<any>) {
+    this.$scope.categoryName = cate.$data.name;
+    var findParent = (c: app.services.ITreeItem<any>) => {
+      this.$scope.categoryName =
+        c.$data.name + ' / ' + this.$scope.categoryName;
+      if (c.$parent && c.$parent.$parent) {
+        findParent(c.$parent);
+      }
+    };
+    findParent(cate.$parent);
+    this.$scope.categoryCode = cate.$data.code;
     this.loadEquipments();
   }
 

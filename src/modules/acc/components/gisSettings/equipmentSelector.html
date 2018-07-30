@@ -1,12 +1,12 @@
 <div class="form-group has-feedback dropdown" style="margin: 0">
-    <input class="form-control dropdown-toggle" data-toggle="dropdown" readonly="readonly" placeholder="选择设备类型">
+    <input class="form-control dropdown-toggle" data-toggle="dropdown" readonly="readonly" placeholder="选择设备类型" ng-model="categoryName">
     <div class="dropdown-menu dropdown-menu-right" style="width: 600px">
         <div class="panel-body">
             <dl class="dl-horizontal" ng-repeat="cab in categories">
-                <dt>{{cab.name}}</dt>
+                <dt>{{cab.$data.name}}</dt>
                 <dd>
-                    <a href="" ng-click="vm.selectCategory(c)" ng-repeat="c in cab.children">
-                        <span class="label" ng-class="{'label-primary': selectedCategories[c.code], 'label-default': !selectedCategories[c.code]}">{{c.name}}</span>
+                    <a href="" ng-click="vm.selectCategory(c)" ng-repeat="c in cab.$children">
+                        <span class="label" ng-class="{'label-primary': selectedCategories[c.$data.code], 'label-default': !selectedCategories[c.$data.code]}">{{c.$data.name}}</span>
                     </a>
                 </dd>
             </dl>
