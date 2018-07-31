@@ -7,5 +7,6 @@ export enum ExtendFormFields {
   table = 'table',
   switch = 'switch',
   navbar = 'navbar',
-  actionField = 'actionField'
+  actionField = 'actionField',
+  cascade = 'cascade'
 }

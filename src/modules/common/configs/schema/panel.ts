@@ -10,7 +10,7 @@ class PanelConfig {
     schemaFormDecoratorsProvider: common.schema.ISchemaFormDecoratorsProvider,
     sfBuilderProvider: common.schema.ISfBuilderProvider
   ) {
-    var defaultBuilders = [
+    var defaults = [
       sfBuilderProvider.builders.sfField,
       sfBuilderProvider.builders.ngModelOptions,
       sfBuilderProvider.builders.condition,
@@ -21,21 +21,21 @@ class PanelConfig {
       'bootstrapDecorator',
       ExtendFormFields.panel,
       base + 'panel.html',
-      defaultBuilders
+      defaults
     );
 
     schemaFormDecoratorsProvider.defineAddOn(
       'bootstrapDecorator',
       ExtendFormFields.container,
       base + 'container.html',
-      defaultBuilders
+      defaults
     );
   }
 }
 
-boot.config(PanelConfig).run([
-  '$templateCache',
-  ($templateCache: ng.ITemplateCacheService) => {
+class Run {
+  static $inject = ['$templateCache'];
+  constructor($templateCache: ng.ITemplateCacheService) {
     $templateCache.put(
       base + 'panel.html',
       '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div ng-if="!form.notitle" class="panel-heading"> <i ng-if="form.titleIcon && form.titleIcon.length>0" class="{{form.titleIcon}}"></i> <span ng-bind="form.title"></span></div><div sf-field-transclude="items"></div></div>'
@@ -46,4 +46,6 @@ boot.config(PanelConfig).run([
       '<div class="panel-body {{form.htmlClass}}" sf-field-transclude="items"></div>'
     );
   }
-]);
+}
+
+boot.config(PanelConfig).run(Run);

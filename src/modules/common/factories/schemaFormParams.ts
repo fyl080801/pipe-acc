@@ -53,7 +53,7 @@ class SchemaFormParams implements common.services.ISchemaFormParams {
     this._schema.type = schemaDefine.type || 'object';
     this._schema.properties = schemaDefine.properties || {};
     this._schema.required = schemaDefine.required || [];
-    return self;
+    return this;
   }
 
   properties(propertiesDefine?: any) {
@@ -67,7 +67,7 @@ class SchemaFormParams implements common.services.ISchemaFormParams {
     angular.forEach(currentSchema.properties, (item, key) => {
       this._required(key, item.required);
     });
-    return self;
+    return this;
   }
 
   property(propertyName: string, propertyDefine?: any) {

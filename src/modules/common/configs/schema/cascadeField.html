@@ -1,0 +1,23 @@
+<div class="form-group has-feedback dropdown schema-form-{{form.type}} {{form.htmlClass}}">
+    <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}">{{form.title}}</label>
+
+    <input type="text" class="form-control dropdown-toggle" data-toggle="dropdown" readonly="readonly" placeholder="{{form.placeholder}}">
+
+    <!-- <input type="hidden" id="{{item.form.key.slice(-1)[0]}}" sf-changed="item.form" sf-field-model="" ng-model="$$value$$" schema-validate="item.form"
+        name="{{item.form.key.slice(-1)[0]}}" aria-describedby="{{item.form.key.slice(-1)[0] + 'Status'}}" ng-repeat="item in form.items"> -->
+    <input type="hidden" id="{{item.form.key.slice(-1)[0]}}" name="{{item.form.key.slice(-1)[0]}}" aria-describedby="{{item.form.key.slice(-1)[0] + 'Status'}}"
+        ng-repeat="item in form.items">
+
+    <div class="dropdown-menu dropdown-menu-right" style="width: 100%">
+        <div class="panel-body">
+
+        </div>
+    </div>
+
+    <div class="form-control-feedback">
+        <span class="caret"></span>
+    </div>
+
+    <!-- <span ng-if="hasError() || hasSuccess()" id="{{k.slice(-1)[0] + 'Status'}}" class="sr-only" ng-repeat="k in form.keys">{{ hasSuccess() ? '(success)' : '(error)' }}</span> -->
+    <div class="help-block" sf-message="form.description"></div>
+</div>

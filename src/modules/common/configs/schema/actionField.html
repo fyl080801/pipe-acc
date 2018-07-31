@@ -9,9 +9,6 @@
             <button class="btn btn-default" ng-disabled="form.readonly" ng-click="af.action()">
                 <i class="{{!form.actionIcon ? 'glyphicon glyphicon-th' : form.actionIcon}}"></i>
             </button>
-            <!-- <button class="btn btn-danger" ng-show="false">
-                    <i class="glyphicon glyphicon-remove"></i>
-                </button> -->
         </div>
     </div>
     <input type="hidden" sf-changed="form" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-model="$$value$$" schema-validate="form"

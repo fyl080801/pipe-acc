@@ -180,7 +180,8 @@ declare namespace common {
         | IPanel
         | ITable
         | INavbar
-        | IActionField;
+        | IActionField
+        | ICascadeField;
 
       interface IField {
         /**
@@ -251,6 +252,10 @@ declare namespace common {
         displayKey?: string;
         action?: (form, model) => ng.IDeferred<any>;
         callback?: (result, model) => void;
+      }
+
+      interface ICascadeField extends IField {
+        keys: string[];
       }
     }
   }

@@ -52,7 +52,7 @@ class Controller {
                 type: 'string'
               }
             },
-            required: ['code', 'name']
+            required: ['code', 'name', 'categoryCode']
           }),
           form: [
             'code',
