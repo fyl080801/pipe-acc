@@ -1,4 +1,7 @@
 {
+  "jquery-ui": {
+    "js": ["./bower_components/jquery-ui/jquery-ui.min.js"]
+  },
   "bootstrap": {
     "css": [
       "./bower_components/bootstrap/dist/css/bootstrap.min.css",

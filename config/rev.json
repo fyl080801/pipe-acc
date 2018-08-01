@@ -13,6 +13,7 @@
   "../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css":
     "css/fontawesome-all.min.css",
 
+  "/bower_components/jquery-ui/jquery-ui.min": "js/jquery-ui.min",
   "/bower_components/signalr/jquery.signalR": "js/jquery.signalR",
   "/bower_components/angular-signalr-hub/signalr-hub": "js/signalr-hub",
   "/bower_components/angular-sanitize/angular-sanitize": "js/app.application",
@@ -30,6 +31,7 @@
     "jquery.nicescroll",
   "../bower_components/angular-ui-tree/dist/angular-ui-tree": "angular-ui-tree",
   "../node_modules/jexcel/dist/js/jquery.jexcel": "jquery.jexcel",
+  "../bower_components/ngDraggable/ngDraggable": "ngDraggable",
   "../bower_components/leaflet/dist/leaflet.css": "css/leaflet.css",
   "../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css":
     "css/angular-ui-tree.min.css",

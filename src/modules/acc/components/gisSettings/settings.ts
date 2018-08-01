@@ -1,5 +1,6 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
+import L = require('leaflet');
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
 import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields';
 import { DefaultFormTypes } from 'modules/common/configs/enums/defaultFormTypes';
@@ -40,6 +41,7 @@ class Controller {
         .find('.map-area')
         .get(0)
     ).map();
+    $scope.currentlayers = L.layerGroup().addTo($scope.map);
     $scope.categoryTable = ngTableRequest({
       url: '/api/acc/equipment/query',
       showLoading: false,
@@ -248,6 +250,12 @@ class Controller {
           this.loadAreas();
         });
     });
+  }
+
+  addEquipment(data, e) {
+    L.marker(this._map.mouseEventToLatLng(e.event), {
+      draggable: true
+    }).addTo(this.$scope.currentlayers);
   }
 }
 

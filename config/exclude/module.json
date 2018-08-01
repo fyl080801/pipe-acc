@@ -11,5 +11,7 @@
   "angular-signalr-hub",
   "angular-sanitize",
 
+  "jquery-ui",
+
   "app/application"
 ]
