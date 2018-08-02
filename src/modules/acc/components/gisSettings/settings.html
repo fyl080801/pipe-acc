@@ -1,4 +1,4 @@
-<div ng-controller="modules/acc/components/gisSettings/settings">
+<div ng-controller="modules/acc/components/gisSettings/settings" ng-init="vm.loadLocation()">
     <div class="acc-container" style="top: 20px">
         <div class="panel panel-default acc-container pb-container">
             <div class="acc-container tools">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="panel btn btn-primary btn-group-justified" ng-click="vm.saveLocation()">
+                                <button class="panel btn btn-primary btn-group-justified" ng-click="vm.setLatLng()">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     当前位置缩放创建区域
                                 </button>
@@ -58,7 +58,7 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav nav navbar-right">
                             <li>
-                                <a href="">
+                                <a href="" ng-click="vm.saveLocation()">
                                     <i class="far fa-save"></i>
                                     保存
                                 </a>

@@ -17097,16 +17097,23 @@ define('app/factories/delayTimer', [
     'use strict';
     exports.__esModule = true;
     var DelayTimerContext = function () {
-        function DelayTimerContext(defer) {
-            this.defer = defer;
+        function DelayTimerContext() {
         }
         DelayTimerContext.prototype.callback = function (fn) {
-            this.defer.promise.then(fn);
-            return this;
+            if (fn && angular.isFunction(fn)) {
+                this._callback = fn;
+                return this;
+            } else {
+                return this._callback || angular.noop;
+            }
         };
         DelayTimerContext.prototype.canceling = function (fn) {
-            this.defer.promise['catch'](fn);
-            return this;
+            if (fn && angular.isFunction(fn)) {
+                this._canceling = fn;
+                return this;
+            } else {
+                return this._canceling || angular.noop;
+            }
         };
         return DelayTimerContext;
     }();
@@ -17117,7 +17124,7 @@ define('app/factories/delayTimer', [
             this.baseOptions = baseOptions;
             this._defaults = { timeout: 1024 };
             this._defer = $q.defer();
-            this.context = new DelayTimerContext(this._defer);
+            this.context = new DelayTimerContext();
             this._options(baseOptions);
         }
         DelayTimer.prototype._options = function (opts) {
@@ -17130,13 +17137,16 @@ define('app/factories/delayTimer', [
         DelayTimer.prototype.invoke = function () {
             var _this = this;
             this.cancel();
+            this._defer = this.$q.defer();
+            this._defer.promise.then(this.context.callback(), this.context.canceling());
             this._timer = this.$timeout(function () {
                 _this._defer.resolve();
             }, this._defaults.timeout);
         };
         DelayTimer.prototype.cancel = function () {
-            this._defer.reject();
             this.$timeout.cancel(this._timer);
+            this._defer.reject();
+            this._defer = null;
         };
         return DelayTimer;
     }();

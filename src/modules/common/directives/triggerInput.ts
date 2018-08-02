@@ -9,7 +9,7 @@ class Controller {
     private $scope,
     private delayTimer: app.factories.IDelayTimerFactory
   ) {
-    $scope.vm = this;
+    $scope.triggerInput = this;
     this._delayTrigger = delayTimer({
       timeout: $scope.timeout ? $scope.timeout : 800
     });
@@ -19,7 +19,7 @@ class Controller {
       .canceling($scope.canceling || angular.noop);
   }
 
-  modelChanged() {
+  triggerModelChanged() {
     this._delayTrigger.invoke();
   }
 
@@ -36,8 +36,8 @@ function directive() {
     scope: {
       ngModel: '=',
       mark: '=',
-      callback: '&',
-      canceling: '&',
+      callback: '&tiCallback',
+      canceling: '&tiCanceling',
       timeout: '@'
     },
     templateUrl: 'modules/common/templates/triggerInput.html',

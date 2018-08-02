@@ -19,7 +19,7 @@ class Config {
     });
 
     $stateProvider.state('master.gissettings', {
-      url: '/gissettings',
+      url: '/gissettings/{id}',
       templateUrl: 'modules/acc/components/gisSettings/settings.html',
       requires: ['modules/acc/requires', 'modules/common/requires']
     });

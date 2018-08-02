@@ -1,0 +1,36 @@
+<div ng-controller="modules/manage/components/gislocation/list">
+    <form role="form" class="form-inline" style="margin-bottom: 20px">
+        <div trigger-input ng-model="search.keyword" mark="'关键字...'" ti-callback="vm.keywordCallback()"></div>
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="vm.create()">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加
+            </button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="row in table.data">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <strong>
+                        <span ng-bind="row.name"></span>
+                    </strong>
+                    <div class="pull-right">
+                        <a href="" class="text-primary" ng-click="vm.edit(row)">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            编辑
+                        </a>
+                        &nbsp;
+                        <a href="" class="text-danger" ng-click="vm.drop(row)">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            删除
+                        </a>
+                    </div>
+                    <hr />
+                    <p class="text-muted">{{row.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-pager="table" ng-init="table.reload()"></div>
+</div>

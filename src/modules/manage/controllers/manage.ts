@@ -79,8 +79,8 @@ class Controller {
             href: '/master/manage/varlist'
           },
           {
-            text: '地图设置',
-            href: '/master/gissettings'
+            text: '地图监控管理',
+            href: '/master/manage/gislocation' //'/master/gissettings'
           }
         ]
       }

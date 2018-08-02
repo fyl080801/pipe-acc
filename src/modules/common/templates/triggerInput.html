@@ -1,8 +1,8 @@
 <div class="form-group" ng-class="{'has-feedback':!ngModel||ngModel===''}">
     <div ng-class="{'input-group':ngModel&&ngModel!==''}">
-        <input class="form-control" placeholder="{{mark}}" ng-change="vm.modelChanged()" ng-model="ngModel">
+        <input class="form-control" placeholder="{{mark}}" ng-change="triggerInput.triggerModelChanged()" ng-model="ngModel">
         <div class="input-group-btn" ng-if="ngModel&&ngModel!==''">
-            <button class="btn btn-danger" ng-click="vm.reset()">
+            <button class="btn btn-danger" ng-click="triggerInput.reset()">
                 <i class="glyphicon glyphicon-remove"></i>
             </button>
         </div>

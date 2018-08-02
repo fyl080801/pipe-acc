@@ -33,6 +33,13 @@ class Config {
       templateUrl: 'modules/manage/components/equipment/list.html',
       requires: ['modules/manage/requires', 'modules/common/requires']
     });
+
+    $stateProvider.state('master.manage.gislocation', {
+      url: '/gislocation',
+      title: '地图监控管理',
+      templateUrl: 'modules/manage/components/gislocation/list.html',
+      requires: ['modules/manage/requires', 'modules/common/requires']
+    });
   }
 }
 
