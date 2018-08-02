@@ -1,9 +1,8 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
 import L = require('leaflet');
+import { mapview, layerform } from 'modules/acc/components/gisSettings/forms';
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
-import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields';
-import { DefaultFormTypes } from 'modules/common/configs/enums/defaultFormTypes';
 
 class Controller {
   private _map: L.Map;
@@ -101,65 +100,21 @@ class Controller {
         templateUrl: 'modules/common/templates/schemaConfirm.html',
         size: 'sm',
         scope: angular.extend(this.$rootScope.$new(), {
-          $data: {
-            title: '区域名称',
-            formParams: this.schemaFormParams({
-              properties: {
-                centerLng: {
-                  title: '中心经度',
-                  type: 'number'
-                },
-                centerLat: {
-                  title: '中心纬度',
-                  type: 'number'
-                },
-                zoom: {
-                  title: '缩放等级',
-                  type: 'number'
-                }
+          $data: angular.extend(
+            {
+              title: '区域名称',
+              model: {
+                centerLng: this._map.getCenter().lng,
+                centerLat: this._map.getCenter().lat,
+                zoom: this._map.getZoom()
               }
-            }),
-            form: [
-              {
-                key: 'centerLng'
-              },
-              {
-                key: 'centerLat'
-              },
-              {
-                key: 'zoom'
-              }
-            ],
-            model: {
-              centerLng: this._map.getCenter().lng,
-              centerLat: this._map.getCenter().lat,
-              zoom: this._map.getZoom()
-            }
-          }
+            },
+            mapview(this.schemaFormParams)
+          )
         })
       })
       .result.then(data => {
         this.$scope.location.properties.mapview = data;
-        // this.requestService
-        //   .url('/api/acc/location/areas')
-        //   .post({
-        //     code: '',
-        //     name: data.name,
-        //     centerLng: data.centerLng,
-        //     centerLat: data.centerLat,
-        //     zoom: data.zoom
-        //   })
-        //   .result.then(result => {
-        //     this.requestService
-        //       .url('/api/acc/location/areas')
-        //       .options({
-        //         showLoading: false
-        //       })
-        //       .get()
-        //       .result.then(result => {
-        //         this.$scope.areas = result;
-        //       });
-        //   });
       });
   }
 
@@ -199,10 +154,6 @@ class Controller {
   //   findParent(cate.$parent);
   //   this.$scope.categoryCode = cate.$data.code;
   //   this.loadEquipments();
-  // }
-
-  // saveLocation() {
-
   // }
 
   // changeLocation(area) {
