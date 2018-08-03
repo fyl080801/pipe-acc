@@ -1,102 +1,30 @@
 <div ng-controller="modules/acc/components/gisSettings/settings" ng-init="vm.loadLocation()">
     <div class="acc-container" style="top: 20px">
         <div class="panel panel-default acc-container pb-container">
-            <div class="acc-container tools">
-                <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
-                    <li class="text-center active">
-                        <a href="#cus_views" aria-controls="cus_views" role="tab" data-toggle="tab">
-                            展示区域
+            <div class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <div class="navbar-form">
+                        <a href="#/master/manage/gislocation" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                            返回
                         </a>
-                    </li>
-                </ul>
-                <div class="tab-content acc-container" style="margin-top: 40px">
-                    <div nicescroll role="tabpanel" class="tab-pane acc-container active" style="overflow: auto" id="cus_views">
-                        <div class="panel-body">
-                            <div class="panel-group" ng-init="vm.loadAreas()">
-                                <div class="panel panel-default" ng-repeat="area in areas">
-                                    <div class="panel-body" ng-class="{'bg-info': current.code===area.code}">
-                                        <div class="form-group">
-                                            <a href="" ng-click="vm.changeLocation(area)">{{area.name}}</a>
-                                        </div>
-                                        <div>
-                                            <a href="" class="text-muted" ng-click="vm.renameArea(area)">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                                重命名
-                                            </a>
-                                            <a href="" class="text-muted" ng-click="vm.updateArea(area)">
-                                                <i class="glyphicon glyphicon-map-marker"></i>
-                                                更新坐标
-                                            </a>
-                                            <a href="" class="text-danger pull-right" ng-click="vm.deleteArea(area)">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                                删除
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="panel btn btn-primary btn-group-justified" ng-click="vm.setLatLng()">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    当前位置缩放创建区域
-                                </button>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-form navbar-right">
+                        <a href="" class="btn btn-primary" role="button" ng-click="vm.saveLocation()">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                            保存
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="acc-container area">
-                <div class="navbar navbar-default navbar-xs navbar-static-top">
-                    <div class="navbar-header">
-                        <ul class="navbar-nav nav">
-                            <li>
-                                <a href="#/master/gisindex">
-                                    <i class="fas fa-angle-left"></i>
-                                    返回
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="container-fluid">
-                        <ul class="navbar-nav nav navbar-right">
-                            <li>
-                                <a href="" ng-click="vm.saveLocation()">
-                                    <i class="far fa-save"></i>
-                                    保存
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="acc-container">
+            <div class="acc-container" style="margin-top: 50px">
+                <div class="acc-container tools" ng-include="'modules/acc/components/gisSettings/toolbox.html'"></div>
+                <div class="acc-container area">
                     <div class="map-area acc-container" ng-drop="true" ng-drop-success="vm.addEquipment($data, $event)"></div>
                 </div>
-            </div>
-            <div class="acc-container property">
-                <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
-                    <li class="text-center active">
-                        <a href="#cus_info" aria-controls="cus_info" role="tab" data-toggle="tab">
-                            设备
-                        </a>
-                    </li>
-                    <li class="text-center">
-                        <a href="#cus_equ" aria-controls="cus_equ" role="tab" data-toggle="tab">
-                            图层
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content acc-container" style="margin-top: 40px">
-                    <div role="tabpanel" class="tab-pane acc-container active" id="cus_info">
-                        <table ng-table class="table table-absolute input-header">
-                            <tr ng-repeat="row in equipments">
-                                <td header="'modules/acc/components/gisSettings/equipmentSelector.html'">
-                                    <a href="" ng-drag="true" ng-drag-data="row">{{row.name}}</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div nicescroll role="tabpanel" class="tab-pane acc-container" id="cus_equ">
-
-                    </div>
-                </div>
+                <div class="acc-container property" ng-include="'modules/acc/components/gisSettings/layers.html'"></div>
             </div>
         </div>
     </div>

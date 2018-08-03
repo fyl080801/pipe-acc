@@ -1,0 +1,26 @@
+<ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
+    <li class="text-center active">
+        <a href="#cus_info" aria-controls="cus_info" role="tab" data-toggle="tab">
+            设备
+        </a>
+    </li>
+    <li class="text-center">
+        <a href="#cus_equ" aria-controls="cus_equ" role="tab" data-toggle="tab">
+            图形
+        </a>
+    </li>
+</ul>
+<div class="tab-content acc-container" style="margin-top: 40px">
+    <div role="tabpanel" class="tab-pane acc-container active" id="cus_info">
+        <table ng-table class="table table-absolute input-header">
+            <tr ng-repeat="row in equipments">
+                <td header="'modules/acc/components/gisSettings/equipmentSelector.html'">
+                    <a href="" ng-drag="true" ng-drag-data="row">{{row.name}}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div nicescroll role="tabpanel" class="tab-pane acc-container" id="cus_equ">
+
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
+    <li class="text-center active">
+        <a href="#cus_views" aria-controls="cus_views" role="tab" data-toggle="tab">
+            图层
+        </a>
+    </li>
+    <li class="text-center">
+        <a href="#cus_pros" aria-controls="cus_pros" role="tab" data-toggle="tab">
+            属性
+        </a>
+    </li>
+</ul>
+<div class="tab-content acc-container" style="margin-top: 40px">
+    <div nicescroll role="tabpanel" class="tab-pane acc-container active" style="overflow: auto" id="cus_views">
+        <div class="panel-body">
+            <div class="panel-group">
+                <!-- <div class="panel panel-default" ng-repeat="area in areas">
+                    <div class="panel-body" ng-class="{'bg-info': current.code===area.code}">
+                        <div class="form-group">
+                            <a href="" ng-click="vm.changeLocation(area)">{{area.name}}</a>
+                        </div>
+                        <div>
+                            <a href="" class="text-muted" ng-click="vm.renameArea(area)">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                重命名
+                            </a>
+                            <a href="" class="text-muted" ng-click="vm.updateArea(area)">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                                更新坐标
+                            </a>
+                            <a href="" class="text-danger pull-right" ng-click="vm.deleteArea(area)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                删除
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                <button class="panel btn btn-primary btn-group-justified">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    创建图层
+                </button>
+            </div>
+        </div>
+    </div>
+    <div nicescroll role="tabpanel" class="tab-pane acc-container" style="overflow: auto" id="cus_pros">
+        <div class="panel-body">
+            <dl>
+                <dt>
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    基本信息
+                </dt>
+                <dd>...</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    地理位置
+                    <a href="" class="pull-right" ng-click="vm.setLatLng()">
+                        <i class="fas fa-location-arrow"></i>
+                        设置
+                    </a>
+                </dt>
+                <dd>...</dd>
+            </dl>
+        </div>
+    </div>
+</div>

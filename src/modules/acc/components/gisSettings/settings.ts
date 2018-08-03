@@ -31,7 +31,7 @@ class Controller {
     private treeUtility: app.services.ITreeUtility
   ) {
     $scope.vm = this;
-    $scope.location = {};
+    $scope.model = {};
     $scope.map = new MapBuilder(
       $($element)
         .find('.map-area')
@@ -83,14 +83,14 @@ class Controller {
       .url('/api/acc/location/' + this.$stateParams.id)
       .get()
       .result.then(result => {
-        this.$scope.location = result;
+        this.$scope.model = result;
       });
   }
 
   saveLocation() {
     this.requestService
       .url('/api/acc/location')
-      .put(this.$scope.location)
+      .put(this.$scope.model)
       .result.then(result => {});
   }
 
@@ -114,7 +114,7 @@ class Controller {
         })
       })
       .result.then(data => {
-        this.$scope.location.properties.mapview = data;
+        this.$scope.model.properties.mapview = data;
       });
   }
 
