@@ -1,0 +1,26 @@
+<div>
+    <div class="btn-group leaflet-bar">
+        <button class="btn btn-default" ng-click="vm.test()">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+        <button class="btn btn-default">
+            <i class="glyphicon glyphicon-volume-up"></i>
+        </button>
+    </div>
+    <div class="btn-group leaflet-bar">
+        <div class="btn-group" role="group">
+            <button class="btn btn-default" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-map-marker"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" ng-init="vm.loadAreas()">
+                <li ng-repeat="area in areas">
+                    <a href="" ng-click="vm.changeLocation(area)">{{area.name}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <button class="btn btn-default" ng-click="vm.eqFilter()">
+            <i class="glyphicon glyphicon-filter"></i>
+        </button>
+    </div>
+</div>

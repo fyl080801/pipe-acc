@@ -26,8 +26,8 @@ class Controller {
     this._map = $scope.map;
 
     mapControl({
-      templateUrl: 'modules/acc/views/gisTools.html',
-      controller: 'modules/acc/controllers/gisTools',
+      templateUrl: 'modules/acc/components/gis/gisTools.html',
+      controller: 'modules/acc/components/gis/gisTools',
       resolve: {
         mapInstance: () => {
           return this._map;

@@ -27,12 +27,12 @@ class Controller {
 
   loadAreas() {
     this.requestService
-      .url('/api/acc/location/areas')
+      .url('/api/acc/location/favorite')
       .options({
         showLoading: false
       })
       .get()
-      .result.then((result: any[]) => {
+      .result.then((result: acc.gis.model.ILocation[]) => {
         this.$scope.areas = result;
         if (result.length > 0) {
           this.changeLocation(result[0]);
@@ -40,13 +40,13 @@ class Controller {
       });
   }
 
-  changeLocation(area) {
+  changeLocation(area: acc.gis.model.ILocation) {
     this.mapInstance.setView(
       {
-        lat: area.centerLat,
-        lng: area.centerLng
+        lat: area.properties.mapview.centerLat,
+        lng: area.properties.mapview.centerLng
       },
-      area.zoom,
+      area.properties.mapview.zoom,
       {
         animate: true
       }
@@ -66,4 +66,4 @@ class Controller {
   }
 }
 
-mod.controller('modules/acc/controllers/gisTools', Controller);
+mod.controller('modules/acc/components/gis/gisTools', Controller);

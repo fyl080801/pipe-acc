@@ -12,6 +12,9 @@
         <div class="col-md-4" ng-repeat="row in table.data">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <a href="" class="text-warning" ng-click="vm.setFavorite(row)">
+                        <i class="glyphicon" ng-class="{'glyphicon-star-empty': !row.favorite, 'glyphicon-star': row.favorite}"></i>
+                    </a>
                     <strong>
                         <span ng-bind="row.name"></span>
                     </strong>
@@ -26,7 +29,7 @@
                             删除
                         </a>
                     </div>
-                    <hr />
+                    <hr>
                     <p class="text-muted">{{row.description}}</p>
                 </div>
             </div>
