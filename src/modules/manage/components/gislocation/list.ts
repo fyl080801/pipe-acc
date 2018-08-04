@@ -84,6 +84,15 @@ class Controller {
     this.$state.go('master.gissettings', { id: row.id });
   }
 
+  setFavorite(row: acc.gis.model.ILocation) {
+    this.requestService
+      .url('/api/acc/location/favorite/' + row.id)
+      .patch()
+      .result.then((result: boolean) => {
+        row.favorite = result;
+      });
+  }
+
   drop(row) {
     this.popupService.confirm('是否删除？').ok(() => {
       this.requestService

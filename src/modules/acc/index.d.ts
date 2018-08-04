@@ -30,6 +30,26 @@ declare namespace acc {
       (controlOptions: IMapControlOptions): L.Control;
     }
   }
+
+  export namespace gis {
+    export namespace model {
+      interface ILocation {
+        id: number;
+        name: string;
+        favorite: boolean;
+        description: string;
+        properties: ILocationProperties;
+      }
+
+      interface ILocationProperties {
+        mapview: {
+          centerLng: number;
+          centerLat: number;
+          zoom: number;
+        };
+      }
+    }
+  }
 }
 
 export as namespace acc;
