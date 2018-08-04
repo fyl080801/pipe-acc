@@ -24,7 +24,7 @@
                 <div class="acc-container area">
                     <div class="map-area acc-container" ng-drop="true" ng-drop-success="vm.addEquipment($data, $event)"></div>
                 </div>
-                <div class="acc-container property" ng-include="'modules/acc/components/gisSettings/layers.html'"></div>
+                <div class="acc-container property" ng-include="'modules/acc/components/gisSettings/layers.html'" ng-controller="modules/acc/components/gisSettings/layers"></div>
             </div>
         </div>
     </div>
