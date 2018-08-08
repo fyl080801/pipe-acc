@@ -32,6 +32,12 @@ declare namespace acc {
   }
 
   export namespace gis {
+    interface IMapScope extends ng.IScope {
+      [key: string]: any;
+      model?: model.ILocation;
+      map: L.Map;
+    }
+
     export namespace model {
       interface ILocation {
         id: number;
@@ -41,12 +47,19 @@ declare namespace acc {
         properties: ILocationProperties;
       }
 
+      interface IMapLayer {
+        items: string[];
+        zIndex: number;
+        name: string;
+      }
+
       interface ILocationProperties {
         mapview: {
           centerLng: number;
           centerLat: number;
           zoom: number;
         };
+        layers: IMapLayer[];
       }
     }
   }

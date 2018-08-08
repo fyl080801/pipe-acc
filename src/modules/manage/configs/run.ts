@@ -27,6 +27,13 @@ class Config {
       requires: ['modules/manage/requires', 'modules/common/requires']
     });
 
+    $stateProvider.state('master.manage.equipmentCategory', {
+      url: '/equipmentCategory',
+      title: '设备类型管理',
+      templateUrl: 'modules/manage/components/equipment/categories.html',
+      requires: ['modules/manage/requires', 'modules/common/requires']
+    });
+
     $stateProvider.state('master.manage.equipment', {
       url: '/equipment',
       title: '设备管理',

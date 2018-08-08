@@ -1,6 +1,7 @@
 import mod = require('modules/manage/module');
 import angular = require('angular');
 import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields';
+import { DefaultFormTypes } from 'modules/common/configs/enums/defaultFormTypes';
 
 interface IListScope extends ng.IScope {
   vm: Controller;
@@ -49,6 +50,10 @@ class Controller {
               },
               cabinName: {
                 title: '所在舱室名',
+                type: 'string'
+              },
+              remark: {
+                title: '备注',
                 type: 'string'
               }
             },
@@ -99,6 +104,10 @@ class Controller {
                   ]
                 }
               ]
+            },
+            {
+              key: 'remark',
+              type: DefaultFormTypes.textarea
             }
           ],
           model: model

@@ -151,7 +151,13 @@ body {
 .nav-swiper.nav-swiper-success > li.active:after {
   background-color: #5cb85c;
 }
-/* table */
+dl.dl-settings dt {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+dl.dl-settings dd {
+  padding-left: 15px;
+}
 .acc-container {
   position: absolute;
   top: 0;

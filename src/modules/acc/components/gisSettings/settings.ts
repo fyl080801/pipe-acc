@@ -19,7 +19,7 @@ class Controller {
     'app/services/treeUtility'
   ];
   constructor(
-    private $scope,
+    private $scope: acc.gis.IMapScope,
     private $stateParams: ng.ui.IStateParamsService,
     private $element: JQLite,
     private $rootScope: ng.IRootScopeService,
@@ -31,7 +31,7 @@ class Controller {
     private treeUtility: app.services.ITreeUtility
   ) {
     $scope.vm = this;
-    $scope.model = {};
+    $scope.model = null;
     $scope.map = new MapBuilder(
       $($element)
         .find('.map-area')
@@ -81,9 +81,16 @@ class Controller {
   loadLocation() {
     this.requestService
       .url('/api/acc/location/' + this.$stateParams.id)
-      .get()
+      .get<acc.gis.model.ILocation>()
       .result.then(result => {
         this.$scope.model = result;
+        this._map.setView(
+          [
+            result.properties.mapview.centerLat,
+            result.properties.mapview.centerLng
+          ],
+          result.properties.mapview.zoom
+        );
       });
   }
 
@@ -92,30 +99,6 @@ class Controller {
       .url('/api/acc/location')
       .put(this.$scope.model)
       .result.then(result => {});
-  }
-
-  setLatLng() {
-    this.$modal
-      .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
-        size: 'sm',
-        scope: angular.extend(this.$rootScope.$new(), {
-          $data: angular.extend(
-            {
-              title: '区域名称',
-              model: {
-                centerLng: this._map.getCenter().lng,
-                centerLat: this._map.getCenter().lat,
-                zoom: this._map.getZoom()
-              }
-            },
-            mapview(this.schemaFormParams)
-          )
-        })
-      })
-      .result.then(data => {
-        this.$scope.model.properties.mapview = data;
-      });
   }
 
   // loadAreas() {

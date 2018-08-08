@@ -14,28 +14,18 @@
     <div nicescroll role="tabpanel" class="tab-pane acc-container active" style="overflow: auto" id="cus_views">
         <div class="panel-body">
             <div class="panel-group">
-                <!-- <div class="panel panel-default" ng-repeat="area in areas">
-                    <div class="panel-body" ng-class="{'bg-info': current.code===area.code}">
-                        <div class="form-group">
-                            <a href="" ng-click="vm.changeLocation(area)">{{area.name}}</a>
-                        </div>
-                        <div>
-                            <a href="" class="text-muted" ng-click="vm.renameArea(area)">
-                                <i class="glyphicon glyphicon-edit"></i>
-                                重命名
-                            </a>
-                            <a href="" class="text-muted" ng-click="vm.updateArea(area)">
-                                <i class="glyphicon glyphicon-map-marker"></i>
-                                更新坐标
-                            </a>
-                            <a href="" class="text-danger pull-right" ng-click="vm.deleteArea(area)">
+                <div class="panel panel-default" ng-class="{'panel-info': editingLayer.zIndex === $index}" ng-init="lay.zIndex=$index" ng-repeat="lay in model.properties.layers">
+                    <div class="panel-heading" ng-click="vm.selectLayer(lay)">
+                        <a href="">{{lay.name}}</a>
+                        <div class="pull-right">
+                            <a href="" class="text-danger" ng-click="vm.removeLayer($index)">
                                 <i class="glyphicon glyphicon-trash"></i>
                                 删除
                             </a>
                         </div>
                     </div>
-                </div> -->
-                <button class="panel btn btn-primary btn-group-justified">
+                </div>
+                <button class="panel btn btn-primary btn-group-justified" ng-click="vm.addLayer()">
                     <i class="glyphicon glyphicon-plus"></i>
                     创建图层
                 </button>
@@ -44,23 +34,60 @@
     </div>
     <div nicescroll role="tabpanel" class="tab-pane acc-container" style="overflow: auto" id="cus_pros">
         <div class="panel-body">
-            <dl>
+            <dl class="dl-settings">
                 <dt>
                     <i class="glyphicon glyphicon-th-list"></i>
                     基本信息
+                    <div class="pull-right">
+                        <a href="" ng-click="vm.setInfo()">
+                            <i class="fas fa-edit"></i>
+                            设置
+                        </a>
+                    </div>
                 </dt>
-                <dd>...</dd>
+                <dd>
+                    <div class="form-group">
+                        <label>名称</label>
+                        <div>{{model.name}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>描述</label>
+                        <p>{{model.description}}</p>
+                    </div>
+                    <!-- <form name="mapInfoForm" sf-schema="info.formParams.schema()" sf-form="info.form" sf-options="info.formParams.options()"
+                        sf-model="model"></form> -->
+                </dd>
             </dl>
-            <dl>
+            <dl class="dl-settings">
                 <dt>
                     <i class="glyphicon glyphicon-th-list"></i>
                     地理位置
-                    <a href="" class="pull-right" ng-click="vm.setLatLng()">
-                        <i class="fas fa-location-arrow"></i>
-                        设置
-                    </a>
+                    <div class="pull-right">
+                        <a href="" ng-click="vm.goLatLng()">
+                            <i class="fas fa-location-arrow"></i>
+                            定位
+                        </a>
+                        &nbsp;
+                        <a href="" ng-click="vm.setLatLng()">
+                            <i class="fas fa-edit"></i>
+                            设置
+                        </a>
+                    </div>
                 </dt>
-                <dd>...</dd>
+                <dd>
+                    <div class="form-group">
+                        <label>经度</label>
+                        <div>{{model.properties.mapview.centerLng}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>纬度</label>
+                        <div>{{model.properties.mapview.centerLat}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>缩放</label>
+                        <div>{{model.properties.mapview.zoom}}</div>
+                    </div>
+                </dd>
             </dl>
         </div>
     </div>
