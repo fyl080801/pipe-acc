@@ -10,31 +10,31 @@ class Controller {
     $scope.categories = [];
     $scope.cabins = [];
 
-    requestService
-      .url('/api/acc/equipment/category')
-      .options({
-        showLoading: false
-      })
-      .get()
-      .result.then((result: any) => {
-        $scope.categories =
-          result && result.children && result.children.length > 0
-            ? result.children
-            : [];
-      });
+    // requestService
+    //   .url('/api/acc/equipment/category')
+    //   .options({
+    //     showLoading: false
+    //   })
+    //   .get()
+    //   .result.then((result: any) => {
+    //     $scope.categories =
+    //       result && result.children && result.children.length > 0
+    //         ? result.children
+    //         : [];
+    //   });
 
-    requestService
-      .url('/api/acc/cabin')
-      .options({
-        showLoading: false
-      })
-      .get()
-      .result.then((result: any) => {
-        $scope.cabins =
-          result && result.children && result.children.length > 0
-            ? result.children
-            : [];
-      });
+    // requestService
+    //   .url('/api/acc/cabin')
+    //   .options({
+    //     showLoading: false
+    //   })
+    //   .get()
+    //   .result.then((result: any) => {
+    //     $scope.cabins =
+    //       result && result.children && result.children.length > 0
+    //         ? result.children
+    //         : [];
+    //   });
 
     // $scope.schema = {
     //   type: 'object',
