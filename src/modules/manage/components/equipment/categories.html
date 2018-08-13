@@ -1,1 +1,49 @@
-<div ng-controller="modules/manage/components/equipment/categories"></div>
+<div class="row" ng-controller="modules/manage/components/equipment/categories">
+    <div class="col-md-3">
+        <div class="panel panel-default" ng-init="vm.loadCategory()">
+            <div class="panel-heading">
+                分类
+            </div>
+            <div class="list-group">
+                <div class="list-group-item" href="" ng-class="{'list-group-item-info': currentCategory.id===cat.id}" ng-repeat="cat in categories">
+                    <a href="" ng-click="vm.selectCategory(cat)">{{cat.name}}</a>
+                    <a href="" class="text-danger pull-right">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        删除
+                    </a>
+                    <a href="" class="pull-right" ng-click="vm.editCategory(cat)">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        编辑
+                    </a>
+                </div>
+                <a class="list-group-item text-center" href="" ng-click="vm.addCategory()">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    添加
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <form class="form-inline" style="margin-bottom: 20px;">
+            <button class="btn btn-primary" ng-disabled="!currentCategory" ng-click="vm.addEquipmentType()">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加设备种类
+            </button>
+        </form>
+        <table ng-table class="table table-striped">
+            <tr ng-repeat="row in eqtypes">
+                <td title="'名称'">{{row.name}}</td>
+                <td title="'操作'">
+                    <a href="">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        编辑
+                    </a>
+                    <a href="" class="text-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        删除
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
