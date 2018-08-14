@@ -2,6 +2,7 @@ import mod = require('modules/manage/module');
 import angular = require('angular');
 import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields';
 import { DefaultFormTypes } from 'modules/common/configs/enums/defaultFormTypes';
+import { equipmentForm } from 'modules/manage/components/equipment/forms';
 
 interface IListScope extends ng.IScope {
   vm: Controller;
@@ -21,99 +22,20 @@ class Controller {
         delete model[n];
       }
     }
-    return this.$modal.open({
-      templateUrl: 'modules/common/templates/schemaConfirm.html',
-      scope: angular.extend(this.$rootScope.$new(), {
-        $data: {
+    return this.schemaPopup.confirm(
+      $.extend(
+        {
           title: '添加设备',
-          formParams: this.schemaFormParams({
-            properties: {
-              code: {
-                title: '设备编号',
-                type: 'string'
-              },
-              name: {
-                title: '设备名称',
-                type: 'string'
-              },
-              categoryCode: {
-                title: '类型',
-                type: 'string'
-              },
-              categoryName: {
-                title: '类型名',
-                type: 'string'
-              },
-              cabinCode: {
-                title: '所在舱室',
-                type: 'string'
-              },
-              cabinName: {
-                title: '所在舱室名',
-                type: 'string'
-              },
-              remark: {
-                title: '备注',
-                type: 'string'
-              }
-            },
-            required: ['code', 'name', 'categoryCode']
-          }),
-          form: [
-            'code',
-            'name',
-            {
-              type: 'section',
-              htmlClass: 'row',
-              items: [
-                {
-                  type: 'section',
-                  htmlClass: 'col-md-6',
-                  items: [
-                    {
-                      key: 'categoryCode',
-                      displayKey: 'categoryName',
-                      type: ExtendFormFields.actionField,
-                      action: (form, model) => {
-                        return this.$modal.open(this.categorySelector).result;
-                      },
-                      callback: (result, model) => {
-                        model.categoryCode = result.code;
-                        model.categoryName = result.name;
-                      }
-                    }
-                  ]
-                },
-                {
-                  type: 'section',
-                  htmlClass: 'col-md-6',
-                  items: [
-                    {
-                      key: 'cabinCode',
-                      displayKey: 'cabinName',
-                      type: ExtendFormFields.actionField,
-                      action: (form, model) => {
-                        this.$modal
-                          .open(this.cabinSelector)
-                          .result.then(data => {
-                            model.cabinCode = data.code;
-                            model.cabinName = data.name;
-                          });
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              key: 'remark',
-              type: DefaultFormTypes.textarea
-            }
-          ],
           model: model
-        }
-      })
-    }).result;
+        },
+        equipmentForm(
+          this.schemaFormParams,
+          this.$modal,
+          this.categorySelector,
+          this.cabinSelector
+        )
+      )
+    ).result;
   }
 
   static $inject = [
@@ -124,6 +46,7 @@ class Controller {
     'modules/common/factories/schemaFormParams',
     'modules/common/services/requestService',
     'modules/common/factories/ngTableRequest',
+    'modules/common/services/schemaPopup',
     'app/services/popupService'
   ];
   constructor(
@@ -134,6 +57,7 @@ class Controller {
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private requestService: common.services.IRequestService,
     private ngTableRequest: common.factories.INgTableRequestFactory,
+    private schemaPopup: common.services.ISchemaPopup,
     private popupService: app.services.IPopupService
   ) {
     this.categorySelector = {
@@ -142,10 +66,13 @@ class Controller {
       resolve: {
         listPromise: () => {
           return requestService
-            .url('/api/acc/equipment/category')
+            .url('/api/acc/equipment/allcategories')
             .get()
             .result.then(result => {
-              return result;
+              return {
+                key: 'equipmentTypes',
+                list: result
+              };
             });
         }
       }

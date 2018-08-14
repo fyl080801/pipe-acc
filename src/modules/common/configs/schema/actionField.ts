@@ -22,19 +22,58 @@ class Config {
     var sfField = sfBuilderProvider.builders.sfField;
     var condition = sfBuilderProvider.builders.condition;
 
-    var defaults = [sfField, ngModel, ngModelOptions, condition];
+    var defaults = [
+      sfField,
+      ngModel,
+      ngModelOptions,
+      condition,
+      args => {
+        if (!args.form.displayKey) {
+          return;
+        }
+        var key = args.form.displayKey;
+        var displayValue;
+        if (!args.state.modelValue) {
+          var strKey = sfPathProvider.stringify(key).replace(/"/g, '&quot;');
+          displayValue = args.state.modelName || 'model';
 
-    // var field = (name, schema, options) => {
-    //   if (schema.type === 'string' && schema.format == 'html') {
-    //     var f = schemaFormProvider.stdFormObj(name, schema, options);
-    //     f.key = options.path;
-    //     f.type = ExtendFormFields.actionField;
-    //     options.lookup[sfPathProvider.stringify(options.path)] = f;
-    //     return f;
-    //   }
-    // };
+          if (strKey) {
+            displayValue += (strKey[0] !== '[' ? '.' : '') + strKey;
+          }
+        } else {
+          displayValue = args.state.displayValue;
+        }
 
-    // schemaFormProvider.defaults.string.unshift(field);
+        var nodes = args.fieldFrag.querySelectorAll('[sf-field-display]');
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          var conf = n.getAttribute('sf-field-display');
+          if (!conf || conf === '') {
+            n.setAttribute('ng-model', displayValue);
+          } else if (conf === 'replaceAll') {
+            var attributes = n.attributes;
+            for (var j = 0; j < attributes.length; j++) {
+              if (
+                attributes[j].value &&
+                attributes[j].value.indexOf('$$name') !== -1
+              ) {
+                attributes[j].value = attributes[j].value.replace(
+                  /\$\$name\$\$/g,
+                  displayValue
+                );
+              }
+            }
+          } else {
+            var val = n.getAttribute(conf);
+            if (val && val.indexOf('$$name$$')) {
+              n.setAttribute(conf, val.replace(/\$\$name\$\$/g, displayValue));
+            } else {
+              n.setAttribute(conf, displayValue);
+            }
+          }
+        }
+      }
+    ];
 
     schemaFormDecoratorsProvider.defineAddOn(
       'bootstrapDecorator',

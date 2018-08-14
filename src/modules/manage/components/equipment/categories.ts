@@ -95,6 +95,18 @@ class Controller {
       });
   }
 
+  deleteCategory(cat, evt?: Event) {
+    this.popupService.confirm('是否删除？').ok(() => {
+      this.requestService
+        .url('/api/acc/equipment/categories/' + cat.id)
+        .drop()
+        .result.then(() => {
+          this.loadCategory();
+        });
+    });
+    if (evt) evt.stopPropagation();
+  }
+
   selectCategory(cat) {
     this.$scope.currentCategory = cat;
     this.requestService
@@ -129,6 +141,17 @@ class Controller {
             this.selectCategory(this.$scope.currentCategory);
           });
       });
+  }
+
+  deleteEquipmentType(row) {
+    this.popupService.confirm('是否删除？').ok(() => {
+      this.requestService
+        .url('/api/acc/equipment/types/' + row.id)
+        .drop()
+        .result.then(() => {
+          this.selectCategory(this.$scope.currentCategory);
+        });
+    });
   }
 }
 

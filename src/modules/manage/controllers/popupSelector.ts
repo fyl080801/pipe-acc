@@ -4,7 +4,8 @@ class Controller {
   static $inject = ['$scope', 'listPromise'];
   constructor(private $scope, private listPromise) {
     $scope.vm = this;
-    $scope.list = listPromise ? listPromise.children : [];
+    $scope.listPromise = listPromise;
+    $scope.list = listPromise ? listPromise.list : [];
   }
 
   select(item) {

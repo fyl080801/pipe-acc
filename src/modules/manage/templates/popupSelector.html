@@ -9,7 +9,7 @@
         <dl class="dl-horizontal" ng-repeat="cab in list">
             <dt>{{cab.name}}</dt>
             <dd>
-                <a href="" ng-click="vm.select(c)" ng-repeat="c in cab.children">
+                <a href="" ng-click="vm.select(c)" ng-repeat="c in cab[listPromise.key]">
                     <span class="label label-default">{{c.name}}</span>
                 </a>
             </dd>

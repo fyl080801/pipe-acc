@@ -60,6 +60,19 @@ declare namespace common {
       options(newOptions);
       table(newParams?, newSettings?);
     }
+
+    interface ISchemaPopupOptions {
+      title: string;
+      model: any;
+      formParams: ISchemaFormParams;
+      form: any[];
+    }
+
+    interface ISchemaPopup {
+      confirm(
+        options: ISchemaPopupOptions
+      ): ng.ui.bootstrap.IModalInstanceService;
+    }
   }
 
   export namespace table {
