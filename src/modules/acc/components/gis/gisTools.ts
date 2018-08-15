@@ -1,4 +1,9 @@
 import mod = require('modules/acc/module');
+import { ToolsEvents } from 'modules/acc/components/gis/indexEvents';
+
+interface Scope extends ng.IScope {
+  [key: string]: any;
+}
 
 class Controller {
   static $inject = [
@@ -9,7 +14,7 @@ class Controller {
     'modules/common/services/requestService'
   ];
   constructor(
-    private $scope,
+    private $scope: Scope,
     private $modal: ng.ui.bootstrap.IModalService,
     private $state: ng.ui.IStateService,
     private mapInstance: L.Map,
@@ -51,6 +56,8 @@ class Controller {
         animate: true
       }
     );
+
+    this.$scope.$emit(ToolsEvents.LoactionChanged, area);
   }
 
   // 过滤设备

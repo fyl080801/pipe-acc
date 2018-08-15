@@ -2,6 +2,7 @@ import mod = require('modules/acc/module');
 import angular = require('angular');
 import { mapview, layerform } from 'modules/acc/components/gisSettings/forms';
 import { DefaultFormTypes } from 'modules/common/configs/enums/defaultFormTypes';
+import { LayerEvents } from 'modules/acc/components/gisSettings/editorEvents';
 
 class Controller {
   static $inject = [
@@ -10,6 +11,7 @@ class Controller {
     '$q',
     '$rootScope',
     'modules/common/factories/schemaFormParams',
+    'modules/common/services/utility',
     'app/services/popupService'
   ];
   constructor(
@@ -18,6 +20,7 @@ class Controller {
     private $q: ng.IQService,
     private $rootScope: ng.IRootScopeService,
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
+    private utility: common.services.IUtility,
     private popupService: app.services.IPopupService
   ) {
     $scope.vm = this;
@@ -65,6 +68,11 @@ class Controller {
   }
 
   goLatLng() {
+    if (!this.$scope.map) {
+      this.popupService.information('地图未初始化');
+      return;
+    }
+
     this.$scope.map.setView(
       [
         this.$scope.model.properties.mapview.centerLat,
@@ -75,6 +83,11 @@ class Controller {
   }
 
   setLatLng() {
+    if (!this.$scope.map) {
+      this.popupService.information('地图未初始化');
+      return;
+    }
+
     this.$modal
       .open({
         templateUrl: 'modules/common/templates/schemaConfirm.html',
@@ -102,17 +115,22 @@ class Controller {
     this.$scope.model.properties.layers =
       this.$scope.model.properties.layers || [];
     var idx = this.$scope.model.properties.layers.length + 1;
-    this.$scope.model.properties.layers.push({
+    var layer = {
       items: [],
       name: '新图层 ' + idx,
-      zIndex: idx
-    });
+      uuid: this.utility.uuid()
+    };
+    this.$scope.model.properties.layers.push(layer);
+    this.$scope.$emit(LayerEvents.LayerAdded, layer);
   }
 
   removeLayer(idx) {
     var defer = this.$q.defer();
     defer.promise.then(() => {
-      this.$scope.model.properties.layers.splice(idx, 1);
+      this.$scope.$emit(
+        LayerEvents.LayerAdded,
+        this.$scope.model.properties.layers.splice(idx, 1)[0]
+      );
     });
 
     if (this.$scope.model.properties.layers[idx].items.length > 0) {
@@ -126,6 +144,7 @@ class Controller {
 
   selectLayer(lay) {
     this.$scope.editingLayer = lay;
+    this.$scope.$emit(LayerEvents.LayerChanged, lay);
   }
 }
 

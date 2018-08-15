@@ -3,9 +3,13 @@ import angular = require('angular');
 import L = require('leaflet');
 import { mapview, layerform } from 'modules/acc/components/gisSettings/forms';
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
+import {
+  EditorEvents,
+  LayerEvents,
+  MapEvents
+} from 'modules/acc/components/gisSettings/editorEvents';
 
 class Controller {
-  private _map: L.Map;
   static $inject = [
     '$scope',
     '$stateParams',
@@ -32,65 +36,37 @@ class Controller {
   ) {
     $scope.vm = this;
     $scope.model = null;
-    $scope.map = new MapBuilder(
-      $($element)
-        .find('.map-area')
-        .get(0)
-    ).map();
+    $scope.map = null;
 
-    this._map = $scope.map;
+    $scope.$on(LayerEvents.LayerAdded, (evt, val) => {
+      $scope.$broadcast(EditorEvents.LayerAdded, val);
+    });
 
-    // $scope.categories = [];
-    // $scope.areas = [];
-    // $scope.current = null;
-    // $scope.equipments = [];
-    // $scope.categoryText = null;
-    // $scope.categoryCode = null;
+    $scope.$on(LayerEvents.LayerRemoved, (evt, val) => {
+      $scope.$broadcast(EditorEvents.LayerRemoved, val);
+    });
 
-    // $scope.currentlayers = L.layerGroup().addTo($scope.map);
-    // $scope.categoryTable = ngTableRequest({
-    //   url: '/api/acc/equipment/query',
-    //   showLoading: false,
-    //   data: {
-    //     categoryCode: $scope.categoryCode
-    //   }
-    // }).table();
-    //
-    // requestService
-    //   .url('/api/acc/equipment/category')
-    //   .options({
-    //     showLoading: false
-    //   })
-    //   .get()
-    //   .result.then((result: any) => {
-    //     treeUtility
-    //       .resolveTree({
-    //         children:
-    //           result && result.children && result.children.length > 0
-    //             ? result.children
-    //             : []
-    //       })
-    //       .key('code')
-    //       .childrenKey('children')
-    //       .result.then(tree => {
-    //         $scope.categories = tree.$children;
-    //       });
-    //   });
+    $scope.$on(LayerEvents.LayerChanged, (evt, val) => {
+      $scope.$broadcast(EditorEvents.LayerChanged, val);
+    });
+
+    $scope.$on(MapEvents.PointerAdded, (evt, item, layer) => {
+      //$scope.model.properties.
+    });
+
+    $scope.$on(MapEvents.MapReady, (evt, map) => {
+      $scope.map = map;
+    });
   }
 
   loadLocation() {
     this.requestService
       .url('/api/acc/location/' + this.$stateParams.id)
+      .options({ showLoading: false })
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
         this.$scope.model = result;
-        this._map.setView(
-          [
-            result.properties.mapview.centerLat,
-            result.properties.mapview.centerLng
-          ],
-          result.properties.mapview.zoom
-        );
+        this.$scope.$broadcast(EditorEvents.ModelLoaded, result);
       });
   }
 
@@ -100,114 +76,6 @@ class Controller {
       .put(this.$scope.model)
       .result.then(result => {});
   }
-
-  // loadAreas() {
-  //   this.requestService
-  //     .url('/api/acc/location/areas')
-  //     .options({
-  //       showLoading: false
-  //     })
-  //     .get()
-  //     .result.then(result => {
-  //       this.$scope.areas = result;
-  //     });
-  // }
-
-  // loadEquipments() {
-  //   this.requestService
-  //     .url('/api/acc/equipment/category/' + this.$scope.categoryCode)
-  //     .options({
-  //       showLoading: false
-  //     })
-  //     .get()
-  //     .result.then(result => {
-  //       this.$scope.equipments = result;
-  //     });
-  // }
-
-  // selectCategory(cate: app.services.ITreeItem<any>) {
-  //   this.$scope.categoryName = cate.$data.name;
-  //   var findParent = (c: app.services.ITreeItem<any>) => {
-  //     this.$scope.categoryName =
-  //       c.$data.name + ' / ' + this.$scope.categoryName;
-  //     if (c.$parent && c.$parent.$parent) {
-  //       findParent(c.$parent);
-  //     }
-  //   };
-  //   findParent(cate.$parent);
-  //   this.$scope.categoryCode = cate.$data.code;
-  //   this.loadEquipments();
-  // }
-
-  // changeLocation(area) {
-  //   this._map.setView(
-  //     {
-  //       lat: area.centerLat,
-  //       lng: area.centerLng
-  //     },
-  //     area.zoom,
-  //     {
-  //       animate: true
-  //     }
-  //   );
-  //   this.$scope.current = area;
-  // }
-
-  // updateArea(area) {
-  //   this.popupService.confirm('是否用新位置和缩放替换原有？').ok(() => {
-  //     area.centerLng = this._map.getCenter().lng;
-  //     area.centerLat = this._map.getCenter().lat;
-  //     area.zoom = this._map.getZoom();
-  //     this.requestService.url('/api/acc/location/areas').post(area);
-  //   });
-  // }
-
-  // renameArea(area) {
-  //   this.$modal
-  //     .open({
-  //       templateUrl: 'modules/common/templates/schemaConfirm.html',
-  //       size: 'sm',
-  //       scope: angular.extend(this.$rootScope.$new(), {
-  //         $data: {
-  //           title: '重命名',
-  //           formParams: this.schemaFormParams({
-  //             properties: {
-  //               name: {
-  //                 title: '区域名称',
-  //                 type: 'string',
-  //                 required: true
-  //               }
-  //             }
-  //           }),
-  //           form: ['name'],
-  //           model: {
-  //             name: area.name
-  //           }
-  //         }
-  //       })
-  //     })
-  //     .result.then(data => {
-  //       area.name = data.name;
-  //       this.requestService.url('/api/acc/location/areas').post(area);
-  //     });
-  // }
-
-  // deleteArea(area) {
-  //   this.popupService.confirm('是否删除？').ok(() => {
-  //     this.requestService
-  //       .url('/api/acc/location/areas/' + area.code)
-  //       .drop()
-  //       .result.then(() => {
-  //         this.loadAreas();
-  //       });
-  //   });
-  // }
-
-  // addEquipment(data, e) {
-  //   L.marker(this._map.mouseEventToLatLng(e.event), {
-  //     draggable: true
-  //   }).addTo(this.$scope.currentlayers);
-  // }
 }
 
 mod.controller('modules/acc/components/gisSettings/settings', Controller);

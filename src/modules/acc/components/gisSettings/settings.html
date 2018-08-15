@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div class="acc-container" style="margin-top: 50px">
-                <div class="acc-container tools" ng-include="'modules/acc/components/gisSettings/toolbox.html'"></div>
-                <div class="acc-container area">
+                <div class="acc-container tools" ng-include="'modules/acc/components/gisSettings/toolbox.html'" ng-controller="modules/acc/components/gisSettings/toolbox"></div>
+                <div class="acc-container area" ng-controller="modules/acc/components/gisSettings/map">
                     <div class="map-area acc-container" ng-drop="true" ng-drop-success="vm.addEquipment($data, $event)"></div>
                 </div>
                 <div class="acc-container property" ng-include="'modules/acc/components/gisSettings/layers.html'" ng-controller="modules/acc/components/gisSettings/layers"></div>

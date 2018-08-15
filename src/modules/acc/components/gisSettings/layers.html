@@ -14,7 +14,7 @@
     <div nicescroll role="tabpanel" class="tab-pane acc-container active" style="overflow: auto" id="cus_views">
         <div class="panel-body">
             <div class="panel-group">
-                <div class="panel panel-default" ng-class="{'panel-info': editingLayer.zIndex === $index}" ng-init="lay.zIndex=$index" ng-repeat="lay in model.properties.layers">
+                <div class="panel panel-default" ng-class="{'panel-info': editingLayer.uuid === lay.uuid}" ng-repeat="lay in model.properties.layers">
                     <div class="panel-heading" ng-click="vm.selectLayer(lay)">
                         <a href="">{{lay.name}}</a>
                         <div class="pull-right">

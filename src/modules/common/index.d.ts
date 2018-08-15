@@ -19,6 +19,11 @@ declare namespace common {
   }
 
   export namespace services {
+    interface IUtility {
+      uuid(): string;
+      guid(): string;
+    }
+
     interface IRequestService {
       url(url: string): IWebApiContext;
     }

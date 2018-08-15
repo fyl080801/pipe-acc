@@ -48,8 +48,8 @@ declare namespace acc {
       }
 
       interface IMapLayer {
-        items: string[];
-        zIndex: number;
+        items: IMapItem[];
+        uuid: string;
         name: string;
       }
 
@@ -60,6 +60,12 @@ declare namespace acc {
           zoom: number;
         };
         layers: IMapLayer[];
+      }
+
+      interface IMapItem {
+        type: 'equipment' | 'vectorgraph';
+        latlng: { lat: number; lng: number };
+        identity: number | string;
       }
     }
   }
