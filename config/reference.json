@@ -22,7 +22,7 @@
   },
   "leaflet": {
     "css": ["./bower_components/leaflet/dist/leaflet.css"],
-    "js/images": ["./bower_components/leaflet/dist/images/*"]
+    "css/images": ["./bower_components/leaflet/dist/images/*"]
   },
   "jexcel": {
     "css": ["./node_modules/jexcel/dist/css/*"]
