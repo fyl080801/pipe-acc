@@ -68,6 +68,7 @@ class Controller {
     $scope.$on(MapEvents.NoLayer, evt => {
       if (!$scope.vmLayer) return;
 
+      $scope.model.properties.layers = $scope.model.properties.layers || [];
       if ($scope.model.properties.layers.length <= 0) {
         $scope.vmLayer.addLayer();
       } else {
