@@ -1,7 +1,7 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
 import L = require('leaflet');
-import { mapview, layerform } from 'modules/acc/components/gisSettings/forms';
+import { mapview } from 'modules/acc/components/gisSettings/forms';
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
 import {
   EditorEvents,
@@ -35,8 +35,14 @@ class Controller {
     private treeUtility: app.services.ITreeUtility
   ) {
     $scope.vm = this;
+    $scope.vmLayer = null;
+    $scope.vmMap = null;
     $scope.model = null;
     $scope.map = null;
+
+    $scope.$on(LayerEvents.LayerInit, (evt, ctl) => {
+      $scope.vmLayer = ctl;
+    });
 
     $scope.$on(LayerEvents.LayerAdded, (evt, val) => {
       $scope.$broadcast(EditorEvents.LayerAdded, val);
@@ -54,8 +60,19 @@ class Controller {
       //$scope.model.properties.
     });
 
-    $scope.$on(MapEvents.MapReady, (evt, map) => {
-      $scope.map = map;
+    $scope.$on(MapEvents.MapInit, (evt, map) => {
+      $scope.vmMap = map;
+      $scope.map = map.getMap();
+    });
+
+    $scope.$on(MapEvents.NoLayer, evt => {
+      if (!$scope.vmLayer) return;
+
+      if ($scope.model.properties.layers.length <= 0) {
+        $scope.vmLayer.addLayer();
+      } else {
+        $scope.vmLayer.selectLayer($scope.model.properties.layers[0]);
+      }
     });
   }
 

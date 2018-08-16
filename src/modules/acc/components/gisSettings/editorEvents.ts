@@ -8,7 +8,8 @@ export enum EditorEvents {
 export enum LayerEvents {
   LayerAdded = '$onLayerAdded',
   LayerRemoved = '$onLayerRemoved',
-  LayerChanged = '$onLayerChanged'
+  LayerChanged = '$onLayerChanged',
+  LayerInit = '$onLayerInit'
 }
 
 export enum MapEvents {
@@ -16,5 +17,6 @@ export enum MapEvents {
   PointerMoved = '$onPointerMoved',
   PointerRemoved = '$onPointerRemoved',
   PointerChanged = '$onPointerChanged',
-  MapReady = '$onMapReady'
+  MapInit = '$onMapInit',
+  NoLayer = '$onNoLayer'
 }

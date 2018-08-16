@@ -1,7 +1,6 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
-import { mapview, layerform } from 'modules/acc/components/gisSettings/forms';
-import { DefaultFormTypes } from 'modules/common/configs/enums/defaultFormTypes';
+import { mapview, infoform } from 'modules/acc/components/gisSettings/forms';
 import { LayerEvents } from 'modules/acc/components/gisSettings/editorEvents';
 
 class Controller {
@@ -12,6 +11,7 @@ class Controller {
     '$rootScope',
     'modules/common/factories/schemaFormParams',
     'modules/common/services/utility',
+    'modules/common/services/schemaPopup',
     'app/services/popupService'
   ];
   constructor(
@@ -21,46 +21,29 @@ class Controller {
     private $rootScope: ng.IRootScopeService,
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private utility: common.services.IUtility,
+    private schemaPopup: common.services.ISchemaPopup,
     private popupService: app.services.IPopupService
   ) {
     $scope.vm = this;
     $scope.editingLayer = null;
+
+    $scope.$emit(LayerEvents.LayerInit, this);
   }
 
   setInfo() {
-    this.$modal
-      .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
-        scope: angular.extend(this.$rootScope.$new(), {
-          $data: {
+    this.schemaPopup
+      .confirm(
+        $.extend(
+          {
             title: '区域名称',
-            formParams: this.schemaFormParams({
-              properties: {
-                name: {
-                  title: '名称',
-                  type: 'string',
-                  required: true
-                },
-                description: {
-                  title: '说明',
-                  type: 'string'
-                }
-              }
-            }),
-            form: [
-              'name',
-              {
-                key: 'description',
-                type: DefaultFormTypes.textarea
-              }
-            ],
             model: {
               name: this.$scope.model.name,
               description: this.$scope.model.description
             }
-          }
-        })
-      })
+          },
+          infoform(this.schemaFormParams)
+        )
+      )
       .result.then(data => {
         this.$scope.model.name = data.name;
         this.$scope.model.description = data.description;
@@ -122,6 +105,10 @@ class Controller {
     };
     this.$scope.model.properties.layers.push(layer);
     this.$scope.$emit(LayerEvents.LayerAdded, layer);
+
+    if (this.$scope.model.properties.layers.length === 1) {
+      this.selectLayer(this.$scope.model.properties.layers[0]);
+    }
   }
 
   removeLayer(idx) {

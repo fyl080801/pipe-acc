@@ -1,7 +1,7 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
 import L = require('leaflet');
-import { mapview, layerform } from 'modules/acc/components/gisSettings/forms';
+import { mapview } from 'modules/acc/components/gisSettings/forms';
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
 import {
   EditorEvents,
@@ -16,12 +16,13 @@ interface Scope extends ng.IScope {
 class Controller {
   private _map: L.Map;
   private _editingLayer: L.LayerGroup<any>;
+  private _reayToAdd: any;
 
   private _addPointer(
     mapItem: acc.gis.model.IMapItem,
     layer: L.LayerGroup<any>
   ) {
-    L.marker(mapItem.latlng, {
+    return L.marker(mapItem.latlng, {
       draggable: true
     })
       .on('moveend ', evt => {
@@ -49,13 +50,15 @@ class Controller {
     $scope.$on(
       EditorEvents.ModelLoaded,
       (evt, model: acc.gis.model.ILocation) => {
-        $scope.map.setView(
-          [
-            model.properties.mapview.centerLat,
-            model.properties.mapview.centerLng
-          ],
-          model.properties.mapview.zoom
-        );
+        if (model.properties.mapview) {
+          $scope.map.setView(
+            [
+              model.properties.mapview.centerLat,
+              model.properties.mapview.centerLng
+            ],
+            model.properties.mapview.zoom
+          );
+        }
 
         angular.forEach(model.properties.layers, (layer, idx) => {
           $scope.layers[layer.uuid] = L.layerGroup().addTo($scope.map);
@@ -77,30 +80,48 @@ class Controller {
     $scope.$on(EditorEvents.LayerChanged, (evt, layer) => {
       this.$scope.editingLayer = layer;
       this._editingLayer = $scope.layers[layer.uuid];
+
+      if (this._reayToAdd) {
+        this.addEquipment(this._reayToAdd);
+        this._reayToAdd = null;
+      }
     });
 
-    $scope.$emit(MapEvents.MapReady, this._map);
+    $scope.$emit(MapEvents.MapInit, this);
   }
 
-  addEquipment(data, e) {
-    if (this._editingLayer) {
+  getMap() {
+    return this._map;
+  }
+
+  addEquipment(data, e?) {
+    let mapItem: acc.gis.model.IMapItem;
+    if (e) {
       var latlng = this._map.mouseEventToLatLng(e.event);
-      var mapItem: acc.gis.model.IMapItem = {
+      mapItem = {
         identity: data.id,
         latlng: { lat: latlng.lat, lng: latlng.lng },
         type: 'equipment'
       };
-
-      this.$scope.editingLayer.items.push(mapItem);
-
-      this._addPointer(mapItem, this._editingLayer);
-
-      this.$scope.$emit(
-        MapEvents.PointerAdded,
-        mapItem,
-        this.$scope.editingLayer
-      );
+    } else {
+      mapItem = data;
     }
+
+    if (!this._editingLayer) {
+      this._reayToAdd = mapItem;
+      this.$scope.$emit(MapEvents.NoLayer);
+      return;
+    }
+
+    this.$scope.editingLayer.items.push(mapItem);
+
+    this._addPointer(mapItem, this._editingLayer);
+
+    this.$scope.$emit(
+      MapEvents.PointerAdded,
+      mapItem,
+      this.$scope.editingLayer
+    );
   }
 
   // 从contextMenu触发
