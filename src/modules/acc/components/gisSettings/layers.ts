@@ -115,7 +115,7 @@ class Controller {
     var defer = this.$q.defer();
     defer.promise.then(() => {
       this.$scope.$emit(
-        LayerEvents.LayerAdded,
+        LayerEvents.LayerRemoved,
         this.$scope.model.properties.layers.splice(idx, 1)[0]
       );
     });

@@ -10,9 +10,46 @@
         </a>
     </li>
 </ul>
-<div class="tab-content acc-container" style="margin-top: 40px">
-    <div nicescroll role="tabpanel" class="tab-pane acc-container active" style="overflow: auto" id="cus_views">
-        <div class="panel-body">
+<div class="tab-content acc-container" style="margin-top: 41px">
+    <div role="tabpanel" class="tab-pane acc-container active" style="overflow: auto" id="cus_views">
+        <div class="navbar navbar-default navbar-xs navbar-static-top">
+            <div class="navbar-header">
+                <div class="navbar-form">
+                    <div class="btn-group dropdown">
+                        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="" ng-click="vm.addLayer()">图层</a>
+                            </li>
+                            <li>
+                                <a href="">geojson</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nicescroll class="acc-container" style="margin-top: 40px">
+            <div class="panel-body">
+                <div class="panel-group">
+                    <div class="panel panel-default" ng-class="{'panel-info': editingLayer.uuid === lay.uuid}" ng-repeat="lay in model.properties.layers">
+                        <div class="panel-heading" ng-click="vm.selectLayer(lay)">
+                            <a href="">{{lay.name}}</a>
+                            <div class="pull-right">
+                                <a href="" class="text-danger" ng-click="vm.removeLayer($index)">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    删除
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="panel-body">
             <div class="panel-group">
                 <div class="panel panel-default" ng-class="{'panel-info': editingLayer.uuid === lay.uuid}" ng-repeat="lay in model.properties.layers">
                     <div class="panel-heading" ng-click="vm.selectLayer(lay)">
@@ -25,12 +62,20 @@
                         </div>
                     </div>
                 </div>
-                <button class="panel btn btn-primary btn-group-justified" ng-click="vm.addLayer()">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    创建图层
-                </button>
+
+                <div class="panel btn-group btn-group-justified">
+                    <button class="btn btn-primary" ng-click="vm.addLayer()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        创建图层
+                    </button>
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                    </button>
+
+                </div>
+
             </div>
-        </div>
+        </div> -->
     </div>
     <div nicescroll role="tabpanel" class="tab-pane acc-container" style="overflow: auto" id="cus_pros">
         <div class="panel-body">

@@ -74,6 +74,7 @@ class Controller {
     });
 
     $scope.$on(EditorEvents.LayerRemoved, (evt, layer) => {
+      $scope.layers[layer.uuid].remove();
       delete $scope.layers[layer.uuid];
     });
 

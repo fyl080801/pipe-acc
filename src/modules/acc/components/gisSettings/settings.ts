@@ -92,8 +92,12 @@ class Controller {
     this.requestService
       .url('/api/acc/location')
       .put(this.$scope.model)
-      .result.then(result => {});
+      .result.then(result => {
+        this.popupService.information('保存成功');
+      });
   }
+
+  addGeoJson() {}
 }
 
 mod.controller('modules/acc/components/gisSettings/settings', Controller);
