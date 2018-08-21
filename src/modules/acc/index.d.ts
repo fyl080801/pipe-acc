@@ -8,6 +8,17 @@ declare namespace acc {
     }
   }
 
+  export namespace services {
+    // interface ILayerStore {
+    //   [key: string]: any | acc.gis.model.IMapLayer;
+    // }
+
+    interface ILayerStore {
+      add(layer: acc.gis.model.IMapLayer);
+      remove(uuid: string);
+    }
+  }
+
   export namespace factories {
     /**
      *
@@ -29,6 +40,13 @@ declare namespace acc {
     interface IMapLayerFactory {
       (controlOptions: IMapControlOptions): L.Control;
     }
+
+    /**
+     *
+     */
+    interface ILayerStoreFactory {
+      (layers: acc.gis.model.IMapLayer[], map: L.Map): services.ILayerStore;
+    }
   }
 
   export namespace gis {
@@ -36,6 +54,12 @@ declare namespace acc {
       [key: string]: any;
       model?: model.ILocation;
       map: L.Map;
+    }
+
+    interface IMapLayerEntity {
+      layer: model.IMapLayer;
+      entity: L.Layer;
+      trigger(evt: string);
     }
 
     export namespace model {
@@ -48,9 +72,22 @@ declare namespace acc {
       }
 
       interface IMapLayer {
-        items: IMapItem[];
+        type: 'group' | 'markers' | 'tileLayer' | 'geoJson';
         uuid: string;
         name: string;
+      }
+
+      interface ILayerGroup extends IMapLayer, services.ILayerStore {
+        children: IMapLayer[];
+      }
+
+      interface IMarkerLayer extends IMapLayer {
+        items: IMapItem[];
+      }
+
+      interface ITileLayer extends IMapLayer {
+        source: string;
+        options: L.TileLayerOptions;
       }
 
       interface ILocationProperties {

@@ -38,7 +38,8 @@ class Controller {
     $scope.map = new MapBuilder(
       $($element)
         .find('.map-area')
-        .get(0)
+        .get(0),
+      { maxZoom: 18 }
     ).map();
 
     $scope.layers = {};
@@ -47,27 +48,27 @@ class Controller {
 
     this._map = $scope.map;
 
-    $scope.$on(
-      EditorEvents.ModelLoaded,
-      (evt, model: acc.gis.model.ILocation) => {
-        if (model.properties.mapview) {
-          $scope.map.setView(
-            [
-              model.properties.mapview.centerLat,
-              model.properties.mapview.centerLng
-            ],
-            model.properties.mapview.zoom
-          );
-        }
+    // $scope.$on(
+    //   EditorEvents.ModelLoaded,
+    //   (evt, model: acc.gis.model.ILocation) => {
+    //     if (model.properties.mapview) {
+    //       $scope.map.setView(
+    //         [
+    //           model.properties.mapview.centerLat,
+    //           model.properties.mapview.centerLng
+    //         ],
+    //         model.properties.mapview.zoom
+    //       );
+    //     }
 
-        angular.forEach(model.properties.layers, (layer, idx) => {
-          $scope.layers[layer.uuid] = L.layerGroup().addTo($scope.map);
-          angular.forEach(layer.items, (item, idx) => {
-            this._addPointer(item, $scope.layers[layer.uuid]);
-          });
-        });
-      }
-    );
+    //     angular.forEach(model.properties.layers, (layer, idx) => {
+    //       $scope.layers[layer.uuid] = L.layerGroup().addTo($scope.map);
+    //       angular.forEach(layer.items, (item, idx) => {
+    //         this._addPointer(item, $scope.layers[layer.uuid]);
+    //       });
+    //     });
+    //   }
+    // );
 
     $scope.$on(EditorEvents.LayerAdded, (evt, layer) => {
       $scope.layers[layer.uuid] = L.layerGroup().addTo($scope.map);
@@ -114,7 +115,7 @@ class Controller {
       return;
     }
 
-    this.$scope.editingLayer.items.push(mapItem);
+    //this.$scope.editingLayer.items.push(mapItem);
 
     this._addPointer(mapItem, this._editingLayer);
 

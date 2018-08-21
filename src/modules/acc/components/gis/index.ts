@@ -38,21 +38,21 @@ class Controller {
         .get(0)
     ).map();
 
-    $scope.$on(
-      ToolsEvents.LoactionChanged,
-      (evt, val: acc.gis.model.ILocation) => {
-        angular.forEach(this._layers, (item, idx) => {
-          item.remove();
-        });
-        angular.forEach(val.properties.layers, (layer, idx) => {
-          var newLayer = L.layerGroup().addTo($scope.map);
-          this._layers.push(newLayer);
-          angular.forEach(layer.items, (item, idx) => {
-            this._addPointer(item, newLayer);
-          });
-        });
-      }
-    );
+    // $scope.$on(
+    //   ToolsEvents.LoactionChanged,
+    //   (evt, val: acc.gis.model.ILocation) => {
+    //     angular.forEach(this._layers, (item, idx) => {
+    //       item.remove();
+    //     });
+    //     angular.forEach(val.properties.layers, (layer, idx) => {
+    //       var newLayer = L.layerGroup().addTo($scope.map);
+    //       this._layers.push(newLayer);
+    //       angular.forEach(layer.items, (item, idx) => {
+    //         this._addPointer(item, newLayer);
+    //       });
+    //     });
+    //   }
+    // );
 
     this._map = $scope.map;
     this._layers = [];

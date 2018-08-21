@@ -10,9 +10,13 @@ import {
 } from 'modules/acc/components/gisSettings/editorEvents';
 
 class Controller {
+  private _mapDefer: ng.IDeferred<any>;
+  private _modelDefer: ng.IDeferred<any>;
+
   static $inject = [
     '$scope',
     '$stateParams',
+    '$q',
     '$element',
     '$rootScope',
     '$modal',
@@ -20,11 +24,13 @@ class Controller {
     'modules/common/factories/schemaFormParams',
     'modules/common/factories/ngTableRequest',
     'app/services/popupService',
-    'app/services/treeUtility'
+    'app/services/treeUtility',
+    'modules/acc/components/gisSettings/builder/layerStore'
   ];
   constructor(
     private $scope: acc.gis.IMapScope,
     private $stateParams: ng.ui.IStateParamsService,
+    private $q: ng.IQService,
     private $element: JQLite,
     private $rootScope: ng.IRootScopeService,
     private $modal: ng.ui.bootstrap.IModalService,
@@ -32,13 +38,25 @@ class Controller {
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private ngTableRequest: common.factories.INgTableRequestFactory,
     private popupService: app.services.IPopupService,
-    private treeUtility: app.services.ITreeUtility
+    private treeUtility: app.services.ITreeUtility,
+    private layerStore: acc.factories.ILayerStoreFactory
   ) {
     $scope.vm = this;
     $scope.vmLayer = null;
     $scope.vmMap = null;
     $scope.model = null;
     $scope.map = null;
+    $scope.layerStore = null;
+
+    this._mapDefer = $q.defer();
+    this._modelDefer = $q.defer();
+
+    $q.all({ map: this._mapDefer, model: this._modelDefer }).then(result => {
+      $scope.layerStore = layerStore(
+        this.$scope.model.properties.layers,
+        $scope.map
+      );
+    });
 
     $scope.$on(LayerEvents.LayerInit, (evt, ctl) => {
       $scope.vmLayer = ctl;
@@ -63,6 +81,7 @@ class Controller {
     $scope.$on(MapEvents.MapInit, (evt, map) => {
       $scope.vmMap = map;
       $scope.map = map.getMap();
+      this._mapDefer.resolve();
     });
 
     $scope.$on(MapEvents.NoLayer, evt => {
@@ -84,6 +103,7 @@ class Controller {
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
         this.$scope.model = result;
+        this._modelDefer.resolve();
         this.$scope.$broadcast(EditorEvents.ModelLoaded, result);
       });
   }

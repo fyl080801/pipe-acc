@@ -39,20 +39,21 @@ export class MapBuilder implements acc.extend.IMapBuilder {
       element,
       angular.extend(
         this._defaults,
-        {
-          crs: crs
-        },
+        // {
+        //   crs: crs
+        // },
         options
       )
     );
 
-    new L.TileLayer(
-      'http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl&udt=20150518',
+    L.tileLayer(
+      'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', //'http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl&udt=20150518',
       {
-        maxZoom: 18,
-        minZoom: 3,
-        subdomains: ['0', '1', '2'],
-        tms: true
+        opacity: 1.0
+        // maxZoom: 19,
+        // minZoom: 3,
+        // subdomains: ['0', '1', '2'],
+        // tms: true
       }
     ).addTo(this._map);
 

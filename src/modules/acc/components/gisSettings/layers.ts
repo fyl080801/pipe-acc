@@ -94,40 +94,40 @@ class Controller {
       });
   }
 
-  addLayer() {
-    this.$scope.model.properties.layers =
-      this.$scope.model.properties.layers || [];
-    var idx = this.$scope.model.properties.layers.length + 1;
-    var layer = {
-      items: [],
-      name: '新图层 ' + idx,
-      uuid: this.utility.uuid()
-    };
-    this.$scope.model.properties.layers.push(layer);
-    this.$scope.$emit(LayerEvents.LayerAdded, layer);
+  // addLayer() {
+  //   this.$scope.model.properties.layers =
+  //     this.$scope.model.properties.layers || [];
+  //   var idx = this.$scope.model.properties.layers.length + 1;
+  //   var layer = {
+  //     items: [],
+  //     name: '新图层 ' + idx,
+  //     uuid: this.utility.uuid()
+  //   };
+  //   this.$scope.model.properties.layers.push(layer);
+  //   this.$scope.$emit(LayerEvents.LayerAdded, layer);
 
-    if (this.$scope.model.properties.layers.length === 1) {
-      this.selectLayer(this.$scope.model.properties.layers[0]);
-    }
-  }
+  //   if (this.$scope.model.properties.layers.length === 1) {
+  //     this.selectLayer(this.$scope.model.properties.layers[0]);
+  //   }
+  // }
 
-  removeLayer(idx) {
-    var defer = this.$q.defer();
-    defer.promise.then(() => {
-      this.$scope.$emit(
-        LayerEvents.LayerRemoved,
-        this.$scope.model.properties.layers.splice(idx, 1)[0]
-      );
-    });
+  // removeLayer(idx) {
+  //   var defer = this.$q.defer();
+  //   defer.promise.then(() => {
+  //     this.$scope.$emit(
+  //       LayerEvents.LayerRemoved,
+  //       this.$scope.model.properties.layers.splice(idx, 1)[0]
+  //     );
+  //   });
 
-    if (this.$scope.model.properties.layers[idx].items.length > 0) {
-      this.popupService.confirm('图层中有元素，是否删除？').ok(() => {
-        defer.resolve();
-      });
-    } else {
-      defer.resolve();
-    }
-  }
+  //   if (this.$scope.model.properties.layers[idx].items.length > 0) {
+  //     this.popupService.confirm('图层中有元素，是否删除？').ok(() => {
+  //       defer.resolve();
+  //     });
+  //   } else {
+  //     defer.resolve();
+  //   }
+  // }
 
   selectLayer(lay) {
     this.$scope.editingLayer = lay;
