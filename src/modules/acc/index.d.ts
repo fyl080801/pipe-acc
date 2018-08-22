@@ -58,8 +58,8 @@ declare namespace acc {
 
     interface IMapLayerEntity {
       layer: model.IMapLayer;
-      entity: L.Layer;
-      trigger(evt: string);
+      entity: L.Layer | L.LayerGroup<any>;
+      trigger(evt: string, map: L.Map | L.LayerGroup<any>);
     }
 
     export namespace model {
@@ -79,6 +79,7 @@ declare namespace acc {
 
       interface ILayerGroup extends IMapLayer, services.ILayerStore {
         children: IMapLayer[];
+        options: L.LayerOptions;
       }
 
       interface IMarkerLayer extends IMapLayer {
@@ -88,6 +89,10 @@ declare namespace acc {
       interface ITileLayer extends IMapLayer {
         source: string;
         options: L.TileLayerOptions;
+      }
+
+      interface IGeoJson extends IMapLayer {
+        json: string;
       }
 
       interface ILocationProperties {

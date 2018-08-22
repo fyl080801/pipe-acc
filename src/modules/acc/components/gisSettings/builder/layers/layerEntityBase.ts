@@ -4,15 +4,13 @@ import { LayerTriggers } from 'modules/acc/components/gisSettings/builder/enums'
 export abstract class LayerEntityBase implements acc.gis.IMapLayerEntity {
   protected _triggers;
 
-  protected added() {}
-
-  constructor(public map: L.Map, public layer: acc.gis.model.IMapLayer) {
-    this._triggers[LayerTriggers.被添加] = this.added;
+  constructor(public layer: acc.gis.model.IMapLayer) {
+    this._triggers = {};
   }
 
-  entity: L.Layer;
+  entity: L.Layer | L.LayerGroup<any>;
 
-  trigger(evt: LayerTriggers) {
-    (this._triggers[evt] || angular.noop)();
+  trigger(evt: LayerTriggers, map: L.Map | L.LayerGroup<any>) {
+    (this._triggers[evt] || angular.noop)(map);
   }
 }

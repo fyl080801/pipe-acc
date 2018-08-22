@@ -21,11 +21,8 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="" ng-click="vm.addLayer()">图层</a>
-                            </li>
-                            <li>
-                                <a href="">geojson</a>
+                            <li ng-repeat="lay in layerList">
+                                <a href="" ng-click="vm.addLayer(lay)">{{lay.name}}</a>
                             </li>
                         </ul>
                     </div>

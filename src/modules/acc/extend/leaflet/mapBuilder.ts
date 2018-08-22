@@ -46,16 +46,16 @@ export class MapBuilder implements acc.extend.IMapBuilder {
       )
     );
 
-    L.tileLayer(
-      'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', //'http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl&udt=20150518',
-      {
-        opacity: 1.0
-        // maxZoom: 19,
-        // minZoom: 3,
-        // subdomains: ['0', '1', '2'],
-        // tms: true
-      }
-    ).addTo(this._map);
+    // L.tileLayer(
+    //   'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', //'http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl&udt=20150518',
+    //   {
+    //     opacity: 1.0
+    //     // maxZoom: 19,
+    //     // minZoom: 3,
+    //     // subdomains: ['0', '1', '2'],
+    //     // tms: true
+    //   }
+    // ).addTo(this._map);
 
     this._map.setView([39.91349, 116.407945], 15);
   }

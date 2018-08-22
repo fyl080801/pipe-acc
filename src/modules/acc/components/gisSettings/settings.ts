@@ -51,7 +51,10 @@ class Controller {
     this._mapDefer = $q.defer();
     this._modelDefer = $q.defer();
 
-    $q.all({ map: this._mapDefer, model: this._modelDefer }).then(result => {
+    $q.all({
+      map: this._mapDefer.promise,
+      model: this._modelDefer.promise
+    }).then(result => {
       $scope.layerStore = layerStore(
         this.$scope.model.properties.layers,
         $scope.map
@@ -103,6 +106,8 @@ class Controller {
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
         this.$scope.model = result;
+        this.$scope.model.properties.layers =
+          this.$scope.model.properties.layers || [];
         this._modelDefer.resolve();
         this.$scope.$broadcast(EditorEvents.ModelLoaded, result);
       });

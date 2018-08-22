@@ -13,17 +13,19 @@ class LayerStore implements acc.services.ILayerStore {
     private _map: L.Map,
     private utility: common.services.IUtility
   ) {
+    this._layersMap = {};
+
     $.each(_layers, (idx, layer) => {
-      this._layersMap[layer.uuid] = layerTypes[layer.type](this._map, layer);
-      this._layersMap[layer.uuid].trigger(LayerTriggers.被添加);
+      this._layersMap[layer.uuid] = layerTypes[layer.type](layer);
+      this._layersMap[layer.uuid].trigger(LayerTriggers.被添加, this._map);
     });
   }
 
   add(layer: acc.gis.model.IMapLayer) {
     layer.uuid = this.utility.uuid();
     this._layers.push(layer);
-    this._layersMap[layer.uuid] = layerTypes[layer.type](this._map, layer);
-    this._layersMap[layer.uuid].trigger(LayerTriggers.被添加);
+    this._layersMap[layer.uuid] = layerTypes[layer.type](layer);
+    this._layersMap[layer.uuid].trigger(LayerTriggers.被添加, this._map);
   }
 
   remove(uuid: string) {}

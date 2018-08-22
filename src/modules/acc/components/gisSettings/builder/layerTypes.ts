@@ -4,18 +4,25 @@ import { MarkerLayer } from 'modules/acc/components/gisSettings/builder/layers/m
 import { GeoJsonLayer } from 'modules/acc/components/gisSettings/builder/layers/geoJsonLayer';
 
 export var layerTypes: {
-  [key: string]: ((map, layer) => acc.gis.IMapLayerEntity);
+  [key: string]: ((layer: acc.gis.model.IMapLayer) => acc.gis.IMapLayerEntity);
 } = {
-  group: (map, layer) => {
-    return new GroupLayer(map, layer);
+  group: layer => {
+    return new GroupLayer(layer);
   },
-  tileLayer: (map, layer) => {
-    return new TileLayer(map, layer);
+  tileLayer: layer => {
+    return new TileLayer(layer);
   },
-  markers: (map, layer) => {
-    return new MarkerLayer(map, layer);
+  markers: layer => {
+    return new MarkerLayer(layer);
   },
-  geoJson: (map, layer) => {
-    return new GeoJsonLayer(map, layer);
+  geoJson: layer => {
+    return new GeoJsonLayer(layer);
   }
 };
+
+export var layerTypeEnums = [
+  {
+    type: 'tileLayer',
+    name: '瓦片图层'
+  }
+];
