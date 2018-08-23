@@ -2,8 +2,6 @@ import mod = require('modules/acc/module');
 import angular = require('angular');
 import { mapview, infoform } from 'modules/acc/components/gisSettings/forms';
 import { LayerEvents } from 'modules/acc/components/gisSettings/editorEvents';
-import { layerBuilderForms } from 'modules/acc/components/gisSettings/builder/forms';
-import { layerTypeEnums } from 'modules/acc/components/gisSettings/builder/layerTypes';
 
 class Controller {
   static $inject = [
@@ -28,8 +26,6 @@ class Controller {
   ) {
     $scope.vm = this;
     $scope.editingLayer = null;
-
-    $scope.layerList = layerTypeEnums;
 
     $scope.$emit(LayerEvents.LayerInit, this);
   }
@@ -98,25 +94,25 @@ class Controller {
       });
   }
 
-  addLayer(layer) {
-    this.schemaPopup
-      .confirm(
-        $.extend(
-          {
-            title: '添加源',
-            model: {
-              source:
-                'http://mt0.google.cn/vt/lyrs=m@198&hl=zh-CN&gl=cn&src=app&x={x}&y={y}&z={z}&s=',
-              type: layer.type
-            }
-          },
-          layerBuilderForms[layer.type](this.schemaFormParams)
-        )
-      )
-      .result.then(data => {
-        this.$scope.layerStore.add(data);
-      });
-  }
+  // addLayer(layer) {
+  //   this.schemaPopup
+  //     .confirm(
+  //       $.extend(
+  //         {
+  //           title: '添加源',
+  //           model: {
+  //             source:
+  //               'http://mt0.google.cn/vt/lyrs=m@198&hl=zh-CN&gl=cn&src=app&x={x}&y={y}&z={z}&s=',
+  //             type: layer.type
+  //           }
+  //         },
+  //         layerBuilderForms[layer.type](this.schemaFormParams)
+  //       )
+  //     )
+  //     .result.then(data => {
+  //       this.$scope.layerStore.add(data);
+  //     });
+  // }
 
   // addLayer() {
   //   this.$scope.model.properties.layers =
