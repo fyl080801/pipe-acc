@@ -73,6 +73,9 @@
                 'jquery': '/src/js/app.application',
 
                 // extends
+                'angular-simple-logger': {
+                    path: '/bower_components/angular-simple-logger/dist/angular-simple-logger.light.min'
+                },
                 'jquery-ui': {
                     path: '/bower_components/jquery-ui/jquery-ui.min',
                     shim: { deps: ['jquery'] }
@@ -87,6 +90,12 @@
                     path: '/bower_components/Proj4Leaflet/src/proj4leaflet',
                     shim: {
                         deps: ['leaflet', 'proj4']
+                    }
+                },
+                'ui-leaflet': {
+                    path: '/bower_components/ui-leaflet/dist/ui-leaflet',
+                    shim: {
+                        deps: ['angular-simple-logger', 'leaflet']
                     }
                 },
                 'tv4': {

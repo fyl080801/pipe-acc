@@ -9,5 +9,4 @@ import 'modules/acc/components/gisSettings/settings';
 import 'modules/acc/components/gisSettings/toolbox';
 import 'modules/acc/components/gisSettings/layers';
 import 'modules/acc/components/gisSettings/map';
-import 'modules/acc/components/gisSettings/builder/layerStore';
 import 'modules/acc/factories/mapControl';

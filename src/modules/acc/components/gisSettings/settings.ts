@@ -8,6 +8,7 @@ import {
   LayerEvents,
   MapEvents
 } from 'modules/acc/components/gisSettings/editorEvents';
+import mapDefaults = require('modules/acc/configs/mapDefaults');
 
 class Controller {
   private _mapDefer: ng.IDeferred<any>;
@@ -24,8 +25,7 @@ class Controller {
     'modules/common/factories/schemaFormParams',
     'modules/common/factories/ngTableRequest',
     'app/services/popupService',
-    'app/services/treeUtility',
-    'modules/acc/components/gisSettings/builder/layerStore'
+    'app/services/treeUtility'
   ];
   constructor(
     private $scope: acc.gis.IMapScope,
@@ -38,65 +38,67 @@ class Controller {
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private ngTableRequest: common.factories.INgTableRequestFactory,
     private popupService: app.services.IPopupService,
-    private treeUtility: app.services.ITreeUtility,
-    private layerStore: acc.factories.ILayerStoreFactory
+    private treeUtility: app.services.ITreeUtility
   ) {
     $scope.vm = this;
-    $scope.vmLayer = null;
-    $scope.vmMap = null;
-    $scope.model = null;
-    $scope.map = null;
-    $scope.layerStore = null;
+    $scope.model = {
+      id: 0,
+      name: '',
+      favorite: false,
+      properties: mapDefaults
+    };
+    // $scope.map = null;
+    // $scope.layerStore = null;
 
-    this._mapDefer = $q.defer();
-    this._modelDefer = $q.defer();
+    // this._mapDefer = $q.defer();
+    // this._modelDefer = $q.defer();
 
-    $q.all({
-      map: this._mapDefer.promise,
-      model: this._modelDefer.promise
-    }).then(result => {
-      $scope.layerStore = layerStore(
-        this.$scope.model.properties.layers,
-        $scope.map
-      );
-    });
+    // $q.all({
+    //   map: this._mapDefer.promise,
+    //   model: this._modelDefer.promise
+    // }).then(result => {
+    //   $scope.layerStore = layerStore(
+    //     this.$scope.model.properties.layers,
+    //     $scope.map
+    //   );
+    // });
 
-    $scope.$on(LayerEvents.LayerInit, (evt, ctl) => {
-      $scope.vmLayer = ctl;
-    });
+    // $scope.$on(LayerEvents.LayerInit, (evt, ctl) => {
+    //   $scope.vmLayer = ctl;
+    // });
 
-    $scope.$on(LayerEvents.LayerAdded, (evt, val) => {
-      $scope.$broadcast(EditorEvents.LayerAdded, val);
-    });
+    // $scope.$on(LayerEvents.LayerAdded, (evt, val) => {
+    //   $scope.$broadcast(EditorEvents.LayerAdded, val);
+    // });
 
-    $scope.$on(LayerEvents.LayerRemoved, (evt, val) => {
-      $scope.$broadcast(EditorEvents.LayerRemoved, val);
-    });
+    // $scope.$on(LayerEvents.LayerRemoved, (evt, val) => {
+    //   $scope.$broadcast(EditorEvents.LayerRemoved, val);
+    // });
 
-    $scope.$on(LayerEvents.LayerChanged, (evt, val) => {
-      $scope.$broadcast(EditorEvents.LayerChanged, val);
-    });
+    // $scope.$on(LayerEvents.LayerChanged, (evt, val) => {
+    //   $scope.$broadcast(EditorEvents.LayerChanged, val);
+    // });
 
-    $scope.$on(MapEvents.PointerAdded, (evt, item, layer) => {
-      //$scope.model.properties.
-    });
+    // $scope.$on(MapEvents.PointerAdded, (evt, item, layer) => {
+    //   //$scope.model.properties.
+    // });
 
-    $scope.$on(MapEvents.MapInit, (evt, map) => {
-      $scope.vmMap = map;
-      $scope.map = map.getMap();
-      this._mapDefer.resolve();
-    });
+    // $scope.$on(MapEvents.MapInit, (evt, map) => {
+    //   $scope.vmMap = map;
+    //   $scope.map = map.getMap();
+    //   this._mapDefer.resolve();
+    // });
 
-    $scope.$on(MapEvents.NoLayer, evt => {
-      if (!$scope.vmLayer) return;
+    // $scope.$on(MapEvents.NoLayer, evt => {
+    //   if (!$scope.vmLayer) return;
 
-      $scope.model.properties.layers = $scope.model.properties.layers || [];
-      if ($scope.model.properties.layers.length <= 0) {
-        $scope.vmLayer.addLayer();
-      } else {
-        $scope.vmLayer.selectLayer($scope.model.properties.layers[0]);
-      }
-    });
+    //   $scope.model.properties.layers = $scope.model.properties.layers || [];
+    //   if ($scope.model.properties.layers.length <= 0) {
+    //     $scope.vmLayer.addLayer();
+    //   } else {
+    //     $scope.vmLayer.selectLayer($scope.model.properties.layers[0]);
+    //   }
+    // });
   }
 
   loadLocation() {
@@ -105,11 +107,12 @@ class Controller {
       .options({ showLoading: false })
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
+        result.properties =
+          result.properties && result.properties.defaults
+            ? result.properties
+            : mapDefaults;
         this.$scope.model = result;
-        this.$scope.model.properties.layers =
-          this.$scope.model.properties.layers || [];
-        this._modelDefer.resolve();
-        this.$scope.$broadcast(EditorEvents.ModelLoaded, result);
+        this.$scope.$broadcast(EditorEvents.ModelLoaded, this.$scope.model);
       });
   }
 
@@ -121,8 +124,6 @@ class Controller {
         this.popupService.information('保存成功');
       });
   }
-
-  addGeoJson() {}
 }
 
 mod.controller('modules/acc/components/gisSettings/settings', Controller);

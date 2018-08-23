@@ -38,6 +38,7 @@
     "jquery.nicescroll": "^3.7.6",
     "angular-ui-tree": "^2.22.6",
     "jquery-ui": "^1.12.1",
-    "ngDraggable": "^0.1.11"
+    "ngDraggable": "^0.1.11",
+    "ui-leaflet": "^2.0.0"
   }
 }

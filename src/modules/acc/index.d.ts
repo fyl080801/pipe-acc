@@ -8,17 +8,6 @@ declare namespace acc {
     }
   }
 
-  export namespace services {
-    // interface ILayerStore {
-    //   [key: string]: any | acc.gis.model.IMapLayer;
-    // }
-
-    interface ILayerStore {
-      add(layer: acc.gis.model.IMapLayer);
-      remove(uuid: string);
-    }
-  }
-
   export namespace factories {
     /**
      *
@@ -33,20 +22,6 @@ declare namespace acc {
         [key: string]: string | Function | Array<string | Function> | Object;
       };
     }
-
-    /**
-     *
-     */
-    interface IMapLayerFactory {
-      (controlOptions: IMapControlOptions): L.Control;
-    }
-
-    /**
-     *
-     */
-    interface ILayerStoreFactory {
-      (layers: acc.gis.model.IMapLayer[], map: L.Map): services.ILayerStore;
-    }
   }
 
   export namespace gis {
@@ -56,58 +31,19 @@ declare namespace acc {
       map: L.Map;
     }
 
-    interface IMapLayerEntity {
-      layer: model.IMapLayer;
-      entity: L.Layer | L.LayerGroup<any>;
-      trigger(evt: string, map: L.Map | L.LayerGroup<any>);
-    }
-
     export namespace model {
       interface ILocation {
         id: number;
         name: string;
         favorite: boolean;
-        description: string;
-        properties: ILocationProperties;
-      }
-
-      interface IMapLayer {
-        type: 'group' | 'markers' | 'tileLayer' | 'geoJson';
-        uuid: string;
-        name: string;
-      }
-
-      interface ILayerGroup extends IMapLayer, services.ILayerStore {
-        children: IMapLayer[];
-        options: L.LayerOptions;
-      }
-
-      interface IMarkerLayer extends IMapLayer {
-        items: IMapItem[];
-      }
-
-      interface ITileLayer extends IMapLayer {
-        source: string;
-        options: L.TileLayerOptions;
-      }
-
-      interface IGeoJson extends IMapLayer {
-        json: string;
+        description?: string;
+        properties: any;
       }
 
       interface ILocationProperties {
-        mapview: {
-          centerLng: number;
-          centerLat: number;
-          zoom: number;
-        };
-        layers: IMapLayer[];
-      }
-
-      interface IMapItem {
-        type: 'equipment' | 'vectorgraph';
-        latlng: { lat: number; lng: number };
-        identity: number | string;
+        defaults: L.MapOptions;
+        center: any;
+        layers: any;
       }
     }
   }
