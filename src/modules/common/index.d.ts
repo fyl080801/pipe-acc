@@ -75,7 +75,8 @@ declare namespace common {
 
     interface ISchemaPopup {
       confirm(
-        options: ISchemaPopupOptions
+        options: ISchemaPopupOptions,
+        win?: ng.ui.bootstrap.IModalSettings
       ): ng.ui.bootstrap.IModalInstanceService;
     }
   }

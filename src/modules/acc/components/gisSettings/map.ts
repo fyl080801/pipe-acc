@@ -1,6 +1,5 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
-import L = require('leaflet');
 import { mapview } from 'modules/acc/components/gisSettings/forms';
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
 import {

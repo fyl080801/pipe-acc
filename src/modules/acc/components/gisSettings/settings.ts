@@ -1,6 +1,5 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
-import L = require('leaflet');
 import { mapview } from 'modules/acc/components/gisSettings/forms';
 import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
 import {
@@ -11,9 +10,6 @@ import {
 import mapDefaults = require('modules/acc/configs/mapDefaults');
 
 class Controller {
-  private _mapDefer: ng.IDeferred<any>;
-  private _modelDefer: ng.IDeferred<any>;
-
   static $inject = [
     '$scope',
     '$stateParams',
@@ -107,11 +103,7 @@ class Controller {
       .options({ showLoading: false })
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
-        result.properties =
-          result.properties && result.properties.defaults
-            ? result.properties
-            : mapDefaults;
-        this.$scope.model = result;
+        this.$scope.model = $.extend(true, { properties: mapDefaults }, result);
         this.$scope.$broadcast(EditorEvents.ModelLoaded, this.$scope.model);
       });
   }

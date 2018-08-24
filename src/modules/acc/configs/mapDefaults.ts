@@ -1,6 +1,5 @@
 export = {
   defaults: {
-    tileLayer: 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
     attributionControl: false,
     zoomControl: false,
     controls: {
@@ -17,23 +16,22 @@ export = {
     }
   },
   layers: {
-    baselayers: {
-      xyz: {
-        url:
-          'http://{s}.tiles.mapbox.com/v3/milkator.press_freedom/{z}/{x}/{y}.png',
-        name: 'OpenStreetMap',
-        type: 'xyz'
+    overlays: {
+      root: {
+        name: '',
+        type: 'group',
+        visible: true,
+        layerOptions: {
+          layers: [
+            {
+              name: '',
+              url:
+                'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}',
+              type: 'xyz'
+            }
+          ]
+        }
       }
     }
-    // overlays: {
-    //   root: {
-    //     name: 'groups',
-    //     type: 'group',
-    //     visible: true,
-    //     layerOptions: {
-    //       layers: []
-    //     }
-    //   }
-    // }
   }
 };

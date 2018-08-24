@@ -37,6 +37,10 @@ require.config({
     tv4: '../bower_components/tv4/tv4',
     objectpath: '../bower_components/objectpath/lib/ObjectPath',
     leaflet: '../bower_components/leaflet/dist/leaflet',
+    'ui-leaflet':
+      '../bower_components/ui-leaflet/dist/ui-leaflet.min.no-header',
+    'angular-simple-logger':
+      '../bower_components/angular-simple-logger/dist/angular-simple-logger.light.min',
     proj4: '../bower_components/proj4/dist/proj4',
     proj4leaflet: '../bower_components/Proj4Leaflet/src/proj4leaflet',
     'app/application': '../src/js/app.application'
@@ -44,6 +48,9 @@ require.config({
   shim: {
     'schema-form-bootstrap': {
       deps: ['schema-form']
+    },
+    'ui-leaflet': {
+      deps: ['leaflet', 'angular-simple-logger']
     }
   },
   exclude: []

@@ -7,11 +7,11 @@ export var mapview = (
   return {
     formParams: schemaFormParams({
       properties: {
-        centerLng: {
+        lng: {
           title: '中心经度',
           type: 'number'
         },
-        centerLat: {
+        lat: {
           title: '中心纬度',
           type: 'number'
         },
@@ -21,17 +21,7 @@ export var mapview = (
         }
       }
     }),
-    form: [
-      {
-        key: 'centerLng'
-      },
-      {
-        key: 'centerLat'
-      },
-      {
-        key: 'zoom'
-      }
-    ]
+    form: ['lng', 'lat', 'zoom']
   };
 };
 

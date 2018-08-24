@@ -9,14 +9,17 @@ class Service implements common.services.ISchemaPopup {
   ) {}
 
   confirm(
-    options: common.services.ISchemaPopupOptions
+    options: common.services.ISchemaPopupOptions,
+    win: ng.ui.bootstrap.IModalSettings
   ): ng.ui.bootstrap.IModalInstanceService {
-    return this.$modal.open({
-      templateUrl: 'modules/common/templates/schemaConfirm.html',
-      scope: angular.extend(this.$rootScope.$new(), {
-        $data: options
+    return this.$modal.open(
+      $.extend(win, {
+        templateUrl: 'modules/common/templates/schemaConfirm.html',
+        scope: angular.extend(this.$rootScope.$new(), {
+          $data: options
+        })
       })
-    });
+    );
   }
 }
 

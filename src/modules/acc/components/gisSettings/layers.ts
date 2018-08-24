@@ -12,7 +12,8 @@ class Controller {
     'modules/common/factories/schemaFormParams',
     'modules/common/services/utility',
     'modules/common/services/schemaPopup',
-    'app/services/popupService'
+    'app/services/popupService',
+    'leafletData'
   ];
   constructor(
     private $scope: acc.gis.IMapScope,
@@ -22,7 +23,8 @@ class Controller {
     private schemaFormParams: common.factories.ISchemaFormParamsFactory,
     private utility: common.services.IUtility,
     private schemaPopup: common.services.ISchemaPopup,
-    private popupService: app.services.IPopupService
+    private popupService: app.services.IPopupService,
+    private leafletData
   ) {
     $scope.vm = this;
     $scope.editingLayer = null;
@@ -66,32 +68,28 @@ class Controller {
   }
 
   setLatLng() {
-    if (!this.$scope.map) {
-      this.popupService.information('地图未初始化');
-      return;
-    }
-
-    this.$modal
-      .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
-        size: 'sm',
-        scope: angular.extend(this.$rootScope.$new(), {
-          $data: angular.extend(
+    this.leafletData.getMap().then((map: L.Map) => {
+      this.schemaPopup
+        .confirm(
+          $.extend(
             {
               title: '区域名称',
-              model: {
-                centerLng: this.$scope.map.getCenter().lng,
-                centerLat: this.$scope.map.getCenter().lat,
-                zoom: this.$scope.map.getZoom()
-              }
+              model: $.extend(map.getCenter(), { zoom: map.getZoom() })
             },
             mapview(this.schemaFormParams)
-          )
-        })
-      })
-      .result.then(data => {
-        this.$scope.model.properties.mapview = data;
-      });
+          ),
+          {
+            size: 'sm'
+          }
+        )
+        .result.then(data => {
+          this.$scope.model.properties = $.extend(
+            true,
+            this.$scope.model.properties,
+            { defaults: { center: data } }
+          );
+        });
+    });
   }
 
   // addLayer(layer) {
