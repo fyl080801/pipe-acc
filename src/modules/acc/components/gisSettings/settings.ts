@@ -43,6 +43,7 @@ class Controller {
       favorite: false,
       properties: mapDefaults
     };
+    $scope.center = $.extend({}, mapDefaults.defaults.center);
     // $scope.map = null;
     // $scope.layerStore = null;
 
@@ -104,6 +105,10 @@ class Controller {
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
         this.$scope.model = $.extend(true, { properties: mapDefaults }, result);
+        this.$scope.center = $.extend(
+          {},
+          this.$scope.model.properties.defaults.center
+        );
         this.$scope.$broadcast(EditorEvents.ModelLoaded, this.$scope.model);
       });
   }

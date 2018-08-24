@@ -53,43 +53,41 @@ class Controller {
   }
 
   goLatLng() {
-    if (!this.$scope.map) {
-      this.popupService.information('地图未初始化');
-      return;
-    }
-
-    this.$scope.map.setView(
-      [
-        this.$scope.model.properties.mapview.centerLat,
-        this.$scope.model.properties.mapview.centerLng
-      ],
-      this.$scope.model.properties.mapview.zoom
-    );
+    this.leafletData.getMap().then((map: L.Map) => {
+      map.setView(
+        [
+          this.$scope.model.properties.mapview.centerLat,
+          this.$scope.model.properties.mapview.centerLng
+        ],
+        this.$scope.model.properties.mapview.zoom
+      );
+    });
   }
 
   setLatLng() {
-    this.leafletData.getMap().then((map: L.Map) => {
-      this.schemaPopup
-        .confirm(
-          $.extend(
-            {
-              title: '区域名称',
-              model: $.extend(map.getCenter(), { zoom: map.getZoom() })
-            },
-            mapview(this.schemaFormParams)
-          ),
+    // this.leafletData.getMap().then((map: L.Map) => {
+
+    // });
+    this.schemaPopup
+      .confirm(
+        $.extend(
           {
-            size: 'sm'
-          }
-        )
-        .result.then(data => {
-          this.$scope.model.properties = $.extend(
-            true,
-            this.$scope.model.properties,
-            { defaults: { center: data } }
-          );
-        });
-    });
+            title: '区域名称',
+            model: $.extend({}, this.$scope.center)
+          },
+          mapview(this.schemaFormParams)
+        ),
+        {
+          size: 'sm'
+        }
+      )
+      .result.then(data => {
+        this.$scope.model.properties = $.extend(
+          true,
+          this.$scope.model.properties,
+          { defaults: { center: data } }
+        );
+      });
   }
 
   // addLayer(layer) {
