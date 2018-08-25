@@ -1,4 +1,5 @@
 import mod = require('modules/acc/module');
+import angular = require('angular');
 import { ToolsEvents } from 'modules/acc/components/gis/indexEvents';
 
 interface Scope extends ng.IScope {
@@ -38,6 +39,11 @@ class Controller {
       })
       .get()
       .result.then((result: acc.gis.model.ILocation[]) => {
+        angular.forEach(result, (item, idx) => {
+          angular.forEach(item.properties.markers, marker => {
+            marker.draggable = false;
+          });
+        });
         this.$scope.areas = result;
         if (result.length > 0) {
           this.changeLocation(result[0]);
@@ -48,16 +54,15 @@ class Controller {
   changeLocation(area: acc.gis.model.ILocation) {
     this.mapInstance.setView(
       {
-        lat: area.properties.mapview.centerLat,
-        lng: area.properties.mapview.centerLng
+        lat: area.properties.defaults.center.lat,
+        lng: area.properties.defaults.center.lng
       },
-      area.properties.mapview.zoom,
+      area.properties.defaults.center.zoom,
       {
         animate: true
       }
     );
-
-    this.$scope.$emit(ToolsEvents.LoactionChanged, area);
+    this.$scope.$emit(ToolsEvents.LoactionChanged, area.properties);
   }
 
   // 过滤设备

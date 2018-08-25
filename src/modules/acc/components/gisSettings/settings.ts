@@ -1,13 +1,10 @@
 import mod = require('modules/acc/module');
 import angular = require('angular');
-import { mapview } from 'modules/acc/components/gisSettings/forms';
-import { MapBuilder } from 'modules/acc/extend/leaflet/mapBuilder';
+import { MapDefaults } from 'modules/acc/configs/mapDefaults';
 import {
   EditorEvents,
-  LayerEvents,
-  MapEvents
+  LayerEvents
 } from 'modules/acc/components/gisSettings/editorEvents';
-import mapDefaults = require('modules/acc/configs/mapDefaults');
 
 class Controller {
   static $inject = [
@@ -38,12 +35,12 @@ class Controller {
   ) {
     $scope.vm = this;
     $scope.editingLayer = null;
-    $scope.center = $.extend({}, mapDefaults.defaults.center);
+    $scope.center = MapDefaults().defaults.center;
     $scope.model = {
       id: 0,
       name: '',
       favorite: false,
-      properties: mapDefaults
+      properties: MapDefaults()
     };
 
     $scope.$on(LayerEvents.LayerChanged, (evt, layer) => {
@@ -57,7 +54,11 @@ class Controller {
       .options({ showLoading: false })
       .get<acc.gis.model.ILocation>()
       .result.then(result => {
-        this.$scope.model = $.extend(true, { properties: mapDefaults }, result);
+        this.$scope.model = $.extend(
+          true,
+          { properties: MapDefaults() },
+          result
+        );
         this.$scope.center = $.extend(
           {},
           this.$scope.model.properties.defaults.center
