@@ -22,7 +22,8 @@
             <div class="acc-container" style="margin-top: 50px">
                 <div class="acc-container tools" ng-include="'modules/acc/components/gisSettings/toolbox.html'" ng-controller="modules/acc/components/gisSettings/toolbox"></div>
                 <div class="acc-container area" ng-controller="modules/acc/components/gisSettings/map">
-                    <div leaflet class="map-area acc-container" lf-center="center" layers="model.properties.layers" defaults="model.properties.defaults"></div>
+                    <div class="map-area acc-container" leaflet ng-drop="true" ng-drop-success="vm.addElement($data, $event)" lf-center="center"
+                        markers="model.properties.markers" layers="model.properties.layers" defaults="model.properties.defaults"></div>
                 </div>
                 <div class="acc-container property" ng-include="'modules/acc/components/gisSettings/layers.html'" ng-controller="modules/acc/components/gisSettings/layers"></div>
             </div>

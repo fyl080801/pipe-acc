@@ -96,7 +96,7 @@ class Controller {
             model: {
               type: layer,
               visible: true,
-              opacity: 1
+              layerOptions: {}
             }
           },
           LayerForms[layer](this.schemaFormParams)
@@ -112,23 +112,26 @@ class Controller {
   removeLayer(layer) {
     var defer = this.$q.defer();
 
-    defer.promise.then(() => {
+    defer.promise.then((markers: string[]) => {
+      for (var i = 0; i < markers.length; i++) {
+        delete this.$scope.model.properties.markers[markers[i]];
+      }
       delete this.$scope.model.properties.layers.overlays[layer];
     });
 
-    var layerMarkers = $.grep(
-      this.$scope.model.properties.markers,
-      (marker: any, key) => {
-        return marker.layer === layer;
+    var layerMarkers = [];
+    angular.forEach(this.$scope.model.properties.markers, (item, name) => {
+      if (item.layer === layer) {
+        layerMarkers.push(name);
       }
-    );
+    });
 
     if (layerMarkers.length > 0) {
       this.popupService.confirm('图层中有元素，是否删除？').ok(() => {
-        defer.resolve();
+        defer.resolve(layerMarkers);
       });
     } else {
-      defer.resolve();
+      defer.resolve([]);
     }
   }
 
@@ -138,7 +141,7 @@ class Controller {
   }
 
   selectLayer(layer) {
-    this.$scope.editingLayer = layer;
+    this.$scope.$emit(LayerEvents.LayerChanged, layer);
   }
 }
 

@@ -45,6 +45,10 @@ class Controller {
       favorite: false,
       properties: mapDefaults
     };
+
+    $scope.$on(LayerEvents.LayerChanged, (evt, layer) => {
+      $scope.editingLayer = layer;
+    });
   }
 
   loadLocation() {
