@@ -21,8 +21,8 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="lay in layerList">
-                                <a href="" ng-click="vm.addLayer(lay)">{{lay.name}}</a>
+                            <li ng-repeat="lay in layerTypes">
+                                <a href="" ng-click="vm.addLayer(lay)">{{lay}}</a>
                             </li>
                         </ul>
                     </div>
@@ -32,13 +32,15 @@
         <div nicescroll class="acc-container" style="margin-top: 40px">
             <div class="panel-body">
                 <div class="panel-group">
-                    <div class="panel panel-default" ng-class="{'panel-info': editingLayer.uuid === lay.uuid}" ng-repeat="lay in model.properties.layers">
-                        <div class="panel-heading" ng-click="vm.selectLayer(lay)">
-                            <a href="">{{lay.name}}</a>
+                    <div class="panel panel-default" ng-class="{'panel-info': editingLayer === key}" ng-repeat="(key, value) in model.properties.layers.overlays">
+                        <div class="panel-heading" ng-click="vm.selectLayer(key)">
+                            <a href="">{{value.name}}</a>
                             <div class="pull-right">
-                                <a href="" class="text-danger" ng-click="vm.removeLayer($index)">
+                                <a href="" ng-click="vm.toggleLayerShow(key)">
+                                    <i class="glyphicon" ng-class="{'glyphicon-eye-open': model.properties.layers.overlays[key].visible, 'glyphicon-eye-close': !model.properties.layers.overlays[key].visible}"></i>
+                                </a>
+                                <a href="" class="text-danger" ng-click="vm.removeLayer(key)">
                                     <i class="glyphicon glyphicon-trash"></i>
-                                    删除
                                 </a>
                             </div>
                         </div>
@@ -46,33 +48,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="panel-body">
-            <div class="panel-group">
-                <div class="panel panel-default" ng-class="{'panel-info': editingLayer.uuid === lay.uuid}" ng-repeat="lay in model.properties.layers">
-                    <div class="panel-heading" ng-click="vm.selectLayer(lay)">
-                        <a href="">{{lay.name}}</a>
-                        <div class="pull-right">
-                            <a href="" class="text-danger" ng-click="vm.removeLayer($index)">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                删除
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel btn-group btn-group-justified">
-                    <button class="btn btn-primary" ng-click="vm.addLayer()">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        创建图层
-                    </button>
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                    </button>
-
-                </div>
-
-            </div>
-        </div> -->
     </div>
     <div nicescroll role="tabpanel" class="tab-pane acc-container" style="overflow: auto" id="cus_pros">
         <div class="panel-body">

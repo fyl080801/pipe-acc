@@ -37,65 +37,14 @@ class Controller {
     private treeUtility: app.services.ITreeUtility
   ) {
     $scope.vm = this;
+    $scope.editingLayer = null;
+    $scope.center = $.extend({}, mapDefaults.defaults.center);
     $scope.model = {
       id: 0,
       name: '',
       favorite: false,
       properties: mapDefaults
     };
-    $scope.center = $.extend({}, mapDefaults.defaults.center);
-    // $scope.map = null;
-    // $scope.layerStore = null;
-
-    // this._mapDefer = $q.defer();
-    // this._modelDefer = $q.defer();
-
-    // $q.all({
-    //   map: this._mapDefer.promise,
-    //   model: this._modelDefer.promise
-    // }).then(result => {
-    //   $scope.layerStore = layerStore(
-    //     this.$scope.model.properties.layers,
-    //     $scope.map
-    //   );
-    // });
-
-    // $scope.$on(LayerEvents.LayerInit, (evt, ctl) => {
-    //   $scope.vmLayer = ctl;
-    // });
-
-    // $scope.$on(LayerEvents.LayerAdded, (evt, val) => {
-    //   $scope.$broadcast(EditorEvents.LayerAdded, val);
-    // });
-
-    // $scope.$on(LayerEvents.LayerRemoved, (evt, val) => {
-    //   $scope.$broadcast(EditorEvents.LayerRemoved, val);
-    // });
-
-    // $scope.$on(LayerEvents.LayerChanged, (evt, val) => {
-    //   $scope.$broadcast(EditorEvents.LayerChanged, val);
-    // });
-
-    // $scope.$on(MapEvents.PointerAdded, (evt, item, layer) => {
-    //   //$scope.model.properties.
-    // });
-
-    // $scope.$on(MapEvents.MapInit, (evt, map) => {
-    //   $scope.vmMap = map;
-    //   $scope.map = map.getMap();
-    //   this._mapDefer.resolve();
-    // });
-
-    // $scope.$on(MapEvents.NoLayer, evt => {
-    //   if (!$scope.vmLayer) return;
-
-    //   $scope.model.properties.layers = $scope.model.properties.layers || [];
-    //   if ($scope.model.properties.layers.length <= 0) {
-    //     $scope.vmLayer.addLayer();
-    //   } else {
-    //     $scope.vmLayer.selectLayer($scope.model.properties.layers[0]);
-    //   }
-    // });
   }
 
   loadLocation() {

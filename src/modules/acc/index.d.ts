@@ -28,7 +28,6 @@ declare namespace acc {
     interface IMapScope extends ng.IScope {
       [key: string]: any;
       model?: model.ILocation;
-      map: L.Map;
     }
 
     export namespace model {
@@ -42,7 +41,7 @@ declare namespace acc {
 
       interface ILocationProperties {
         defaults: L.MapOptions;
-        center: any;
+        center?: any;
         layers: any;
       }
     }

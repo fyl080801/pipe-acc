@@ -9,13 +9,12 @@ import {
 
 interface Scope extends ng.IScope {
   [key: string]: any;
-  map: any;
 }
 
 class Controller {
-  private _map: L.Map;
-  private _editingLayer: L.LayerGroup<any>;
-  private _reayToAdd: any;
+  // private _map: L.Map;
+  // private _editingLayer: L.LayerGroup<any>;
+  // private _reayToAdd: any;
 
   // private _addPointer(
   //   mapItem: acc.gis.model.IMapItem,
@@ -30,8 +29,8 @@ class Controller {
   //     .addTo(layer);
   // }
 
-  static $inject = ['$scope', '$element'];
-  constructor(private $scope: Scope, private $element: JQLite) {
+  static $inject = ['$scope', 'leafletData'];
+  constructor(private $scope: Scope, private leafletData) {
     $scope.vm = this;
 
     // $scope.map = new MapBuilder(
@@ -58,11 +57,11 @@ class Controller {
 
     //this._map = $scope.map;
 
-    // 完成数据加载
-    $scope.$on(
-      EditorEvents.ModelLoaded,
-      (evt, model: acc.gis.model.ILocation) => {}
-    );
+    // // 完成数据加载
+    // $scope.$on(
+    //   EditorEvents.ModelLoaded,
+    //   (evt, model: acc.gis.model.ILocation) => {}
+    // );
 
     // $scope.$on(EditorEvents.LayerAdded, (evt, layer) => {
     //   $scope.layers[layer.uuid] = L.layerGroup().addTo($scope.map);
