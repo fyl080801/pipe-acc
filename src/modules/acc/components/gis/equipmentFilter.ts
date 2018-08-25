@@ -30,16 +30,16 @@ class Controller {
       });
 
     requestService
-      .url('/api/acc/equipment/category')
+      .url('/api/acc/equipment/allcategories')
       .options({
         showLoading: false
       })
       .get()
       .result.then((result: any) => {
-        $scope.categories =
-          result && result.children && result.children.length > 0
-            ? result.children
-            : [];
+        $scope.categories = result;
+        // result && result.children && result.children.length > 0
+        //   ? result.children
+        //   : [];
       });
   }
 
@@ -52,10 +52,10 @@ class Controller {
   }
 
   selectCategory(item) {
-    if (this.$scope.selectedCategories[item.code]) {
-      delete this.$scope.selectedCategories[item.code];
+    if (this.$scope.selectedCategories[item.id]) {
+      delete this.$scope.selectedCategories[item.id];
     } else {
-      this.$scope.selectedCategories[item.code] = item;
+      this.$scope.selectedCategories[item.id] = item;
     }
   }
 

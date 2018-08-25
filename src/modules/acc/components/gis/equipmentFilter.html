@@ -59,8 +59,8 @@
             <dl class="dl-horizontal" ng-repeat="cab in categories">
                 <dt>{{cab.name}}</dt>
                 <dd>
-                    <a href="" ng-click="vm.selectCategory(c)" ng-repeat="c in cab.children">
-                        <span class="label" ng-class="{'label-primary': selectedCategories[c.code], 'label-default': !selectedCategories[c.code]}">{{c.name}}</span>
+                    <a href="" ng-click="vm.selectCategory(c)" ng-repeat="c in cab.equipmentTypes">
+                        <span class="label" ng-class="{'label-primary': selectedCategories[c.id], 'label-default': !selectedCategories[c.id]}">{{c.name}}</span>
                     </a>
                 </dd>
             </dl>
