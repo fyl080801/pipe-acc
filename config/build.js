@@ -39,6 +39,8 @@ require.config({
     leaflet: '../bower_components/leaflet/dist/leaflet',
     'ui-leaflet':
       '../bower_components/ui-leaflet/dist/ui-leaflet.min.no-header',
+    'leaflet-dom-markers':
+      '../bower_components/Leaflet.DomMarkers/src/leaflet.dom-markers',
     'angular-simple-logger':
       '../bower_components/angular-simple-logger/dist/angular-simple-logger.light.min',
     proj4: '../bower_components/proj4/dist/proj4',
