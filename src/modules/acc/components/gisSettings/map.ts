@@ -42,18 +42,18 @@ class Controller {
         {
           layer: this.$scope.editingLayer,
           draggable: true,
-          icon: {
-            type: 'dom',
-            template:
-              '<div class="pin-circle circle-danger"><div class="inner"></div><div>'
-          }
           // icon: {
-          //   iconUrl: 'images/acc/demo-icon.png',
-          //   iconSize: [50, 69],
-          //   iconAnchor: [25, 69]
-          //   // popupAnchor: [1, -34],
-          //   // shadowSize: [41, 41]
+          //   type: 'dom',
+          //   template:
+          //     '<div class="pin-circle circle-danger"><div class="inner"></div><div>'
           // }
+          icon: {
+            iconUrl: 'images/acc/demo-icon.png',
+            iconSize: [50, 69],
+            iconAnchor: [25, 69]
+            // popupAnchor: [1, -34],
+            // shadowSize: [41, 41]
+          }
         },
         {
           lat: latlng.lat,

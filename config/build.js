@@ -53,6 +53,9 @@ require.config({
     },
     'ui-leaflet': {
       deps: ['leaflet', 'angular-simple-logger']
+    },
+    'leaflet-dom-markers': {
+      deps: ['leaflet']
     }
   },
   exclude: []

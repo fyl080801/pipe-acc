@@ -34,12 +34,30 @@ var group = (schemaFormParams: common.factories.ISchemaFormParamsFactory) => {
   };
 };
 
-var geoJson = (
+var ajaxGeoJson = (
   schemaFormParams: common.factories.ISchemaFormParamsFactory
-) => {};
+) => {
+  return {
+    formParams: schemaFormParams({
+      properties: {
+        name: {
+          title: '名称',
+          type: 'string',
+          required: true
+        },
+        url: {
+          title: '地址',
+          type: 'string',
+          required: true
+        }
+      }
+    }),
+    form: ['name', 'url']
+  };
+};
 
 export var LayerForms = {
   xyz: xyz,
   group: group,
-  geoJson: geoJson
+  ajaxGeoJSON: ajaxGeoJson
 };

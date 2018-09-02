@@ -3,6 +3,7 @@ export var MapDefaults = () => {
     defaults: {
       attributionControl: false,
       zoomControl: false,
+      maxZoom: 20,
       controls: {
         layers: {
           visible: false,

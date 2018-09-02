@@ -1,5 +1,5 @@
 export enum LayerTypes {
   分组 = 'group',
-  geoJSON = 'geoJSON',
+  ajaxGeoJSON = 'ajaxGeoJSON',
   xyz = 'xyz'
 }
