@@ -40,6 +40,7 @@
     "jquery-ui": "^1.12.1",
     "ngDraggable": "^0.1.11",
     "ui-leaflet": "^2.0.0",
-    "Leaflet.DomMarkers": "*"
+    "Leaflet.DomMarkers": "*",
+    "bootstrap-treeview": "^1.2.0"
   }
 }

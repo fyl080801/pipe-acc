@@ -11,6 +11,9 @@
     ],
     "fonts": ["./bower_components/bootstrap/dist/fonts/*"]
   },
+  "bootstrap-treeview": {
+    "css": ["./bower_components/bootstrap-treeview/dist/*.css"]
+  },
   "font-awesome": {
     "css": ["./bower_components/font-awesome/web-fonts-with-css/css/*.css"],
     "webfonts": [

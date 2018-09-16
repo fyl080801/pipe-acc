@@ -10,7 +10,9 @@
     <title></title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="css/googleapis-fonts/fonts.css" rel="stylesheet" />
+    <link href="css/adminlte/AdminLTE.min.css" rel="stylesheet" />
+    <link href="css/adminlte/skins/_all-skins.min.css" rel="stylesheet" />
     <style>
         .view-loading {
             position: absolute;
@@ -147,26 +149,15 @@
                     path: '/src/modules/common/requires'
                 },
 
-                // acc
-                'modules/acc/module': {
-                    path: '/src/modules/acc/module',
+                // broadcast
+                'modules/broadcast/module': {
+                    path: '/src/modules/broadcast/module',
                     shim: {
                         deps: ['app/application', 'modules/common/module']
                     }
                 },
-                'modules/acc/requires': {
-                    path: '/src/modules/acc/requires'
-                },
-
-                // manage
-                'modules/manage/module': {
-                    path: '/src/modules/manage/module',
-                    shim: {
-                        deps: ['app/application', 'modules/common/module']
-                    }
-                },
-                'modules/manage/requires': {
-                    path: '/src/modules/manage/requires'
+                'modules/broadcast/requires': {
+                    path: '/src/modules/broadcast/requires'
                 }
             },
             patchs: [
@@ -177,13 +168,12 @@
                 'respond'
             ],
             requires: [
-                'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
                 'rcss!../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css',
                 'rcss!../bower_components/leaflet/dist/leaflet.css',
+                'rcss!../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css',
                 'rcss!css/acc.css',
                 'modules/common/module',
-                'modules/acc/module',
-                'modules/manage/module'
+                'modules/broadcast/module'
             ]
         };
     </script>

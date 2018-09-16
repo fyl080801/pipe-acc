@@ -1,0 +1,33 @@
+<div class="content-wrapper" ng-controller="modules/broadcast/components/terminal/location">
+    <section class="content-header">
+        <h1>
+            终端管理
+            <small>管理区域及终端</small>
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">区域</h3>
+                    </div>
+                    <div class="box-body no-padding" bs-treeview bs-tree-data="areas">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">位置信息</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <div class="map-area" leaflet ng-drop="true" tiles="mapTiles" ng-drop-success="vm.setLocation($data, $event)"
+                            style="height:600px" defaults="mapDefaults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

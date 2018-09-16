@@ -5,4 +5,5 @@ import 'modules/common/services/requestService';
 import 'modules/common/services/schemaPopup';
 import 'modules/common/services/utility';
 import 'modules/common/directives/nicescroll';
+import 'modules/common/directives/bsTreeview';
 import 'modules/common/directives/triggerInput';

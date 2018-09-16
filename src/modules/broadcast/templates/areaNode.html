@@ -1,0 +1,15 @@
+<div class="list-group-item" ng-click="vm.selectArea(area)" ng-class="{'active' : currentArea === area}">
+    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="this.toggle();$event.stopPropagation();"></span>
+    <span ui-tree-handle ng-bind="area.name"></span>
+    <span class="pull-right">
+        <button class="btn btn-default btn-xs" ng-click="vm.editArea(this, $event)">
+            <i class="glyphicon glyphicon-edit"></i>
+        </button>
+        <button class="btn btn-danger btn-xs" ng-click="vm.removeArea(this)">
+            <i class="glyphicon glyphicon-remove"></i>
+        </button>
+    </span>
+</div>
+<ol ui-tree-nodes ng-model="area.areas" ng-class="{hidden: collapsed}" ng-if="area.areas!==undefined">
+    <li ng-repeat="area in area.areas" ui-tree-node ng-include="'modules/broadcast/templates/areaNode.html'"></li>
+</ol>

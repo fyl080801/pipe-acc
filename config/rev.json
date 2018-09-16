@@ -18,6 +18,7 @@
   "/bower_components/objectpath/lib/ObjectPath": "js/modules.common",
   "/bower_components/angular-schema-form/dist/schema-form": "js/modules.common",
   "/bower_components/angular-schema-form-bootstrap/bootstrap-decorator": "js/modules.common",
+  "/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min": "js/modules.common",
   "/bower_components/leaflet/dist/leaflet": "js/requires.acc",
   "/bower_components/Leaflet.DomMarkers/src/leaflet.dom-markers": "js/modules.acc",
   "/bower_components/ui-leaflet/dist/ui-leaflet.min.no-header": "js/modules.acc",
@@ -32,6 +33,8 @@
   "../bower_components/ngDraggable/ngDraggable": "ngDraggable",
   "../bower_components/leaflet/dist/leaflet.css": "css/leaflet.css",
   "../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css": "css/angular-ui-tree.min.css",
+  "../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css": "css/bootstrap-treeview.min.css",
+  "../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min": "bootstrap-treeview",
   "../../../../node_modules/jexcel/dist/css/jquery.jexcel.css": "css/jquery.jexcel.css",
   "../../../../node_modules/jexcel/dist/css/jquery.jexcel.bootstrap.css": "css/jquery.jexcel.bootstrap.css",
 
@@ -42,8 +45,10 @@
   "/src/modules/common/module": "js/modules.common",
   "/src/modules/acc/module": "js/modules.acc",
   "/src/modules/manage/module": "js/modules.manage",
+  "/src/modules/broadcast/module": "js/modules.broadcast",
 
   "/src/modules/common/requires": "js/requires.common",
   "/src/modules/acc/requires": "js/requires.acc",
-  "/src/modules/manage/requires": "js/requires.manage"
+  "/src/modules/manage/requires": "js/requires.manage",
+  "/src/modules/broadcast/requires": "js/requires.broadcast"
 }
