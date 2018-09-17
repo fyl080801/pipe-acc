@@ -18,8 +18,8 @@
             <col width="120px">
         </colgroup>
         <tr ng-repeat="row in $data">
-            <td title="'编号'">{{row.code}}</td>
-            <td title="'设备名称'">{{row.name}}</td>
+            <td title="'编号'" sortable="'code'">{{row.code}}</td>
+            <td title="'设备名称'" sortable="'name'">{{row.name}}</td>
             <td title="'类型'">{{row.type.name}}</td>
             <td title="'操作'">
                 <a href="" ng-click="vm.edit(row)">
