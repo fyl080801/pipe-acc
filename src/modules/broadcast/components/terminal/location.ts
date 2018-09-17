@@ -1,9 +1,11 @@
 import mod = require('modules/broadcast/module');
 
 class Controller {
-  static $inject = ['$scope'];
-  constructor(private $scope) {
+  static $inject = ['$scope', 'leafletData'];
+  constructor(private $scope, private leafletData) {
     $scope.vm = this;
+
+    $scope.currentArea = null;
 
     $scope.mapDefaults = {
       attributionControl: false,
@@ -23,43 +25,77 @@ class Controller {
       }
     };
 
+    $scope.markers = {};
+
     $scope.mapTiles = {
       url: 'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}'
     };
 
     $scope.areas = [
       {
-        text: 'Parent 1',
-        nodes: [
+        name: '北京市',
+        children: [
           {
-            text: 'Child 1',
-            nodes: [
+            name: '东城区',
+            children: [
               {
-                text: 'Grandchild 1'
+                name: 'Grandchild 1',
+                code: 'Grandchild1'
               },
               {
-                text: 'Grandchild 2'
+                name: 'Grandchild 2',
+                code: 'Grandchild2'
               }
             ]
           },
           {
-            text: 'Child 2'
+            name: 'Child 2',
+            code: 'Child2'
           }
         ]
       },
       {
-        text: 'Parent 2'
-      },
-      {
-        text: 'Parent 3'
-      },
-      {
-        text: 'Parent 4'
-      },
-      {
-        text: 'Parent 5'
+        name: '上海',
+        children: [
+          {
+            name: 'Parent 3',
+            code: 'Parent3'
+          },
+          {
+            name: 'Parent 4',
+            code: 'Parent4'
+          },
+          {
+            name: 'Parent 5',
+            code: 'Parent5'
+          }
+        ]
       }
     ];
+  }
+
+  selectArea(area) {
+    this.$scope.currentArea = this.$scope.currentArea === area ? null : area;
+  }
+
+  setLocation(data, evt?) {
+    this.leafletData.getMap().then((map: L.Map) => {
+      var latlng = map.mouseEventToLatLng(evt.event);
+      this.$scope.markers[data.code] = $.extend(
+        {
+          draggable: true,
+          icon: {
+            iconUrl: 'images/acc/demo-icon.png',
+            iconSize: [50, 69],
+            iconAnchor: [25, 69]
+          }
+        },
+        {
+          lat: latlng.lat,
+          lng: latlng.lng
+        }
+      );
+    });
   }
 }
 

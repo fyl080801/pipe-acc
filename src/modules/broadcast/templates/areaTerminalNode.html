@@ -1,0 +1,10 @@
+<div ng-if="item.children!==undefined" class="list-group-item" ng-click="vm.selectArea(item)" ng-class="{'active' : currentArea === item}">
+    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="this.toggle();$event.stopPropagation();"></span>
+    <span ng-bind="item.name"></span>
+</div>
+<div ng-if="item.children===undefined" class="list-group-item">
+    <a href="" ng-drag="true" ng-drag-data="item">{{item.name}}</a>
+</div>
+<ol ui-tree-nodes ng-model="item.children" ng-class="{hidden: collapsed}" ng-if="item.children!==undefined">
+    <li ng-repeat="item in item.children" ui-tree-node ng-include="'modules/broadcast/templates/areaTerminalNode.html'"></li>
+</ol>

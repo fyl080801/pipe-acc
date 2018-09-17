@@ -32,8 +32,6 @@ class Controller {
     $scope.dataList = [];
   }
 
-  nodeToggle(scope) {}
-
   addArea() {
     this.$modal
       .open({
