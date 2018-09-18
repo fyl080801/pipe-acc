@@ -41,6 +41,8 @@ require.config({
       '../bower_components/ui-leaflet/dist/ui-leaflet.min.no-header',
     'leaflet-dom-markers':
       '../bower_components/Leaflet.DomMarkers/src/leaflet.dom-markers',
+    'leaflet-markercluster':
+      '../bower_components/leaflet.markercluster/dist/leaflet.markercluster',
     'angular-simple-logger':
       '../bower_components/angular-simple-logger/dist/angular-simple-logger.light.min',
     proj4: '../bower_components/proj4/dist/proj4',
@@ -55,6 +57,9 @@ require.config({
       deps: ['leaflet', 'angular-simple-logger']
     },
     'leaflet-dom-markers': {
+      deps: ['leaflet']
+    },
+    'leaflet-markercluster': {
       deps: ['leaflet']
     }
   },

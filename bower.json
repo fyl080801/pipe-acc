@@ -41,6 +41,7 @@
     "ngDraggable": "^0.1.11",
     "ui-leaflet": "^2.0.0",
     "Leaflet.DomMarkers": "*",
-    "bootstrap-treeview": "^1.2.0"
+    "bootstrap-treeview": "^1.2.0",
+    "leaflet.markercluster": "^1.4.1"
   }
 }
