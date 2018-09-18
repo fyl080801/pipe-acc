@@ -92,19 +92,20 @@ class Controller {
   }
 
   addTerminal() {
+    var model = {};
     this.$modal
       .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
+        templateUrl: 'modules/broadcast/components/terminal/deviceForm.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: $.extend(
             {
               title: '新建设备',
-              model: {}
+              model: model
             },
-            terminalForm(this.schemaFormParams)
+            terminalForm(this.schemaFormParams, model)
           )
         }),
-        size: 'sm'
+        size: 'lg'
       })
       .result.then(data => {
         this.$scope.dataList.push(data);
@@ -112,19 +113,20 @@ class Controller {
   }
 
   editTerminal(scope) {
+    var model = $.extend({}, scope.row);
     this.$modal
       .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
+        templateUrl: 'modules/broadcast/components/terminal/deviceForm.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: $.extend(
             {
               title: '编辑设备',
-              model: $.extend({}, scope.row)
+              model: model
             },
-            terminalForm(this.schemaFormParams)
+            terminalForm(this.schemaFormParams, model)
           )
         }),
-        size: 'sm'
+        size: 'lg'
       })
       .result.then(data => {
         scope.row = data;

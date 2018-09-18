@@ -1,3 +1,19 @@
+import {
+  EntityTypes,
+  传输覆盖适配器
+} from 'modules/broadcast/configs/enums/device';
+
+var deviceTypeMap = {};
+
+//
+deviceTypeMap[EntityTypes.传输覆盖适配器] = [];
+for (var i in 传输覆盖适配器) {
+  deviceTypeMap[EntityTypes.传输覆盖适配器].push({
+    value: 传输覆盖适配器[i],
+    name: i
+  });
+}
+
 export var areaForm = (
   schemaFormParams: common.factories.ISchemaFormParamsFactory
 ) => {
@@ -21,8 +37,18 @@ export var areaForm = (
 };
 
 export var terminalForm = (
-  schemaFormParams: common.factories.ISchemaFormParamsFactory
+  schemaFormParams: common.factories.ISchemaFormParamsFactory,
+  model: any
 ) => {
+  var entityTypes = [];
+
+  for (var i in EntityTypes) {
+    entityTypes.push({
+      value: EntityTypes[i],
+      name: i
+    });
+  }
+
   return {
     formParams: schemaFormParams({
       properties: {
@@ -36,38 +62,73 @@ export var terminalForm = (
           type: 'string',
           required: true
         },
-        deviceType: {
-          title: '类型',
+        entityType: {
+          title: '实体类型',
           type: 'string',
           required: true
         },
-        entityType: {
-          title: 'entityType',
-          type: 'string',
+        deviceType: {
+          title: '类型',
+          type: 'number',
           required: true
         },
         address: {
           title: 'IP',
           type: 'string'
         },
-        valid: {
-          title: '已验证',
-          type: 'boolean'
-        },
-        status: {
-          title: '状态',
-          type: 'number'
+        pos: {
+          title: '经纬度',
+          type: 'string'
         }
       }
     }),
     form: [
-      'name',
-      'code',
-      'deviceType',
-      'entityType',
-      'address',
-      'valid',
-      'status'
+      {
+        type: 'section',
+        htmlClass: 'row',
+        items: [
+          { type: 'section', htmlClass: 'col-md-6', items: ['name'] },
+          { type: 'section', htmlClass: 'col-md-6', items: ['code'] }
+        ]
+      },
+      {
+        type: 'section',
+        htmlClass: 'row',
+        items: [
+          {
+            type: 'section',
+            htmlClass: 'col-md-6',
+            items: [
+              {
+                key: 'entityType',
+                type: 'select',
+                titleMap: entityTypes
+              }
+            ]
+          },
+          {
+            type: 'section',
+            htmlClass: 'col-md-6',
+            items: [
+              {
+                key: 'deviceType',
+                type: 'select',
+                titleMap: (() => {
+                  return deviceTypeMap[model.entityType];
+                })()
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: 'section',
+        htmlClass: 'row',
+        items: [
+          { type: 'section', htmlClass: 'col-md-6', items: ['address'] },
+          { type: 'section', htmlClass: 'col-md-6', items: ['pos'] }
+        ]
+      }
     ]
   };
   // "_id" : ObjectId("5b9dc1af7ab6223e789b3a35"),
