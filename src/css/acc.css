@@ -265,6 +265,22 @@ dl.dl-settings dd {
   width: 300px;
   left: auto;
 }
+form.h-form .form-group .control-label {
+  width: 20%;
+  float: left;
+}
+form.h-form .form-group .form-control {
+  width: 80%;
+}
+form.form-inline.inline-form .form-group {
+  width: 100%;
+}
+form.form-inline.inline-form .form-group .control-label {
+  width: 20%;
+}
+form.form-inline.inline-form .form-group .form-control {
+  width: 79%;
+}
 .leaflet-container .navbar a,
 .leaflet-container .dropdown-menu a {
   width: inherit;

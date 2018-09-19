@@ -33,9 +33,19 @@ class Controller {
   }
 
   initModalMap() {
+    var pos =
+      this.$scope.$data.model.pos && this.$scope.$data.model.pos.length > 0
+        ? this.$scope.$data.model.pos.split(',')
+        : [0, 0];
+
+    pos = pos.length === 2 ? pos : [0, 0];
+
+    var zoom = this.$scope.$data.model.zoom ? this.$scope.$data.model.zoom : 1;
+
     this.leafletData.getMap().then((map: L.Map) => {
       setTimeout(() => {
         map.invalidateSize();
+        map.setView({ lat: parseInt(pos[1]), lng: parseInt(pos[0]) }, zoom);
       }, 10);
     });
   }

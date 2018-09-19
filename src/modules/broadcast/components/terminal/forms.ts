@@ -29,10 +29,28 @@ export var areaForm = (
           title: '代码',
           type: 'string',
           required: true
+        },
+        pos: {
+          title: '经纬度',
+          type: 'string'
         }
       }
     }),
-    form: ['name', 'code']
+    form: [
+      {
+        type: 'section',
+        htmlClass: 'row',
+        items: [
+          { type: 'section', htmlClass: 'col-md-6', items: ['name'] },
+          { type: 'section', htmlClass: 'col-md-6', items: ['code'] }
+        ]
+      },
+      {
+        type: 'section',
+        htmlClass: 'row',
+        items: [{ type: 'section', htmlClass: 'col-md-6', items: ['pos'] }]
+      }
+    ]
   };
 };
 

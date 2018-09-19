@@ -6,8 +6,8 @@
         </h4>
     </div>
     <div class="modal-body">
-        <form name="theForm" sf-schema="$data.formParams.schema()" sf-form="$data.form" sf-options="$data.formParams.options()"
-            sf-model="$data.model"></form>
+        <form class="form-inline inline-form" name="theForm" sf-schema="$data.formParams.schema()" sf-form="$data.form"
+            sf-options="$data.formParams.options()" sf-model="$data.model"></form>
         <div leaflet tiles="mapTiles" markers="markers" style="height:500px" defaults="mapDefaults" ng-init="vm.initModalMap()"></div>
     </div>
     <div class="modal-footer">

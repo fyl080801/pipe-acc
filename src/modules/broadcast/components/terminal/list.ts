@@ -35,7 +35,7 @@ class Controller {
   addArea() {
     this.$modal
       .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
+        templateUrl: 'modules/broadcast/components/terminal/deviceForm.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: $.extend(
             {
@@ -45,7 +45,7 @@ class Controller {
             areaForm(this.schemaFormParams)
           )
         }),
-        size: 'sm'
+        size: 'lg'
       })
       .result.then(data => {
         if (!this.$scope.currentArea) {
@@ -64,7 +64,7 @@ class Controller {
   editArea(scope, $event: Event) {
     this.$modal
       .open({
-        templateUrl: 'modules/common/templates/schemaConfirm.html',
+        templateUrl: 'modules/broadcast/components/terminal/deviceForm.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: $.extend(
             {
@@ -74,7 +74,7 @@ class Controller {
             areaForm(this.schemaFormParams)
           )
         }),
-        size: 'sm'
+        size: 'lg'
       })
       .result.then(data => {
         scope.area = data;
