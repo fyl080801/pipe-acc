@@ -6,6 +6,12 @@ class Config {
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
     $stateProvider: app.IRequireStateProvider
   ) {
+    $stateProvider.state('dashboard', {
+      url: '/dashboard',
+      templateUrl: 'modules/broadcast/components/dashboard/index.html',
+      requires: ['modules/common/requires', 'modules/broadcast/requires']
+    });
+
     $stateProvider.state('terminal', {
       url: '/terminal',
       templateUrl: 'modules/broadcast/components/terminal/list.html',

@@ -58,9 +58,6 @@ require.config({
     },
     'leaflet-dom-markers': {
       deps: ['leaflet']
-    },
-    'leaflet-markercluster': {
-      deps: ['leaflet']
     }
   },
   exclude: []

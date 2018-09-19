@@ -281,6 +281,34 @@ form.form-inline.inline-form .form-group .control-label {
 form.form-inline.inline-form .form-group .form-control {
   width: 79%;
 }
+.marker-cluster-normal {
+  background-color: #b5e28c;
+}
+.marker-cluster-normal div {
+  background-color: #6ecc39;
+}
+.marker-cluster-alert {
+  background-color: #fd9c73;
+}
+.marker-cluster-alert div {
+  background-color: #f18017;
+}
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+}
+.marker-cluster div {
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 15px;
+  font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+.marker-cluster span {
+  line-height: 20px;
+}
 .leaflet-container .navbar a,
 .leaflet-container .dropdown-menu a {
   width: inherit;
