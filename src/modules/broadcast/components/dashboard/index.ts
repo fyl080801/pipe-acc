@@ -4,8 +4,18 @@ import 'rcss!../../../../../bower_components/leaflet.markercluster/dist/MarkerCl
 import L = require('leaflet');
 
 class Controller {
-  static $inject = ['$scope', 'leafletMapEvents', 'leafletData'];
-  constructor(private $scope, private leafletMapEvents, private leafletData) {
+  static $inject = [
+    '$scope',
+    'leafletMapEvents',
+    'leafletData',
+    'modules/common/services/utility'
+  ];
+  constructor(
+    private $scope,
+    private leafletMapEvents,
+    private leafletData,
+    private utility: common.services.IUtility
+  ) {
     $scope.vm = this;
 
     var icon: L.IconOptions = {
@@ -18,10 +28,53 @@ class Controller {
       shadowUrl: 'images/gis/marker-shadow.png'
     };
 
+    var mapEvents = leafletMapEvents.getAvailableMapEvents();
+
+    var brokens = [];
+
+    // var data = [
+    //   {
+    //     lat: 25.0391667,
+    //     lng: 121.525,
+    //     broken: true,
+    //     icon: iconbrok
+    //   },
+    //   {
+    //     lat: 24.9166667,
+    //     lng: 121.1333333,
+    //     broken: true,
+    //     icon: iconbrok
+    //   }
+    // ];
+
+    $scope.$on('leafletDirectiveMap.click', (event, e) => {
+      $scope.clickCenter = e.leafletEvent.latlng;
+      if (e.leafletEvent.originalEvent.ctrlKey) {
+        var uid = utility.uuid().replace(/-/g, '');
+        $scope.markers[uid] = {
+          mid: uid,
+          layer: 'jilin',
+          lat: e.leafletEvent.latlng.lat,
+          lng: e.leafletEvent.latlng.lng,
+          icon: icon
+        };
+      }
+    });
+
+    $scope.$on('leafletDirectiveMarker.click', (event, args) => {
+      if ($.inArray(args.modelName, brokens) < 0) {
+        brokens.push(args.modelName);
+        args.model.icon = iconbrok;
+      }
+    });
+
+    $scope.currentArea = null;
+
     $scope.mapDefaults = {
       attributionControl: false,
       zoomControl: true,
-      maxZoom: 20,
+      minZoom: 7,
+      maxZoom: 18,
       controls: {
         layers: {
           visible: false,
@@ -31,12 +84,21 @@ class Controller {
       }
     };
 
-    var brokens = [];
+    $scope.center = {
+      lng: 127.05,
+      lat: 43.74,
+      zoom: 7
+    };
+
+    $scope.clickCenter = {
+      lat: 0,
+      lng: 0
+    };
 
     $scope.layers = {
       overlays: {
-        taiwan: {
-          name: 'South cities',
+        jilin: {
+          name: 'jilinsheng',
           type: 'markercluster',
           layerOptions: {
             spiderfyOnMaxZoom: false,
@@ -46,7 +108,7 @@ class Controller {
               var chMarkers = cluster.getAllChildMarkers();
               var brokenCount = 0;
               for (var m in chMarkers) {
-                if (chMarkers[m].options['broken'] === true) {
+                if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
                   brokenCount++;
                 }
               }
@@ -62,7 +124,7 @@ class Controller {
                 className:
                   'marker-cluster marker-cluster-' +
                   (brokenCount > 0 ? 'alert' : 'normal'),
-                iconSize: new L.Point(50, 50)
+                iconSize: new L.Point(60, 60)
               });
             }
           },
@@ -71,62 +133,128 @@ class Controller {
       }
     };
 
-    $scope.markers = {
-      taipei: {
-        layer: 'taiwan',
-        lat: 25.0391667,
-        lng: 121.525,
-        broken: true,
-        icon: iconbrok
-      },
-      yangmei: {
-        layer: 'taiwan',
-        lat: 24.9166667,
-        lng: 121.1333333,
-        broken: true,
-        icon: iconbrok
-      },
-      hsinchu: {
-        layer: 'taiwan',
-        lat: 24.8047222,
-        lng: 120.9713889,
-        icon: icon
-      },
-      miaoli: {
-        layer: 'taiwan',
-        lat: 24.5588889,
-        lng: 120.8219444,
-        icon: icon
-      },
-      tainan: {
-        layer: 'taiwan',
-        lat: 22.9933333,
-        lng: 120.2036111,
-        icon: icon
-      },
-      puzi: {
-        layer: 'taiwan',
-        lat: 23.4611,
-        lng: 120.242,
-        icon: icon
-      },
-      kaohsiung: {
-        layer: 'taiwan',
-        lat: 22.6252777778,
-        lng: 120.3088888889,
-        icon: icon
-      },
-      taitun: {
-        layer: 'taiwan',
-        lat: 22.75,
-        lng: 121.15,
-        icon: icon
-      }
-    };
+    $scope.markers = {};
 
     $scope.mapTiles = {
       url: 'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}'
     };
+
+    $scope.areas = [
+      {
+        name: '吉林',
+        pos: '125.342828,43.903823',
+        zoom: 7,
+        areas: [
+          {
+            name: '长春市',
+            pos: '125.337237,43.890235',
+            zoom: 12,
+            areas: [
+              {
+                name: '南关区',
+                pos: '125.350173,43.863989',
+                zoom: 17
+              },
+              {
+                name: '朝阳区',
+                pos: '125.288319,43.863989',
+                zoom: 17
+              },
+              {
+                name: '绿园区',
+                pos: '125.256136,43.863989',
+                zoom: 17
+              },
+              {
+                name: '二道区',
+                pos: '125.374689,43.866571',
+                zoom: 17
+              },
+              {
+                name: '双阳区',
+                pos: '125.664662,43.866571',
+                zoom: 17
+              },
+              {
+                name: '宽城区',
+                pos: '125.326578,43.866571',
+                zoom: 17
+              },
+              {
+                name: '九台区',
+                pos: '125.839574,43.866571',
+                zoom: 17
+              }
+            ]
+          },
+          {
+            name: '吉林市',
+            pos: '126.55239,43.843804',
+            zoom: 12,
+            areas: [
+              {
+                name: '船营区',
+                pos: '126.540966,43.833445',
+                zoom: 17
+              },
+              {
+                name: '龙潭区',
+                pos: '126.562197,43.833445',
+                zoom: 17
+              },
+              {
+                name: '昌邑区',
+                pos: '126.57471,43.833445',
+                zoom: 17
+              },
+              {
+                name: '丰满区',
+                pos: '126.562274,43.833445',
+                zoom: 17
+              }
+            ]
+          },
+          {
+            name: '四平市',
+            pos: '124.360894,43.176263',
+            zoom: 12,
+            areas: [
+              {
+                name: '铁西区',
+                pos: '124.345722,43.146155',
+                zoom: 17
+              },
+              {
+                name: '铁东区',
+                pos: '124.409622,43.146155',
+                zoom: 17
+              },
+              {
+                name: '双辽市',
+                pos: '123.502724,43.146155',
+                zoom: 17
+              }
+            ]
+          }
+        ]
+      }
+    ];
+  }
+
+  selectArea(area) {
+    var pos = area.pos.split(',');
+
+    this.$scope.currentArea = this.$scope.currentArea === area ? null : area;
+
+    this.leafletData.getMap().then((map: L.Map) => {
+      map.setView(
+        {
+          lat: pos[1],
+          lng: pos[0]
+        },
+        area.zoom
+      );
+    });
   }
 }
 

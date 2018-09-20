@@ -1,3 +1,54 @@
 <div ng-controller="modules/broadcast/components/dashboard/index">
-    <div leaflet tiles="mapTiles" markers="markers" layers="layers" style="height:600px" defaults="mapDefaults"></div>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            区域
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div ui-tree class="list-group">
+                            <ol ui-tree-nodes class="panel-group" ng-model="areas">
+                                <li ng-repeat="area in areas" ui-tree-node ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            设备地图
+                            <span>
+                                lat:{{center.lat}}
+                            </span>
+                            <span>
+                                lng:{{center.lng}}
+                            </span>
+                            <span>
+                                zoom:{{center.zoom}}
+                            </span>
+                            |
+                            <span>
+                                lat:{{clickCenter.lat}}
+                            </span>
+                            <span>
+                                lng:{{clickCenter.lng}}
+                            </span>
+                            <span>
+                                zoom:{{clickCenter.zoom}}
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <div leaflet tiles="mapTiles" markers="markers" center="center" layers="layers" style="height:600px"
+                            defaults="mapDefaults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
