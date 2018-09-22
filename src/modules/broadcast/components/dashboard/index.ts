@@ -54,7 +54,7 @@ class Controller {
         var uid = utility.uuid().replace(/-/g, '');
         $scope.markers[uid] = {
           mid: uid,
-          layer: this.$scope.currentArea.name,
+          layer: 'jilin', //this.$scope.currentArea.name,
           lat: e.leafletEvent.latlng.lat,
           lng: e.leafletEvent.latlng.lng,
           icon: icon
@@ -99,38 +99,38 @@ class Controller {
 
     $scope.layers = {
       overlays: {
-        // jilin: {
-        //   name: 'jilinsheng',
-        //   type: 'markercluster',
-        //   layerOptions: {
-        //     spiderfyOnMaxZoom: false,
-        //     showCoverageOnHover: true,
-        //     zoomToBoundsOnClick: false,
-        //     iconCreateFunction: (cluster: L.MarkerCluster) => {
-        //       var chMarkers = cluster.getAllChildMarkers();
-        //       var brokenCount = 0;
-        //       for (var m in chMarkers) {
-        //         if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
-        //           brokenCount++;
-        //         }
-        //       }
-        //       var childCount = cluster.getChildCount();
-        //       return new L.DivIcon({
-        //         html:
-        //           '<div><span>总数:' +
-        //           childCount +
-        //           '</span><br/><span>故障:' +
-        //           brokenCount +
-        //           '</span></div>',
-        //         className:
-        //           'marker-cluster marker-cluster-' +
-        //           (brokenCount > 0 ? 'alert' : 'normal'),
-        //         iconSize: new L.Point(60, 60)
-        //       });
-        //     }
-        //   },
-        //   visible: true
-        // }
+        jilin: {
+          name: 'jilinsheng',
+          type: 'markercluster',
+          layerOptions: {
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover: true,
+            zoomToBoundsOnClick: false,
+            iconCreateFunction: (cluster: L.MarkerCluster) => {
+              var chMarkers = cluster.getAllChildMarkers();
+              var brokenCount = 0;
+              for (var m in chMarkers) {
+                if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
+                  brokenCount++;
+                }
+              }
+              var childCount = cluster.getChildCount();
+              return new L.DivIcon({
+                html:
+                  '<div><span>总数:' +
+                  childCount +
+                  '</span><br/><span>故障:' +
+                  brokenCount +
+                  '</span></div>',
+                className:
+                  'marker-cluster marker-cluster-' +
+                  (brokenCount > 0 ? 'alert' : 'normal'),
+                iconSize: new L.Point(60, 60)
+              });
+            }
+          },
+          visible: true
+        }
       }
     };
 
@@ -269,11 +269,11 @@ class Controller {
   selectArea(area) {
     var pos = area.pos.split(',');
 
-    for (var name in this.$scope.layers.overlays) {
-      this.$scope.layers.overlays[name].visible = false;
-    }
+    // for (var name in this.$scope.layers.overlays) {
+    //   this.$scope.layers.overlays[name].visible = false;
+    // }
 
-    this.$scope.layers.overlays[area.name].visible = true;
+    // this.$scope.layers.overlays[area.name].visible = true;
 
     this.$scope.currentArea = this.$scope.currentArea === area ? null : area;
 
