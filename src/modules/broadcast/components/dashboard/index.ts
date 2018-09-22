@@ -47,13 +47,14 @@ class Controller {
     //   }
     // ];
 
+    // 添加设备
     $scope.$on('leafletDirectiveMap.click', (event, e) => {
       $scope.clickCenter = e.leafletEvent.latlng;
       if (e.leafletEvent.originalEvent.ctrlKey) {
         var uid = utility.uuid().replace(/-/g, '');
         $scope.markers[uid] = {
           mid: uid,
-          layer: 'jilin',
+          layer: this.$scope.currentArea.name,
           lat: e.leafletEvent.latlng.lat,
           lng: e.leafletEvent.latlng.lng,
           icon: icon
@@ -61,6 +62,7 @@ class Controller {
       }
     });
 
+    // 设置故障
     $scope.$on('leafletDirectiveMarker.click', (event, args) => {
       if ($.inArray(args.modelName, brokens) < 0) {
         brokens.push(args.modelName);
@@ -97,41 +99,50 @@ class Controller {
 
     $scope.layers = {
       overlays: {
-        jilin: {
-          name: 'jilinsheng',
-          type: 'markercluster',
-          layerOptions: {
-            spiderfyOnMaxZoom: false,
-            showCoverageOnHover: true,
-            zoomToBoundsOnClick: false,
-            iconCreateFunction: (cluster: L.MarkerCluster) => {
-              var chMarkers = cluster.getAllChildMarkers();
-              var brokenCount = 0;
-              for (var m in chMarkers) {
-                if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
-                  brokenCount++;
-                }
-              }
-              var childCount = cluster.getChildCount();
-
-              return new L.DivIcon({
-                html:
-                  '<div><span>总数:' +
-                  childCount +
-                  '</span><br/><span>故障:' +
-                  brokenCount +
-                  '</span></div>',
-                className:
-                  'marker-cluster marker-cluster-' +
-                  (brokenCount > 0 ? 'alert' : 'normal'),
-                iconSize: new L.Point(60, 60)
-              });
-            }
-          },
-          visible: true
-        }
+        // jilin: {
+        //   name: 'jilinsheng',
+        //   type: 'markercluster',
+        //   layerOptions: {
+        //     spiderfyOnMaxZoom: false,
+        //     showCoverageOnHover: true,
+        //     zoomToBoundsOnClick: false,
+        //     iconCreateFunction: (cluster: L.MarkerCluster) => {
+        //       var chMarkers = cluster.getAllChildMarkers();
+        //       var brokenCount = 0;
+        //       for (var m in chMarkers) {
+        //         if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
+        //           brokenCount++;
+        //         }
+        //       }
+        //       var childCount = cluster.getChildCount();
+        //       return new L.DivIcon({
+        //         html:
+        //           '<div><span>总数:' +
+        //           childCount +
+        //           '</span><br/><span>故障:' +
+        //           brokenCount +
+        //           '</span></div>',
+        //         className:
+        //           'marker-cluster marker-cluster-' +
+        //           (brokenCount > 0 ? 'alert' : 'normal'),
+        //         iconSize: new L.Point(60, 60)
+        //       });
+        //     }
+        //   },
+        //   visible: true
+        // }
       }
     };
+
+    // var group = {
+    //   name: 'Group Layer',
+    //   type: 'group',
+    //   visible: true,
+    //   layerOptions: {
+    //     layers: [tileLayer, utfGrid],
+    //     maxZoom: 5
+    //   }
+    // };
 
     $scope.markers = {};
 
@@ -239,10 +250,30 @@ class Controller {
         ]
       }
     ];
+
+    this.addLayers($scope.areas);
+  }
+
+  private addLayers(layers) {
+    if (!layers || !layers.length || layers.length <= 0) return;
+    for (var i = 0; i < layers.length; i++) {
+      this.$scope.layers.overlays[layers[i].name] = {
+        name: layers[i].name,
+        type: 'group',
+        visible: false
+      };
+      this.addLayers(layers[i].areas);
+    }
   }
 
   selectArea(area) {
     var pos = area.pos.split(',');
+
+    for (var name in this.$scope.layers.overlays) {
+      this.$scope.layers.overlays[name].visible = false;
+    }
+
+    this.$scope.layers.overlays[area.name].visible = true;
 
     this.$scope.currentArea = this.$scope.currentArea === area ? null : area;
 
