@@ -4,6 +4,7 @@ import {
   areaForm,
   terminalForm
 } from 'modules/broadcast/components/terminal/forms';
+import { AreaLevels } from 'modules/broadcast/configs/enums/areas';
 
 class Controller {
   static $inject = [
@@ -11,6 +12,8 @@ class Controller {
     '$rootScope',
     '$modal',
     'modules/common/factories/schemaFormParams',
+    'app/services/treeUtility',
+    'modules/common/services/requestService',
     'app/services/popupService'
   ];
   constructor(
@@ -18,6 +21,8 @@ class Controller {
     private $rootScope,
     private $modal: ng.ui.bootstrap.IModalService,
     private schemaFormParams,
+    private treeUtility: app.services.ITreeUtility,
+    private requestService: common.services.IRequestService,
     private popupService: app.services.IPopupService
   ) {
     $scope.vm = this;
@@ -30,6 +35,34 @@ class Controller {
 
     // 设备
     $scope.dataList = [];
+  }
+
+  private resolveLevel(area) {
+    var level = 0;
+    var func = a => {
+      if (a.$key) {
+        level++;
+        func(a.$parent);
+      }
+    };
+    func(area);
+    return AreaLevels[level];
+  }
+
+  load() {
+    this.requestService
+      .url('api/node?parentId=0')
+      .options({ showLoading: false })
+      .get()
+      .result.then((result: []) => {
+        this.treeUtility
+          .toTree(result)
+          .parentKey('parentId')
+          .key('id')
+          .result.then(tree => {
+            this.$scope.areas = tree.$children;
+          });
+      });
   }
 
   addArea() {
@@ -48,16 +81,40 @@ class Controller {
         size: 'lg'
       })
       .result.then(data => {
-        if (!this.$scope.currentArea) {
-          this.$scope.areas.push($.extend(data, { areas: [] }));
-        } else {
-          this.$scope.currentArea.areas.push(
-            $.extend(data, {
-              areas: []
-              // parentId: this.$scope.currentArea.id // 先不写，到时候看看是怎么添加到数据库，如何生成id
-            })
-          );
-        }
+        if (!this.$scope.currentArea) return;
+
+        data.id = 0;
+        data.nodeType = this.resolveLevel(this.$scope.currentArea);
+        data.parentId = this.$scope.currentArea.$key;
+
+        // if (!this.$scope.currentArea) {
+        //   // this.$scope.areas.push($.extend(data, { areas: [] }));
+        // } else {
+        //   // this.$scope.currentArea.areas.push(
+        //   //   $.extend(data, {
+        //   //     areas: []
+        //   //     // parentId: this.$scope.currentArea.id // 先不写，到时候看看是怎么添加到数据库，如何生成id
+        //   //   })
+        //   // );
+        // }
+
+        this.requestService
+          .url('api/node/')
+          .post(data)
+          .result.then(result => {
+            data.id = result['id'];
+            this.treeUtility
+              .toTree([data])
+              .key('id')
+              .parentKey('parentId')
+              .result.then(t => {
+                var node = t.$children[0];
+                node.$parent = this.$scope.currentArea;
+                this.$scope.currentArea.$children =
+                  this.$scope.currentArea.$children || [];
+                this.$scope.currentArea.$children.push(node);
+              });
+          });
       });
   }
 
@@ -88,7 +145,10 @@ class Controller {
   }
 
   selectArea(area) {
-    this.$scope.currentArea = this.$scope.currentArea === area ? null : area;
+    this.$scope.currentArea =
+      this.$scope.currentArea && this.$scope.currentArea.$key === area.$key
+        ? null
+        : area;
   }
 
   addTerminal() {
