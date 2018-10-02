@@ -81,22 +81,14 @@ class Controller {
         size: 'lg'
       })
       .result.then(data => {
-        if (!this.$scope.currentArea) return;
-
         data.id = 0;
-        data.nodeType = this.resolveLevel(this.$scope.currentArea);
-        data.parentId = this.$scope.currentArea.$key;
-
-        // if (!this.$scope.currentArea) {
-        //   // this.$scope.areas.push($.extend(data, { areas: [] }));
-        // } else {
-        //   // this.$scope.currentArea.areas.push(
-        //   //   $.extend(data, {
-        //   //     areas: []
-        //   //     // parentId: this.$scope.currentArea.id // 先不写，到时候看看是怎么添加到数据库，如何生成id
-        //   //   })
-        //   // );
-        // }
+        if (this.$scope.currentArea) {
+          data.nodeType = this.resolveLevel(this.$scope.currentArea);
+          data.parentId = this.$scope.currentArea.$key;
+        } else {
+          data.nodeType = AreaLevels[0];
+          data.parentId = 0;
+        }
 
         this.requestService
           .url('api/node/')
@@ -109,10 +101,14 @@ class Controller {
               .parentKey('parentId')
               .result.then(t => {
                 var node = t.$children[0];
-                node.$parent = this.$scope.currentArea;
-                this.$scope.currentArea.$children =
-                  this.$scope.currentArea.$children || [];
-                this.$scope.currentArea.$children.push(node);
+                if (this.$scope.currentArea) {
+                  node.$parent = this.$scope.currentArea;
+                  this.$scope.currentArea.$children =
+                    this.$scope.currentArea.$children || [];
+                  this.$scope.currentArea.$children.push(node);
+                } else {
+                  this.$scope.areas.push(node);
+                }
               });
           });
       });
@@ -126,7 +122,7 @@ class Controller {
           $data: $.extend(
             {
               title: '编辑区域',
-              model: $.extend({}, scope.area)
+              model: $.extend({}, scope.area.$data)
             },
             areaForm(this.schemaFormParams)
           )
@@ -134,14 +130,56 @@ class Controller {
         size: 'lg'
       })
       .result.then(data => {
-        scope.area = data;
+        this.requestService
+          .url('api/node/')
+          .post(data)
+          .result.then(result => {
+            scope.area.$data = data;
+          });
       });
 
     $event.stopPropagation();
   }
 
   removeArea(scope) {
-    this.popupService.confirm('是否删除？').ok(() => {});
+    this.popupService.confirm('是否删除？').ok(() => {
+      this.requestService
+        .url('api/node/' + scope.area.$key)
+        .drop()
+        .result.then(result => {
+          for (var i = 0; i < scope.area.$parent.$children.length; i++) {
+            if (scope.area.$parent.$children[i].$key === scope.area.$key) {
+              scope.area.$parent.$children.splice(i, 1);
+            }
+          }
+          this.$scope.currentArea = null;
+        });
+    });
+  }
+
+  toggleArea(scope, $event) {
+    scope.toggle();
+
+    if (!scope.collapsed) {
+      this.requestService
+        .url('api/node?parentId=' + scope.area.$key)
+        .options({ showLoading: false })
+        .get()
+        .result.then((result: []) => {
+          this.treeUtility
+            .toTree(result)
+            .key('id')
+            .parentKey('parentId')
+            .onEach(item => {
+              item.$parent = scope.area;
+            })
+            .result.then(areas => {
+              scope.area.$children = areas.$children;
+            });
+        });
+    }
+
+    $event.stopPropagation();
   }
 
   selectArea(area) {

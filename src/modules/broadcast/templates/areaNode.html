@@ -1,6 +1,6 @@
 <div class="list-group-item" ng-click="vm.selectArea(area)" ng-class="{ 'active' : currentArea && currentArea.$key === area.$key }">
-    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="this.toggle();$event.stopPropagation();"></span>
-    <span ui-tree-handle ng-bind="area.$data.name"></span>
+    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="vm.toggleArea(this, $event)"></span>
+    <span ng-bind="area.$data.name"></span>
     <span class="pull-right">
         <button class="btn btn-default btn-xs" ng-click="vm.editArea(this, $event)">
             <i class="glyphicon glyphicon-edit"></i>
