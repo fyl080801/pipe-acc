@@ -30,7 +30,7 @@ require.config({
     signalr: '../bower_components/signalr/jquery.signalR.min',
     'angular-signalr-hub':
       '../bower_components/angular-signalr-hub/signalr-hub.min',
-    'schema-form':
+    'angular-schema-form':
       '../bower_components/angular-schema-form/dist/schema-form.min',
     'schema-form-bootstrap':
       '../bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min',
@@ -51,7 +51,7 @@ require.config({
   },
   shim: {
     'schema-form-bootstrap': {
-      deps: ['schema-form']
+      deps: ['angular-schema-form']
     },
     'ui-leaflet': {
       deps: ['leaflet', 'angular-simple-logger']

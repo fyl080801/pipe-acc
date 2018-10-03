@@ -54,7 +54,7 @@ class Controller {
       .url('api/node?parentId=0')
       .options({ showLoading: false })
       .get()
-      .result.then((result: []) => {
+      .result.then((result: any[]) => {
         this.treeUtility
           .toTree(result)
           .parentKey('parentId')
@@ -165,7 +165,7 @@ class Controller {
         .url('api/node?parentId=' + scope.area.$key)
         .options({ showLoading: false })
         .get()
-        .result.then((result: []) => {
+        .result.then((result: any[]) => {
           this.treeUtility
             .toTree(result)
             .key('id')
@@ -187,6 +187,13 @@ class Controller {
       this.$scope.currentArea && this.$scope.currentArea.$key === area.$key
         ? null
         : area;
+    this.requestService
+      .url('api/device/?parentId=' + this.$scope.currentArea.$key)
+      .options({ showLoading: false })
+      .get()
+      .result.then(result => {
+        this.$scope.dataList = result;
+      });
   }
 
   addTerminal() {
@@ -200,13 +207,21 @@ class Controller {
               title: '新建设备',
               model: model
             },
-            terminalForm(this.schemaFormParams, model)
+            terminalForm(this.schemaFormParams)
           )
         }),
         size: 'lg'
       })
       .result.then(data => {
-        this.$scope.dataList.push(data);
+        data.id = 0;
+        data.parentId = this.$scope.currentArea.$key;
+        this.requestService
+          .url('api/device/')
+          .post(data)
+          .result.then((result: any) => {
+            data.id = result.id;
+            this.$scope.dataList.push(data);
+          });
       });
   }
 
@@ -227,12 +242,29 @@ class Controller {
         size: 'lg'
       })
       .result.then(data => {
-        scope.row = data;
+        this.requestService
+          .url('api/device/')
+          .post(data)
+          .result.then(result => {
+            scope.row = data;
+          });
       });
   }
 
   removeTreminal(scope) {
-    this.popupService.confirm('是否删除？').ok(() => {});
+    this.popupService.confirm('是否删除？').ok(() => {
+      this.requestService
+        .url('api/device/' + scope.row.id)
+        .drop()
+        .result.then(result => {
+          for (var i = 0; i < this.$scope.dataList.length; i++) {
+            if (this.$scope.dataList[i].id === scope.row.id) {
+              this.$scope.dataList.splice(i, 1);
+              break;
+            }
+          }
+        });
+    });
   }
 }
 
