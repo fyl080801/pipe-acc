@@ -6,6 +6,10 @@ class Config {
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
     $stateProvider: app.IRequireStateProvider
   ) {
+    var indexView = $('#app').attr('index-view');
+
+    $urlRouterProvider.otherwise(indexView);
+
     $stateProvider.state('dashboard', {
       url: '/dashboard',
       templateUrl: 'modules/broadcast/components/dashboard/index.html',
