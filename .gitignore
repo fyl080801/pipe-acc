@@ -37,3 +37,4 @@ build/Release
 /src/modules/**/*.map
 /src/startup.map
 /src/startup.js
+/src/static

@@ -73,7 +73,11 @@ class Controller {
           $data: $.extend(
             {
               title: '新建区域',
-              model: {}
+              model: {
+                pos: this.$scope.currentArea
+                  ? this.$scope.currentArea.$data.pos
+                  : '125.32396316528322,43.86120547712218'
+              }
             },
             areaForm(this.schemaFormParams)
           )
@@ -197,7 +201,9 @@ class Controller {
   }
 
   addTerminal() {
-    var model = {};
+    var model = {
+      pos: this.$scope.currentArea.$data.pos
+    };
     this.$modal
       .open({
         templateUrl: 'modules/broadcast/components/terminal/deviceForm.html',

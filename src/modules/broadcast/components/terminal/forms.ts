@@ -116,6 +116,15 @@ export var terminalForm = (
             type: 'string',
             required: true
           },
+          extendCode: {
+            title: '扩展码',
+            type: 'string',
+            required: true
+          },
+          valid: {
+            title: '已验证',
+            type: 'boolean'
+          },
           address: {
             title: 'IP',
             type: 'string'
@@ -173,6 +182,14 @@ export var terminalForm = (
           type: 'section',
           htmlClass: 'row',
           items: [
+            { type: 'section', htmlClass: 'col-md-6', items: ['extendCode'] },
+            { type: 'section', htmlClass: 'col-md-6', items: ['valid'] }
+          ]
+        },
+        {
+          type: 'section',
+          htmlClass: 'row',
+          items: [
             { type: 'section', htmlClass: 'col-md-6', items: ['address'] },
             { type: 'section', htmlClass: 'col-md-6', items: ['pos'] }
           ]
@@ -193,6 +210,6 @@ export var terminalForm = (
   //   "extendCode" : "00",
   //   "address" : "192.178.1.1",
   //   "valid" : true,
-  //   "status" : NumberInt(0),
+  //   "status" : NumberInt(0), // 0
   //   "parentId" : NumberInt(1)
 };

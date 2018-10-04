@@ -21,7 +21,7 @@ class Controller {
     $scope.markers = {};
 
     $scope.mapTiles = {
-      url: 'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}'
+      url: 'static/map/{z}/{x}/{y}.png'//'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}'
     };
 
     var mapEvents = leafletMapEvents.getAvailableMapEvents();
@@ -40,7 +40,7 @@ class Controller {
 
     pos = pos.length === 2 ? pos : [0, 0];
 
-    var zoom = this.$scope.$data.model.zoom ? this.$scope.$data.model.zoom : 1;
+    var zoom = this.$scope.$data.model.zoom ? this.$scope.$data.model.zoom : 7;
 
     this.leafletData.getMap().then((map: L.Map) => {
       setTimeout(() => {

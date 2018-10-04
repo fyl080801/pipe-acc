@@ -1,5 +1,6 @@
 export enum AreaLevels {
   省 = 0,
   市 = 1,
-  区 = 2
+  县 = 2,
+  乡镇 = 3
 }
