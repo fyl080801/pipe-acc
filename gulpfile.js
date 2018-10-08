@@ -57,7 +57,8 @@ gulp.task('pack_resources', function() {
       '!src/app/**/*.js',
       '!src/app/**/*.ts',
       '!src/app/**/*.map',
-      '!src/**/*.less'
+      '!src/**/*.less',
+      '!src/static/**/*'
     ])
     .pipe(gulp.dest('dist'));
 
