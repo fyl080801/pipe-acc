@@ -18,7 +18,7 @@ class Decorator {
     $delegate.doResponse = (response, defer) => {
       if (response.config.dataOnly) {
         defer.resolve(response.data, response);
-      } else if (response.data.errno === 0) {
+      } else if (response.data.errno === 0 || response.data.errno === 9996) {
         defer.resolve(response.data.data, response);
       } else {
         $delegate.doError(

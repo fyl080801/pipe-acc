@@ -51,6 +51,10 @@ export var areaForm = (
         pos: {
           title: '经纬度',
           type: 'string'
+        },
+        zoom: {
+          title: '缩放',
+          type: 'number'
         }
       }
     }),
@@ -66,7 +70,19 @@ export var areaForm = (
       {
         type: 'section',
         htmlClass: 'row',
-        items: [{ type: 'section', htmlClass: 'col-md-6', items: ['pos'] }]
+        items: [
+          { type: 'section', htmlClass: 'col-md-6', items: ['pos'] },
+          {
+            type: 'section',
+            htmlClass: 'col-md-6',
+            items: [
+              {
+                key: 'zoom',
+                readonly: true
+              }
+            ]
+          }
+        ]
       }
     ]
   };
