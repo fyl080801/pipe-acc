@@ -27,6 +27,12 @@ class Config {
       templateUrl: 'modules/broadcast/components/terminal/location.html',
       requires: ['modules/common/requires', 'modules/broadcast/requires']
     });
+
+    $stateProvider.state('broadcast', {
+      url: '/broadcast',
+      templateUrl: 'modules/broadcast/components/broadcast/list.html',
+      requires: ['modules/common/requires', 'modules/broadcast/requires']
+    });
   }
 }
 

@@ -170,6 +170,12 @@ dl.dl-settings dd {
 .ng-table th.sortable i {
   padding-top: 2px;
 }
+/* box */
+.box-header > .box-tools-left {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
 .acc-container {
   position: absolute;
   top: 0;
