@@ -176,6 +176,11 @@ dl.dl-settings dd {
   left: 10px;
   top: 5px;
 }
+.have-pager .ng-table-pager {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
 .acc-container {
   position: absolute;
   top: 0;

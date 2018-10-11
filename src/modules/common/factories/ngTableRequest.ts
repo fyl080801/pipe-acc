@@ -26,25 +26,22 @@ class Factory {
       });
   }
 
-  private _options;
   constructor(
     private $location,
     private ngTableParams,
     private requestService,
     private initOptions
   ) {
-    this._options = {};
-
-    this.options(initOptions);
+    this.initOptions = this.initOptions || {};
 
     return this;
   }
 
   options(newOptions) {
     if (angular.isDefined(newOptions)) {
-      angular.extend(this._options, newOptions);
+      angular.extend(this.initOptions, newOptions);
     }
-    return self;
+    return this;
   }
 
   table(newParams?, newSettings?) {
@@ -52,7 +49,7 @@ class Factory {
       newParams,
       $.extend(newSettings, {
         getData: params => {
-          return this.getData(params, this._options);
+          return this.getData(params, this.initOptions);
         }
       })
     );

@@ -51,7 +51,7 @@ class Controller {
 
   load() {
     this.requestService
-      .url('api/node?parentId=0')
+      .url('/api/node?parentId=0')
       .options({ showLoading: false })
       .get()
       .result.then((result: any[]) => {
@@ -95,7 +95,7 @@ class Controller {
         }
 
         this.requestService
-          .url('api/node/')
+          .url('/api/node/')
           .post(data)
           .result.then(result => {
             data.id = result['id'];
@@ -135,7 +135,7 @@ class Controller {
       })
       .result.then(data => {
         this.requestService
-          .url('api/node/')
+          .url('/api/node/')
           .post(data)
           .result.then(result => {
             scope.area.$data = data;
@@ -148,7 +148,7 @@ class Controller {
   removeArea(scope) {
     this.popupService.confirm('是否删除？').ok(() => {
       this.requestService
-        .url('api/node/' + scope.area.$key)
+        .url('/api/node/' + scope.area.$key)
         .drop()
         .result.then(result => {
           for (var i = 0; i < scope.area.$parent.$children.length; i++) {
@@ -166,7 +166,7 @@ class Controller {
 
     if (!scope.collapsed) {
       this.requestService
-        .url('api/node?parentId=' + scope.area.$key)
+        .url('/api/node?parentId=' + scope.area.$key)
         .options({ showLoading: false })
         .get()
         .result.then((result: any[]) => {
@@ -192,7 +192,7 @@ class Controller {
         ? null
         : area;
     this.requestService
-      .url('api/device/?parentId=' + this.$scope.currentArea.$key)
+      .url('/api/device/?parentId=' + this.$scope.currentArea.$key)
       .options({ showLoading: false })
       .get()
       .result.then(result => {
@@ -222,7 +222,7 @@ class Controller {
         data.id = 0;
         data.parentId = this.$scope.currentArea.$key;
         this.requestService
-          .url('api/device/')
+          .url('/api/device/')
           .post(data)
           .result.then((result: any) => {
             data.id = result.id;
@@ -249,7 +249,7 @@ class Controller {
       })
       .result.then(data => {
         this.requestService
-          .url('api/device/')
+          .url('/api/device/')
           .post(data)
           .result.then(result => {
             scope.row = data;
@@ -260,7 +260,7 @@ class Controller {
   removeTreminal(scope) {
     this.popupService.confirm('是否删除？').ok(() => {
       this.requestService
-        .url('api/device/' + scope.row.id)
+        .url('/api/device/' + scope.row.id)
         .drop()
         .result.then(result => {
           for (var i = 0; i < this.$scope.dataList.length; i++) {

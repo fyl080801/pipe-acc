@@ -30,7 +30,7 @@ class Config {
 
     $stateProvider.state('broadcast', {
       url: '/broadcast',
-      templateUrl: 'modules/broadcast/components/broadcast/list.html',
+      templateUrl: 'modules/broadcast/components/broadcast/dailyList.html',
       requires: ['modules/common/requires', 'modules/broadcast/requires']
     });
   }
