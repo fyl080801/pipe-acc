@@ -28,10 +28,10 @@
                         </div>
                         <div class="box-tools">
                             <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-default" ng-click="vm.add()">
+                                <button type="button" class="btn btn-default" ng-click="vm.save()">
                                     <i class="glyphicon glyphicon-plus"></i> 新增
                                 </button>
-                                <button type="button" class="btn btn-default" ng-disabled="!selected" ng-click="vm.edit()">
+                                <button type="button" class="btn btn-default" ng-disabled="!selected" ng-click="vm.save(selected)">
                                     <i class="glyphicon glyphicon-edit"></i> 编辑
                                 </button>
                                 <button type="button" class="btn btn-danger" ng-disabled="!selected" ng-click="vm.drop()">

@@ -64,15 +64,15 @@ class Controller {
     this.$scope.selected = row;
   }
 
-  add() {
+  save(row) {
     this.$modal
       .open({
         templateUrl: 'modules/broadcast/components/broadcast/form.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: $.extend(
             {
-              title: '新建节目',
-              model: {}
+              title: row ? '编辑节目' : '新建节目',
+              model: row ? $.extend({}, row) : { id: 0 }
             },
             dailyForm(this.schemaFormParams)
           )
@@ -84,34 +84,7 @@ class Controller {
           .url('/api/program')
           .post(data)
           .result.then(() => {
-            this.popupService.information('添加成功');
-            this.$scope.tableParams.reload();
-          });
-      });
-  }
-
-  edit() {
-    if (!this.$scope.selected) return;
-    this.$modal
-      .open({
-        templateUrl: 'modules/broadcast/components/broadcast/form.html',
-        scope: angular.extend(this.$rootScope.$new(), {
-          $data: $.extend(
-            {
-              title: '编辑节目',
-              model: $.extend({}, this.$scope.selected)
-            },
-            dailyForm(this.schemaFormParams)
-          )
-        }),
-        size: 'lg'
-      })
-      .result.then(data => {
-        this.requestService
-          .url('/api/program')
-          .post(data)
-          .result.then(() => {
-            this.popupService.information('更新成功');
+            this.popupService.information(row ? '更新成功' : '新建成功');
             this.$scope.tableParams.reload();
           });
       });
