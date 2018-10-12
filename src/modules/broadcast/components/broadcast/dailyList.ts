@@ -72,7 +72,9 @@ class Controller {
           $data: $.extend(
             {
               title: row ? '编辑节目' : '新建节目',
-              model: row ? $.extend({}, row) : { id: 0 }
+              model: row
+                ? $.extend({}, row)
+                : { id: 0, programStart: '2018-10-12' }
             },
             dailyForm(this.schemaFormParams)
           )

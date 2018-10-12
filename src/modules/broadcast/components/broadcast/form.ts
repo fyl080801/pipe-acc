@@ -54,7 +54,8 @@ export var dailyForm = (
               {
                 key: 'programStart',
                 layOptions: {
-                  type: 'datetime'
+                  type: 'datetime',
+                  format: 'yyyy-MM-dd HH:mm'
                 },
                 validationMessage: {
                   max: '不能超过最大值'
@@ -74,7 +75,8 @@ export var dailyForm = (
               {
                 key: 'programEnd',
                 layOptions: {
-                  type: 'datetime'
+                  type: 'datetime',
+                  format: 'yyyy-MM-dd HH:mm'
                 },
                 validationMessage: {
                   min: '必须高于最小值'
@@ -100,7 +102,19 @@ export var dailyForm = (
       {
         type: 'section',
         htmlClass: 'row',
-        items: [{ type: 'section', htmlClass: 'col-md-6', items: ['status'] }]
+        items: [
+          {
+            type: 'section',
+            htmlClass: 'col-md-6',
+            items: [
+              {
+                key: 'status',
+                trueText: '启用',
+                falseText: '禁用'
+              }
+            ]
+          }
+        ]
       }
     ]
   };

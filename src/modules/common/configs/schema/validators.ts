@@ -43,7 +43,7 @@ function directive(): ng.IDirective {
     link: (scope: any, element: JQLite, attrs: ng.IAttributes, ctrl: any) => {
       var form = scope.$eval(attrs.sfChanged);
       angular.forEach(form.validators, (fnItem, key) => {
-        ctrl.$viewChangeListeners.push(function() {
+        var valfn = () => {
           var validity = angular.isFunction(fnItem)
             ? fnItem(ctrl.$modelValue, scope.model, form)
             : scope.evalExpr(fnItem, {
@@ -52,8 +52,14 @@ function directive(): ng.IDirective {
                 form: form
               });
 
-          scope.ngModel.$setValidity(key, validity === true);
-        });
+          if (scope.ngModel) {
+            scope.ngModel.$setValidity(key, validity === true);
+          } else {
+            ctrl.$setValidity(key, validity === true);
+          }
+        };
+        ctrl.$viewChangeListeners.push(valfn);
+        valfn();
       });
     }
   };

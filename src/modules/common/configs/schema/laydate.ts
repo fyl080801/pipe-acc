@@ -4,18 +4,19 @@ import { ExtendFormFields } from 'modules/common/configs/enums/extendFormFields'
 
 var tmp = 'modules/common/configs/schema/laydate.html';
 
-directive.$inject = ['sfPath'];
+directive.$inject = ['sfPath', '$filter'];
 
-function directive(sfPath): ng.IDirective {
+function directive(sfPath, $filter): ng.IDirective {
   return {
     restrict: 'EA',
     require: 'ngModel',
     link: (
       scope: any,
       instanceElement: JQLite,
-      instanceAttributes: ng.IAttributes
+      instanceAttributes: ng.IAttributes,
+      ctrl: ng.INgModelController
     ) => {
-      laydate['render'](
+      var ld = laydate['render'](
         $.extend(
           {
             elem: instanceElement.get(0),
@@ -52,6 +53,14 @@ function directive(sfPath): ng.IDirective {
           scope.form.layOptions
         )
       );
+
+      ctrl.$formatters.push(modelValue => {
+        if (modelValue === null || modelValue === undefined) return modelValue;
+        return $filter('date')(
+          new Date(modelValue.toString()),
+          ld.config.format
+        );
+      });
     }
   };
 }
