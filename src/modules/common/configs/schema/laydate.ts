@@ -20,19 +20,23 @@ function directive(sfPath): ng.IDirective {
           {
             elem: instanceElement.get(0),
             done: (value, date, enddate) => {
+              // 先把 ngModel 的路径规范化
               var modelPath: string = sfPath.normalize(
                 instanceAttributes['ngModel'],
                 '.'
               );
               var pathArray = modelPath.split('.');
+              // 设一变量存储对象树缓存
               var modelValue = null;
               for (var i = 0; i < pathArray.length; i++) {
+                // 遍历对象路径直到最后一级，将值赋给最后一级
                 if (i === pathArray.length - 1) {
                   if (modelValue === null) {
                     scope[pathArray[i]] = value;
                   } else {
                     modelValue[pathArray[i]] = value;
                   }
+                  // 如果单独用是否也需要 $setViewValue？
                   scope.ngModel.$setViewValue(value);
                 } else {
                   modelValue =
