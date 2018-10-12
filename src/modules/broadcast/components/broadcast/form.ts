@@ -11,11 +11,14 @@ export var dailyForm = (
         },
         programStart: {
           title: '开始时间',
-          type: 'string'
+          type: 'string',
+          format: 'laydate',
+          required: true
         },
         programEnd: {
           title: '结束时间',
-          type: 'string'
+          type: 'string',
+          format: 'laydate'
         },
         playDuration: {
           title: '播放周期',
@@ -29,7 +32,8 @@ export var dailyForm = (
         },
         status: {
           title: '状态',
-          type: 'boolean'
+          type: 'boolean',
+          format: 'switch'
         }
       }
     }),
@@ -43,8 +47,46 @@ export var dailyForm = (
         type: 'section',
         htmlClass: 'row',
         items: [
-          { type: 'section', htmlClass: 'col-md-6', items: ['programStart'] },
-          { type: 'section', htmlClass: 'col-md-6', items: ['programEnd'] }
+          {
+            type: 'section',
+            htmlClass: 'col-md-6',
+            items: [
+              {
+                key: 'programStart',
+                layOptions: {
+                  type: 'datetime'
+                },
+                validationMessage: {
+                  max: '不能超过最大值'
+                },
+                validators: {
+                  max: (val, model) => {
+                    return Date.parse(val) <= Date.parse(model.programEnd);
+                  }
+                }
+              }
+            ]
+          },
+          {
+            type: 'section',
+            htmlClass: 'col-md-6',
+            items: [
+              {
+                key: 'programEnd',
+                layOptions: {
+                  type: 'datetime'
+                },
+                validationMessage: {
+                  min: '必须高于最小值'
+                },
+                validators: {
+                  min: (val, model) => {
+                    return Date.parse(val) >= Date.parse(model.programStart);
+                  }
+                }
+              }
+            ]
+          }
         ]
       },
       {
@@ -55,7 +97,11 @@ export var dailyForm = (
           { type: 'section', htmlClass: 'col-md-6', items: ['playTime'] }
         ]
       },
-      'status'
+      {
+        type: 'section',
+        htmlClass: 'row',
+        items: [{ type: 'section', htmlClass: 'col-md-6', items: ['status'] }]
+      }
     ]
   };
 };

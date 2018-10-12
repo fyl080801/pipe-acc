@@ -286,10 +286,12 @@ form.h-form .form-group .form-control {
 form.form-inline.inline-form .form-group {
   width: 100%;
 }
-form.form-inline.inline-form .form-group .control-label {
+form.form-inline.inline-form .form-group > .control-label {
   width: 20%;
 }
-form.form-inline.inline-form .form-group .form-control {
+form.form-inline.inline-form .form-group > .form-control,
+form.form-inline.inline-form .form-group > .input-group,
+form.form-inline.inline-form .form-group > .btn-group {
   width: 79%;
 }
 .marker-cluster-normal {

@@ -27,6 +27,7 @@
   "/bower_components/angular-simple-logger/dist/angular-simple-logger.light.min": "js/modules.acc",
   "/bower_components/proj4/dist/proj4": "js/requires.acc",
   "/bower_components/Proj4Leaflet/src/proj4leaflet": "js/requires.acc",
+  "js/laydate": "laydate",
   "../bower_components/signalr/jquery.signalR": "jquery.signalR",
   "../bower_components/angular-signalr-hub/signalr-hub": "signalr-hub",
   "../bower_components/jquery.nicescroll/dist/jquery.nicescroll.min": "jquery.nicescroll",

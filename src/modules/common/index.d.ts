@@ -159,6 +159,7 @@ declare namespace common {
 
     interface ISchema {
       type?: string;
+      format?: string;
       title?: string;
       properties?: { [key: string]: ISchema };
       items?: Array<ISchema>;
