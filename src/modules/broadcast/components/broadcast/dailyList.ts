@@ -67,14 +67,12 @@ class Controller {
   save(row) {
     this.$modal
       .open({
-        templateUrl: 'modules/broadcast/components/broadcast/form.html',
+        templateUrl: 'modules/broadcast/templates/form.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: $.extend(
             {
               title: row ? '编辑节目' : '新建节目',
-              model: row
-                ? $.extend({}, row)
-                : { id: 0, programStart: '2018-10-12' }
+              model: row ? $.extend({}, row) : { id: 0 }
             },
             dailyForm(this.schemaFormParams)
           )
@@ -89,6 +87,7 @@ class Controller {
             this.popupService.information(row ? '更新成功' : '新建成功');
             this.$scope.tableParams.reload();
           });
+        this.$scope.selected = null;
       });
   }
 

@@ -32,8 +32,8 @@ export var dailyForm = (
         },
         status: {
           title: '状态',
-          type: 'boolean',
-          format: 'switch'
+          type: 'boolean'
+          //format: 'switch'
         }
       }
     }),
@@ -56,15 +56,15 @@ export var dailyForm = (
                 layOptions: {
                   type: 'datetime',
                   format: 'yyyy-MM-dd HH:mm'
-                },
-                validationMessage: {
-                  max: '不能超过最大值'
-                },
-                validators: {
-                  max: (val, model) => {
-                    return Date.parse(val) <= Date.parse(model.programEnd);
-                  }
                 }
+                // validationMessage: {
+                //   max: '不能超过最大值'
+                // },
+                // validators: {
+                //   max: (val, model) => {
+                //     return Date.parse(val) <= Date.parse(model.programEnd);
+                //   }
+                // }
               }
             ]
           },
@@ -77,15 +77,15 @@ export var dailyForm = (
                 layOptions: {
                   type: 'datetime',
                   format: 'yyyy-MM-dd HH:mm'
-                },
-                validationMessage: {
-                  min: '必须高于最小值'
-                },
-                validators: {
-                  min: (val, model) => {
-                    return Date.parse(val) >= Date.parse(model.programStart);
-                  }
                 }
+                // validationMessage: {
+                //   min: '必须高于最小值'
+                // },
+                // validators: {
+                //   min: (val, model) => {
+                //     return Date.parse(val) >= Date.parse(model.programStart);
+                //   }
+                // }
               }
             ]
           }
@@ -102,19 +102,7 @@ export var dailyForm = (
       {
         type: 'section',
         htmlClass: 'row',
-        items: [
-          {
-            type: 'section',
-            htmlClass: 'col-md-6',
-            items: [
-              {
-                key: 'status',
-                trueText: '启用',
-                falseText: '禁用'
-              }
-            ]
-          }
-        ]
+        items: [{ type: 'section', htmlClass: 'col-md-6', items: ['status'] }]
       }
     ]
   };

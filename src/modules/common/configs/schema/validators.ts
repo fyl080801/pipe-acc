@@ -59,8 +59,8 @@ function directive(): ng.IDirective {
           }
         };
 
-        // 验证方法上来就要执行一次，不然表单第一次加载不会执行验证
-        valfn();
+        // // 验证方法上来就要执行一次，不然表单第一次加载不会执行验证
+        // valfn();
 
         ctrl.$viewChangeListeners.push(valfn);
       });
