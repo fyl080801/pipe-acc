@@ -24,7 +24,7 @@
                     </div>
                     <div ui-tree class="box-body no-padding list-group">
                         <ol ui-tree-nodes class="panel-group" ng-model="areas">
-                            <li ng-repeat="area in areas" ui-tree-node ng-include="'modules/broadcast/templates/areaNode.html'"></li>
+                            <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/templates/areaNode.html'"></li>
                         </ol>
                     </div>
                 </div>

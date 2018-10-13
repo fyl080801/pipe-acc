@@ -11,5 +11,5 @@
     </span>
 </div>
 <ol ui-tree-nodes ng-model="area.$children" ng-class="{ hidden: collapsed }" ng-if="area.$children !== undefined">
-    <li ng-repeat="area in area.$children" ui-tree-node ng-include="'modules/broadcast/templates/areaNode.html'"></li>
+    <li ng-repeat="area in area.$children" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/templates/areaNode.html'"></li>
 </ol>

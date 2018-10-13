@@ -187,6 +187,7 @@ class Controller {
   }
 
   selectArea(area) {
+    if (!area) return;
     this.$scope.currentArea =
       this.$scope.currentArea && this.$scope.currentArea.$key === area.$key
         ? null
