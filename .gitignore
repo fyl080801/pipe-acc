@@ -38,3 +38,5 @@ build/Release
 /src/startup.map
 /src/startup.js
 /src/static
+
+.DS_Store
