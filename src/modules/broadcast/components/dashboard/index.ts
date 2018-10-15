@@ -3,6 +3,7 @@ import 'leaflet-markercluster';
 import 'rcss!../../../../../bower_components/leaflet.markercluster/dist/MarkerCluster.css';
 import L = require('leaflet');
 import { DefaultIcon } from './icon';
+import angular = require('angular');
 
 class Controller {
   static $inject = [
@@ -67,12 +68,13 @@ class Controller {
     // });
 
     $scope.areas = [];
+    $scope.devices = [];
     $scope.currentArea = null;
 
     $scope.mapDefaults = {
       attributionControl: false,
       zoomControl: true,
-      minZoom: 7,
+      minZoom: 1, //7,
       maxZoom: 18,
       controls: {
         layers: {
@@ -83,16 +85,11 @@ class Controller {
       }
     };
 
-    // $scope.center = {
-    //   lng: 127.05,
-    //   lat: 43.74,
-    //   zoom: 7
-    // };
-
-    // $scope.clickCenter = {
-    //   lat: 0,
-    //   lng: 0
-    // };
+    $scope.center = {
+      lng: 127.05,
+      lat: 43.74,
+      zoom: 7
+    };
 
     $scope.layers = {
       overlays: {
@@ -106,11 +103,11 @@ class Controller {
             iconCreateFunction: (cluster: L.MarkerCluster) => {
               var chMarkers = cluster.getAllChildMarkers();
               var brokenCount = 0;
-              for (var m in chMarkers) {
-                if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
-                  brokenCount++;
-                }
-              }
+              // for (var m in chMarkers) {
+              //   if ($.inArray(chMarkers[m].options['mid'], brokens) >= 0) {
+              //     brokenCount++;
+              //   }
+              // }
               var childCount = cluster.getChildCount();
               return new L.DivIcon({
                 html:
@@ -161,7 +158,55 @@ class Controller {
           .result.then(tree => {
             this.$scope.areas = tree.$children;
           });
+
+        var firstNode = result.length > 0 ? result[0] : null;
+        if (firstNode && firstNode.pos) {
+          var firstPos = firstNode.pos.split(',');
+          if (firstPos.length === 2) {
+            this.$scope.center = $.extend(this.$scope.center, {
+              lat: parseFloat(firstPos[1]),
+              lng: parseFloat(firstPos[0])
+            });
+          }
+        }
       });
+  }
+
+  private loadDevices(parentId: number) {
+    this.requestService
+      .url('/api/node?parentId=' + parentId)
+      .options({ showLoading: false })
+      .get()
+      .result.then((result: any[]) => {
+        if (result && result.length > 0) {
+          angular.forEach(result, (item, idx) => {
+            this.loadDevices(item.id);
+          });
+        }
+      });
+
+    if (parentId > 0) {
+      this.requestService
+        .url('/api/device/?parentId=' + parentId)
+        .options({ showLoading: false })
+        .get()
+        .result.then((result: any[]) => {
+          angular.forEach(result, (item, idx) => {
+            if (item.pos) {
+              var posArray = item.pos.split(',');
+              if (posArray.length === 2) {
+                this.$scope.markers[item.id] = {
+                  //mid: item.id,
+                  layer: 'markersLayer',
+                  lat: parseFloat(posArray[1]),
+                  lng: parseFloat(posArray[0]),
+                  icon: DefaultIcon
+                };
+              }
+            }
+          });
+        });
+    }
   }
 
   toggleArea(scope, $event) {
@@ -173,20 +218,35 @@ class Controller {
         .options({ showLoading: false })
         .get()
         .result.then((result: any[]) => {
-          this.treeUtility
-            .toTree(result)
-            .key('id')
-            .parentKey('parentId')
-            .onEach(item => {
-              item.$parent = scope.area;
-            })
-            .result.then(areas => {
-              scope.area.$children = areas.$children;
-            });
+          if (result && result.length > 0) {
+            this.treeUtility
+              .toTree(result)
+              .key('id')
+              .parentKey('parentId')
+              .onEach(item => {
+                item.$parent = scope.area;
+              })
+              .result.then(areas => {
+                scope.area.$children = areas.$children;
+              });
+          }
         });
     }
 
     $event.stopPropagation();
+  }
+
+  private toArea(scope) {
+    if (scope.area.$data.pos) {
+      var areaPos = scope.area.$data.pos.split(',');
+      if (areaPos.length === 2) {
+        this.$scope.center = $.extend(this.$scope.center, {
+          lat: parseFloat(areaPos[1]),
+          lng: parseFloat(areaPos[0]),
+          zoom: scope.area.$data.zoom
+        });
+      }
+    }
   }
 
   // private addLayers(layers) {

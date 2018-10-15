@@ -48,8 +48,9 @@
                             </span> -->
                         </h3>
                     </div>
-                    <div class="box-body no-padding">
-                        <div leaflet tiles="mapTiles" markers="markers" layers="layers" style="height:600px" defaults="mapDefaults"></div>
+                    <div class="box-body no-padding" ng-init="vm.loadDevices(0)">
+                        <div leaflet tiles="mapTiles" markers="markers" center="center" layers="layers" style="height:600px"
+                            defaults="mapDefaults"></div>
                     </div>
                 </div>
             </div>
