@@ -1,7 +1,10 @@
-<div class="list-group-item" ng-click="vm.selectArea(area)" ng-class="{'active' : currentArea === area}">
-    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="this.toggle();$event.stopPropagation();"></span>
-    <span ng-bind="area.name"></span>
+<div class="list-group-item" ng-click="vm.selectArea(area)" ng-class="{ 'active' : currentArea && currentArea.$key === area.$key }">
+    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="vm.toggleArea(this, $event)"></span>
+    <a href="">
+        <i class="glyphicon glyphicon-unchecked"></i>
+    </a>
+    <span ng-bind="area.$data.name"></span>
 </div>
-<ol ui-tree-nodes ng-model="area.areas" ng-class="{hidden: collapsed}" ng-if="area.areas!==undefined">
-    <li ng-repeat="area in area.areas" ui-tree-node ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
+<ol ui-tree-nodes ng-model="area.$children" ng-class="{ hidden: collapsed }" ng-if="area.$children !== undefined">
+    <li ng-repeat="area in area.$children" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
 </ol>

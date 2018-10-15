@@ -8,12 +8,17 @@
                             区域
                         </h3>
                     </div>
-                    <div class="box-body">
-                        <div ui-tree class="list-group">
+                    <!-- <div class="box-body">
+                        <div ui-tree class="list-group no-padding list-group">
                             <ol ui-tree-nodes class="panel-group" ng-model="areas">
-                                <li ng-repeat="area in areas" ui-tree-node ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
+                                <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
                             </ol>
                         </div>
+                    </div> -->
+                    <div ui-tree class="box-body no-padding list-group" ng-init="vm.loadRoot()">
+                        <ol ui-tree-nodes class="panel-group" ng-model="areas">
+                            <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -22,7 +27,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             设备地图
-                            <span>
+                            <!-- <span>
                                 lat:{{center.lat}}
                             </span>
                             <span>
@@ -40,12 +45,11 @@
                             </span>
                             <span>
                                 zoom:{{clickCenter.zoom}}
-                            </span>
+                            </span> -->
                         </h3>
                     </div>
                     <div class="box-body no-padding">
-                        <div leaflet tiles="mapTiles" markers="markers" center="center" layers="layers" style="height:600px"
-                            defaults="mapDefaults"></div>
+                        <div leaflet tiles="mapTiles" markers="markers" layers="layers" style="height:600px" defaults="mapDefaults"></div>
                     </div>
                 </div>
             </div>
