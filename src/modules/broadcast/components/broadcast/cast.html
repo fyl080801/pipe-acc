@@ -1,0 +1,50 @@
+<div ng-controller="modules/broadcast/components/broadcast/cast">
+    <section class="content-header">
+        <h1>
+            应急广播 <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href=""><i class="fas fa-tachometer-alt"></i> 首页</a></li>
+            <li><a href="">应急广播</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            区域
+                        </h3>
+                    </div>
+                    <div ui-tree class="box-body no-padding list-group" ng-init="vm.loadRoot()">
+                        <ol ui-tree-nodes class="panel-group" ng-model="areas">
+                            <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/broadcast/areaNode.html'"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            设备地图
+                        </h3>
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-success btn-sm">
+                                <i class="fas fa-play"></i> 开始广播
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <i class="fas fa-stop"></i> 停止广播
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding" ng-init="vm.loadDevices(0)">
+                        <div leaflet tiles="mapTiles" markers="markers" center="center" layers="layers" style="height:600px"
+                            defaults="mapDefaults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

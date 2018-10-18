@@ -273,6 +273,16 @@ class Controller {
         });
     });
   }
+
+  uploadProfile() {
+    this.$modal
+      .open({
+        templateUrl: 'modules/broadcast/components/terminal/profileForm.html'
+      })
+      .result.then(data => {
+        //
+      });
+  }
 }
 
 mod.controller('modules/broadcast/components/terminal/list', Controller);

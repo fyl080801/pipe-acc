@@ -49,7 +49,7 @@
                                 <col />
                                 <col />
                                 <col />
-                                <col width="110" />
+                                <col width="200" />
                             </colgroup>
                             <tr ng-repeat="row in dataList">
                                 <td title="'编号'">{{row.code}}</td>
@@ -57,13 +57,14 @@
                                 <td title="'类型'">{{row.deviceType}}</td>
                                 <td title="'IP'">{{row.address}}</td>
                                 <td title="'操作'">
+                                    <a href="" ng-click="vm.uploadProfile()">
+                                        <i class="glyphicon glyphicon-upload"></i> 配置文件
+                                    </a>
                                     <a href="" ng-click="vm.editTerminal(this)">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        编辑
+                                        <i class="glyphicon glyphicon-edit"></i> 编辑
                                     </a>
                                     <a href="" class="text-danger" ng-click="vm.removeTreminal(this)">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                        删除
+                                        <i class="glyphicon glyphicon-trash"></i> 删除
                                     </a>
                                 </td>
                             </tr>
