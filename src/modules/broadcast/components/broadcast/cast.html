@@ -31,10 +31,11 @@
                             设备地图
                         </h3>
                         <div class="box-tools">
-                            <button type="button" class="btn btn-success btn-sm">
+                            <div ax-phone width="10" height="10"></div>
+                            <button type="button" class="btn btn-success btn-sm" ng-click="vm.play()">
                                 <i class="fas fa-play"></i> 开始广播
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm">
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="vm.stop()">
                                 <i class="fas fa-stop"></i> 停止广播
                             </button>
                         </div>

@@ -10,7 +10,8 @@ class Controller {
     'leafletData',
     'modules/common/services/utility',
     'modules/common/services/requestService',
-    'app/services/treeUtility'
+    'app/services/treeUtility',
+    'axPhone'
   ];
   constructor(
     private $scope,
@@ -18,7 +19,8 @@ class Controller {
     private leafletData,
     private utility: common.services.IUtility,
     private requestService: common.services.IRequestService,
-    private treeUtility: app.services.ITreeUtility
+    private treeUtility: app.services.ITreeUtility,
+    private axPhone: broadcast.IAxPhoneFactory
   ) {
     $scope.vm = this;
 
@@ -26,7 +28,7 @@ class Controller {
 
     $scope.areas = [];
     $scope.devices = [];
-    $scope.currentArea = null;
+    $scope.selectedArea = [];
 
     $scope.mapDefaults = {
       attributionControl: false,
@@ -92,7 +94,10 @@ class Controller {
     };
   }
 
-  private loadRoot() {
+  /**
+   * 读取根区域
+   */
+  loadRoot() {
     this.requestService
       .url('/api/node?parentId=0')
       .options({ showLoading: false })
@@ -119,7 +124,11 @@ class Controller {
       });
   }
 
-  private loadDevices(parentId: number) {
+  /**
+   * 读取设备
+   * @param parentId
+   */
+  loadDevices(parentId: number) {
     this.requestService
       .url('/api/node?parentId=' + parentId)
       .options({ showLoading: false })
@@ -156,6 +165,11 @@ class Controller {
     }
   }
 
+  /**
+   * 展开/收缩区域
+   * @param scope
+   * @param $event
+   */
   toggleArea(scope, $event) {
     scope.toggle();
 
@@ -170,8 +184,11 @@ class Controller {
               .toTree(result)
               .key('id')
               .parentKey('parentId')
-              .onEach(item => {
+              .onEach((item: any) => {
                 item.$parent = scope.area;
+                // if (scope.area.checkStatus === 1) {
+                //   item.checkStatus = 1;
+                // }
               })
               .result.then(areas => {
                 scope.area.$children = areas.$children;
@@ -183,7 +200,46 @@ class Controller {
     $event.stopPropagation();
   }
 
-  private toArea(scope) {
+  /**
+   * 选择区域
+   * @param scope
+   */
+  checkArea(scope) {
+    var idx = $.inArray(scope.area.$key, this.$scope.selectedArea);
+    if (idx >= 0) {
+      this.$scope.selectedArea.splice(idx, 1);
+      // scope.area.checkStatus = 0;
+    } else {
+      this.$scope.selectedArea.push(scope.area.$key);
+      // scope.area.checkStatus = 1;
+    }
+
+    // this.childrenCheck(scope.area);
+  }
+
+  isChecked(scope) {
+    return $.inArray(scope.area.$key, this.$scope.selectedArea) >= 0;
+  }
+
+  /**
+   * 播放
+   */
+  play() {
+    this.axPhone().Play([]);
+  }
+
+  /**
+   * 停止
+   */
+  stop() {
+    this.axPhone().Stop([]);
+  }
+
+  /**
+   * 定位到坐标
+   * @param scope
+   */
+  toArea(scope) {
     if (scope.area.$data.pos) {
       var areaPos = scope.area.$data.pos.split(',');
       if (areaPos.length === 2) {
@@ -193,6 +249,14 @@ class Controller {
           zoom: scope.area.$data.zoom
         });
       }
+    }
+  }
+
+  private childrenCheck(area: app.services.ITreeItem<any>) {
+    if (!area.$children) return;
+    for (var i = 0; i < area.$children.length; i++) {
+      this.checkArea({ area: area.$children[i] });
+      this.childrenCheck(area.$children[i]);
     }
   }
 }
