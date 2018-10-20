@@ -29,6 +29,7 @@ class Controller {
     $scope.areas = [];
     $scope.devices = [];
     $scope.selectedArea = [];
+    $scope.playing = [];
 
     $scope.mapDefaults = {
       attributionControl: false,
@@ -186,9 +187,6 @@ class Controller {
               .parentKey('parentId')
               .onEach((item: any) => {
                 item.$parent = scope.area;
-                // if (scope.area.checkStatus === 1) {
-                //   item.checkStatus = 1;
-                // }
               })
               .result.then(areas => {
                 scope.area.$children = areas.$children;
@@ -208,13 +206,9 @@ class Controller {
     var idx = $.inArray(scope.area.$key, this.$scope.selectedArea);
     if (idx >= 0) {
       this.$scope.selectedArea.splice(idx, 1);
-      // scope.area.checkStatus = 0;
     } else {
       this.$scope.selectedArea.push(scope.area.$key);
-      // scope.area.checkStatus = 1;
     }
-
-    // this.childrenCheck(scope.area);
   }
 
   isChecked(scope) {
@@ -225,7 +219,17 @@ class Controller {
    * 播放
    */
   play() {
-    this.axPhone().Play([]);
+    this.treeUtility
+      .eachTree({
+        $data: {},
+        $parent: null,
+        $children: this.$scope.areas,
+        $key: null
+      })
+      .onEach(item => {})
+      .result.then(() => {
+        this.axPhone().Play([]);
+      });
   }
 
   /**
