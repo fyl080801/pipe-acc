@@ -118,7 +118,7 @@ class Controller {
         .result.then(result => {
           // 状态
         });
-    }, 5000);
+    }, 10000);
   }
 
   loadRoot() {
