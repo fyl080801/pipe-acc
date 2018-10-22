@@ -3,8 +3,8 @@
     <span ng-show="!area.$data.isDevice" class="glyphicon" ng-class="{ 'glyphicon-folder-close': collapsed, 'glyphicon-folder-open': !collapsed }"
         ng-click="vm.toggleArea(this, $event)"></span>
     <a href="" ng-click="vm.checkArea(this)">
-        <i ng-show="!vm.isChecked(this)" class="glyphicon glyphicon-unchecked"></i>
-        <i ng-show="vm.isChecked(this)" class="glyphicon glyphicon-check"></i>
+        <i ng-show="!area.$data.checked" class="glyphicon glyphicon-unchecked"></i>
+        <i ng-show="area.$data.checked" class="glyphicon glyphicon-check"></i>
         <!-- <i ng-show="area.checkStatus===2" class="glyphicon glyphicon-record"></i> -->
     </a>
     <a href="" ng-click="vm.toArea(this)">

@@ -176,7 +176,10 @@ class Controller {
   toggleArea(scope, $event) {
     scope.toggle();
 
-    if (!scope.collapsed) {
+    if (
+      !scope.collapsed &&
+      (!scope.area.$children || scope.area.$children.length <= 0)
+    ) {
       var areaPromise = this.requestService
         .url('/api/node?parentId=' + scope.area.$key)
         .options({ showLoading: false })
@@ -203,6 +206,9 @@ class Controller {
           .parentKey('parentId')
           .onEach((item: any) => {
             item.$parent = scope.area;
+            if (scope.area.$data.checked) {
+              item.$data.checked = true;
+            }
           })
           .result.then(areas => {
             scope.area.$children = areas.$children;
@@ -213,21 +219,15 @@ class Controller {
     $event.stopPropagation();
   }
 
-  // treeOrder(e) {
-  //   return !e.$data.isDevice;
-  // }
-
   /**
    * 选择区域
    * @param scope
    */
   checkArea(scope) {
-    var idx = $.inArray(scope.area.$key, this.$scope.selectedArea);
-    if (idx >= 0) {
-      this.$scope.selectedArea.splice(idx, 1);
-    } else {
-      this.$scope.selectedArea.push(scope.area.$key);
-    }
+    scope.area.$data.checked = !scope.area.$data.checked;
+
+    this.childrenCheck(scope.area, scope.area.$data.checked);
+    this.parentCheck(scope.area);
   }
 
   isChecked(scope) {
@@ -279,12 +279,26 @@ class Controller {
     }
   }
 
-  private childrenCheck(area: app.services.ITreeItem<any>) {
+  private childrenCheck(area: app.services.ITreeItem<any>, checked: boolean) {
     if (!area.$children) return;
     for (var i = 0; i < area.$children.length; i++) {
-      this.checkArea({ area: area.$children[i] });
-      this.childrenCheck(area.$children[i]);
+      area.$children[i].$data.checked = checked;
+      this.childrenCheck(area.$children[i], checked);
     }
+  }
+
+  private parentCheck(area: app.services.ITreeItem<any>) {
+    if (!area.$parent || !area.$parent.$data) return;
+    var parentChecked = true;
+    for (var i = 0; i < area.$parent.$children.length; i++) {
+      if (!area.$parent.$children[i].$data.checked) {
+        parentChecked = false;
+        break;
+      }
+    }
+    area.$parent.$data.checked = parentChecked;
+
+    this.parentCheck(area.$parent);
   }
 }
 
