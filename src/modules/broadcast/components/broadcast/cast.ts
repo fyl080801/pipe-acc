@@ -6,6 +6,7 @@ import { DefaultIcon } from '../dashboard/icon';
 class Controller {
   static $inject = [
     '$scope',
+    '$q',
     'leafletMapEvents',
     'leafletData',
     'modules/common/services/utility',
@@ -15,6 +16,7 @@ class Controller {
   ];
   constructor(
     private $scope,
+    private $q: ng.IQService,
     private leafletMapEvents,
     private leafletData,
     private utility: common.services.IUtility,
@@ -175,28 +177,45 @@ class Controller {
     scope.toggle();
 
     if (!scope.collapsed) {
-      this.requestService
+      var areaPromise = this.requestService
         .url('/api/node?parentId=' + scope.area.$key)
         .options({ showLoading: false })
-        .get()
-        .result.then((result: any[]) => {
-          if (result && result.length > 0) {
-            this.treeUtility
-              .toTree(result)
-              .key('id')
-              .parentKey('parentId')
-              .onEach((item: any) => {
-                item.$parent = scope.area;
-              })
-              .result.then(areas => {
-                scope.area.$children = areas.$children;
-              });
+        .get<any[]>().result;
+      var devicePromise = this.requestService
+        .url('/api/device/?parentId=' + scope.area.$key)
+        .options({ showLoading: false })
+        .get<any[]>().result;
+
+      this.$q.all({ area: areaPromise, device: devicePromise }).then(vals => {
+        var result = [];
+        if (vals.area && vals.area.length > 0) {
+          result = result.concat(vals.area);
+        }
+        if (vals.device && vals.device.length > 0) {
+          for (var i = 0; i < vals.device.length; i++) {
+            result.push($.extend(vals.device[i], { isDevice: true }));
           }
-        });
+        }
+
+        this.treeUtility
+          .toTree(result)
+          .key('id')
+          .parentKey('parentId')
+          .onEach((item: any) => {
+            item.$parent = scope.area;
+          })
+          .result.then(areas => {
+            scope.area.$children = areas.$children;
+          });
+      });
     }
 
     $event.stopPropagation();
   }
+
+  // treeOrder(e) {
+  //   return !e.$data.isDevice;
+  // }
 
   /**
    * 选择区域
@@ -226,7 +245,11 @@ class Controller {
         $children: this.$scope.areas,
         $key: null
       })
-      .onEach(item => {})
+      .onEach(item => {
+        if ($.inArray(item.$key, this.$scope.selectedArea)) {
+          angular.forEach(item.$children, (val, idx) => {});
+        }
+      })
       .result.then(() => {
         this.axPhone().Play([]);
       });

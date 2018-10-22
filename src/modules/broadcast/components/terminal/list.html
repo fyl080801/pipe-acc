@@ -57,7 +57,7 @@
                                 <td title="'类型'">{{row.deviceType}}</td>
                                 <td title="'IP'">{{row.address}}</td>
                                 <td title="'操作'">
-                                    <a href="" ng-click="vm.uploadProfile()">
+                                    <a href="" ng-click="vm.uploadProfile(row.id)">
                                         <i class="glyphicon glyphicon-upload"></i> 配置文件
                                     </a>
                                     <a href="" ng-click="vm.editTerminal(this)">

@@ -6,10 +6,10 @@
         </h4>
     </div>
     <div class="modal-body">
-        <div bin-file></div>
+        <div bin-file ng-model="$data.file"></div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="$close($data)">
+        <button class="btn btn-primary" ng-click="$close($data)" ng-disabled="!$data.file || $data.file===''">
             <i class="glyphicon glyphicon-ok-sign"></i>
             确定
         </button>

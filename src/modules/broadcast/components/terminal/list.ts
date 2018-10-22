@@ -274,13 +274,21 @@ class Controller {
     });
   }
 
-  uploadProfile() {
+  uploadProfile(id) {
     this.$modal
       .open({
-        templateUrl: 'modules/broadcast/components/terminal/profileForm.html'
+        templateUrl: 'modules/broadcast/components/terminal/profileForm.html',
+        size: 'sm'
       })
       .result.then(data => {
-        //
+        this.requestService
+          .url(
+            '/device/configDownload/?deviceId=' +
+              id +
+              '&configFile=' +
+              data.file
+          )
+          .get();
       });
   }
 }
