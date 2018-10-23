@@ -7,7 +7,9 @@ function factory(
   $playerOptions: broadcast.PlayerOptions,
   requestService: common.services.IRequestService
 ) {
-  return new AxPhone($playerOptions, requestService);
+  return () => {
+    return new AxPhone($playerOptions, requestService);
+  };
 }
 
 class AxPhone implements broadcast.IAxPhone {
@@ -26,13 +28,16 @@ class AxPhone implements broadcast.IAxPhone {
   }
 
   Play(ids: number[]) {
-    this._instance.Play(this.options.server, this.options.port);
+    (this._instance.Play || angular.noop)(
+      this.options.server,
+      this.options.port
+    );
     this.requestService
       .url('/device/enmergencyBroad?deviceIds=' + ids.join(','))
       .get();
   }
   Stop(ids: number[]) {
-    this._instance.Stop();
+    (this._instance.Stop || angular.noop)();
     this.requestService
       .url('/device/stopBroadCast?deviceIds=' + ids.join(','))
       .get();

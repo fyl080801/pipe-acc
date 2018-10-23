@@ -238,20 +238,21 @@ class Controller {
    * 播放
    */
   play() {
+    this.$scope.playing = [];
     this.treeUtility
-      .eachTree({
+      .eachTree<any>({
         $data: {},
         $parent: null,
         $children: this.$scope.areas,
         $key: null
       })
       .onEach(item => {
-        if ($.inArray(item.$key, this.$scope.selectedArea)) {
-          angular.forEach(item.$children, (val, idx) => {});
+        if (item.$data.checked && item.$data.isDevice) {
+          this.$scope.playing.push(item.$key);
         }
       })
       .result.then(() => {
-        this.axPhone().Play([]);
+        this.axPhone().Play(this.$scope.playing);
       });
   }
 
@@ -259,7 +260,7 @@ class Controller {
    * 停止
    */
   stop() {
-    this.axPhone().Stop([]);
+    this.axPhone().Stop(this.$scope.playing);
   }
 
   /**
