@@ -7,7 +7,8 @@
     "webserver": "gulp webserver",
     "tsc": "tsc --watch -p tsconfig.json",
     "start": "concurrently \"npm run tsc\" \"npm run webserver\" \"gulp watch\"",
-    "build": "gulp build && gulp pack_rev"
+    "build": "gulp build && gulp pack_rev",
+    "install": "bower install"
   },
   "author": "",
   "license": "ISC",
