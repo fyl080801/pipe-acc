@@ -1,33 +1,34 @@
 <div ng-controller="modules/broadcast/components/dashboard/index">
-    <section class="content">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">
-                            区域
-                        </h3>
-                    </div>
-                    <!-- <div class="box-body">
+  <section class="content">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="box box-primary">
+          <div class="box-header with-border"><h3 class="box-title">区域</h3></div>
+          <!-- <div class="box-body">
                         <div ui-tree class="list-group no-padding list-group">
                             <ol ui-tree-nodes class="panel-group" ng-model="areas">
                                 <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
                             </ol>
                         </div>
                     </div> -->
-                    <div ui-tree class="box-body no-padding list-group" ng-init="vm.loadRoot()">
-                        <ol ui-tree-nodes class="panel-group" ng-model="areas">
-                            <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/dashboard/areaNode.html'"></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">
-                            设备地图
-                            <!-- <span>
+          <div ui-tree class="box-body no-padding list-group" ng-init="vm.loadRoot()">
+            <ol ui-tree-nodes class="panel-group" ng-model="areas">
+              <li
+                ng-repeat="area in areas"
+                ui-tree-node
+                data-collapsed="true"
+                ng-include="'modules/broadcast/components/dashboard/areaNode.html'"
+              ></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">
+              设备地图
+              <!-- <span>
                                 lat:{{center.lat}}
                             </span>
                             <span>
@@ -46,14 +47,20 @@
                             <span>
                                 zoom:{{clickCenter.zoom}}
                             </span> -->
-                        </h3>
-                    </div>
-                    <div class="box-body no-padding" ng-init="vm.loadDevices(0)">
-                        <div leaflet tiles="mapTiles" markers="markers" center="center" layers="layers" style="height:600px"
-                            defaults="mapDefaults"></div>
-                    </div>
-                </div>
-            </div>
+            </h3>
+          </div>
+          <div class="box-body no-padding" ng-init="vm.loadDevices(0)">
+            <div
+              leaflet
+              markers="markers"
+              center="center"
+              layers="layers"
+              style="height:600px"
+              defaults="mapDefaults"
+            ></div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>

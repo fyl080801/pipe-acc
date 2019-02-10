@@ -1,6 +1,4 @@
-export var dailyForm = (
-  schemaFormParams: common.factories.ISchemaFormParamsFactory
-) => {
+export var dailyForm = (schemaFormParams: common.factories.ISchemaFormParamsFactory) => {
   return {
     formParams: schemaFormParams({
       properties: {

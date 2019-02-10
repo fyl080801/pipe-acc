@@ -2,197 +2,195 @@
 <!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
 <html lang="zh-cn" data-html-type="no-js">
-<!--<![endif]-->
+  <!--<![endif]-->
 
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title></title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <style>
-        .view-loading {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            background-image: url('images/loading.gif');
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+      .view-loading {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-image: url('images/loading.gif');
+        background-position: center;
+        background-repeat: no-repeat;
+      }
     </style>
     <script>
-        window.console = window.console || (function () {
-            var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function () { };
-            return c;
+      window.console =
+        window.console ||
+        (function() {
+          var c = {};
+          c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function() {};
+          return c;
         })();
-        window.options = {
-            configs: {
-                // patch
-                'es5-shim': '/src/js/app.patch',
-                'es5-sham': {
-                    path: '/src/js/app.patch',
-                    shim: {
-                        deps: ['es5-shim']
-                    }
-                },
-                html5shiv: 'js/app.patch',
-                json2: '/src/js/app.patch',
-                respond: '/src/js/app.patch',
-                // app
-                'rcss': {
-                    path: '/src/js/app.application'
-                },
-                'angular-base': {
-                    path: '/src/js/app.application',
-                    deps: ['jquery']
-                },
-                'angular': {
-                    path: '/src/js/app.application',
-                    shim: { deps: ['angular-base'] }
-                },
-                'angular-ui-router': {
-                    path: '/src/js/app.application',
-                    shim: { deps: ['angular'] }
-                },
-                'angular-ui-bootstrap': {
-                    path: '/src/js/app.application',
-                    shim: { deps: ['angular'] }
-                },
-                'angular-sanitize': {
-                    path: '/src/js/app.application'
-                },
-                'angular-cookies': {
-                    path: '/src/js/app.application'
-                },
-                'bootstrap': {
-                    path: '/src/js/app.application',
-                    shim: { deps: ['jquery'] }
-                },
-                'jquery': '/src/js/app.application',
+      window.options = {
+        configs: {
+          // patch
+          'es5-shim': '/src/js/app.patch',
+          'es5-sham': {
+            path: '/src/js/app.patch',
+            shim: {
+              deps: ['es5-shim']
+            }
+          },
+          html5shiv: 'js/app.patch',
+          json2: '/src/js/app.patch',
+          respond: '/src/js/app.patch',
+          // app
+          rcss: {
+            path: '/src/js/app.application'
+          },
+          'angular-base': {
+            path: '/src/js/app.application',
+            deps: ['jquery']
+          },
+          angular: {
+            path: '/src/js/app.application',
+            shim: { deps: ['angular-base'] }
+          },
+          'angular-ui-router': {
+            path: '/src/js/app.application',
+            shim: { deps: ['angular'] }
+          },
+          'angular-ui-bootstrap': {
+            path: '/src/js/app.application',
+            shim: { deps: ['angular'] }
+          },
+          'angular-sanitize': {
+            path: '/src/js/app.application'
+          },
+          'angular-cookies': {
+            path: '/src/js/app.application'
+          },
+          bootstrap: {
+            path: '/src/js/app.application',
+            shim: { deps: ['jquery'] }
+          },
+          jquery: '/src/js/app.application',
 
-                // extends
-                'angular-simple-logger': {
-                    path: '/bower_components/angular-simple-logger/dist/angular-simple-logger.light.min'
-                },
-                'jquery-ui': {
-                    path: '/bower_components/jquery-ui/jquery-ui.min',
-                    shim: { deps: ['jquery'] }
-                },
-                leaflet: {
-                    path: '/bower_components/leaflet/dist/leaflet'
-                },
-                proj4: {
-                    path: '/bower_components/proj4/dist/proj4'
-                },
-                proj4leaflet: {
-                    path: '/bower_components/Proj4Leaflet/src/proj4leaflet',
-                    shim: {
-                        deps: ['leaflet', 'proj4']
-                    }
-                },
-                'ui-leaflet': {
-                    path: '/bower_components/ui-leaflet/dist/ui-leaflet.min.no-header',
-                    shim: {
-                        deps: ['angular-simple-logger', 'leaflet']
-                    }
-                },
-                'leaflet-dom-markers': {
-                    path: '/bower_components/Leaflet.DomMarkers/src/leaflet.dom-markers',
-                    shim: {
-                        deps: ['ui-leaflet']
-                    }
-                },
-                'tv4': {
-                    path: '/bower_components/tv4/tv4'
-                },
-                'objectpath': {
-                    path: '/bower_components/objectpath/lib/ObjectPath'
-                },
-                'schema-form': {
-                    path: '/bower_components/angular-schema-form/dist/schema-form',
-                    shim: {
-                        deps: ['tv4', 'objectpath']
-                    }
-                },
-                'schema-form-bootstrap': {
-                    path: '/bower_components/angular-schema-form-bootstrap/bootstrap-decorator',
-                    shim: {
-                        deps: ['schema-form']
-                    }
-                },
+          // extends
+          'angular-simple-logger': {
+            path: '/bower_components/angular-simple-logger/dist/angular-simple-logger.light.min'
+          },
+          'jquery-ui': {
+            path: '/bower_components/jquery-ui/jquery-ui.min',
+            shim: { deps: ['jquery'] }
+          },
+          leaflet: {
+            path: '/bower_components/leaflet/dist/leaflet'
+          },
+          proj4: {
+            path: '/bower_components/proj4/dist/proj4'
+          },
+          proj4leaflet: {
+            path: '/bower_components/Proj4Leaflet/src/proj4leaflet',
+            shim: {
+              deps: ['leaflet', 'proj4']
+            }
+          },
+          'ui-leaflet': {
+            path: '/bower_components/ui-leaflet/dist/ui-leaflet.min.no-header',
+            shim: {
+              deps: ['angular-simple-logger', 'leaflet']
+            }
+          },
+          'leaflet-dom-markers': {
+            path: '/bower_components/Leaflet.DomMarkers/src/leaflet.dom-markers',
+            shim: {
+              deps: ['ui-leaflet']
+            }
+          },
+          tv4: {
+            path: '/bower_components/tv4/tv4'
+          },
+          objectpath: {
+            path: '/bower_components/objectpath/lib/ObjectPath'
+          },
+          'schema-form': {
+            path: '/bower_components/angular-schema-form/dist/schema-form',
+            shim: {
+              deps: ['tv4', 'objectpath']
+            }
+          },
+          'schema-form-bootstrap': {
+            path: '/bower_components/angular-schema-form-bootstrap/bootstrap-decorator',
+            shim: {
+              deps: ['schema-form']
+            }
+          },
 
-                // application
-                'app/application': {
-                    path: '/src/js/app.application',
-                    shim: {
-                        deps: [
-                            'angular-ui-router',
-                            'angular-ui-bootstrap',
-                            'jquery'
-                        ]
-                    }
-                },
+          // application
+          'app/application': {
+            path: '/src/js/app.application',
+            shim: {
+              deps: ['angular-ui-router', 'angular-ui-bootstrap', 'jquery']
+            }
+          },
 
-                // common
-                'modules/common/module': {
-                    path: '/src/modules/common/module',
-                    shim: {
-                        deps: ['app/application']
-                    }
-                },
-                'modules/common/requires': {
-                    path: '/src/modules/common/requires'
-                },
+          // common
+          'modules/common/module': {
+            path: '/src/modules/common/module',
+            shim: {
+              deps: ['app/application']
+            }
+          },
+          'modules/common/requires': {
+            path: '/src/modules/common/requires'
+          },
 
-                // acc
-                'modules/acc/module': {
-                    path: '/src/modules/acc/module',
-                    shim: {
-                        deps: ['app/application', 'modules/common/module']
-                    }
-                },
-                'modules/acc/requires': {
-                    path: '/src/modules/acc/requires'
-                },
+          // acc
+          'modules/acc/module': {
+            path: '/src/modules/acc/module',
+            shim: {
+              deps: ['app/application', 'modules/common/module']
+            }
+          },
+          'modules/acc/requires': {
+            path: '/src/modules/acc/requires'
+          },
 
-                // manage
-                'modules/manage/module': {
-                    path: '/src/modules/manage/module',
-                    shim: {
-                        deps: ['app/application', 'modules/common/module']
-                    }
-                },
-                'modules/manage/requires': {
-                    path: '/src/modules/manage/requires'
-                }
-            },
-            patchs: [
-                'es5-shim',
-                'es5-sham',
-                'html5shiv',
-                'json2',
-                'respond'
-            ],
-            requires: [
-                'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
-                'rcss!../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css',
-                'rcss!../bower_components/leaflet/dist/leaflet.css',
-                'rcss!css/acc.css',
-                'modules/common/module',
-                'modules/acc/module',
-                'modules/manage/module'
-            ]
-        };
+          // manage
+          'modules/manage/module': {
+            path: '/src/modules/manage/module',
+            shim: {
+              deps: ['app/application', 'modules/common/module']
+            }
+          },
+          'modules/manage/requires': {
+            path: '/src/modules/manage/requires'
+          }
+        },
+        patchs: ['es5-shim', 'es5-sham', 'html5shiv', 'json2', 'respond'],
+        requires: [
+          'rcss!../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
+          'rcss!../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css',
+          'rcss!../bower_components/leaflet/dist/leaflet.css',
+          'rcss!css/acc.css',
+          'modules/common/module',
+          'modules/acc/module',
+          'modules/manage/module'
+        ]
+      };
     </script>
-    <script id="app" src="/bower_components/requirejs/require.js" data-main="startup.js" data-server="http://localhost:5000"
-        data-args="v=0.0.1" data-site="{}"></script>
-</head>
+    <script
+      id="app"
+      src="/bower_components/requirejs/require.js"
+      data-main="startup.js"
+      data-server="http://localhost:5000"
+      data-args="v=0.0.1"
+      data-site="{}"
+    ></script>
+  </head>
 
-<body ui-view>
+  <body ui-view>
     <div class="view-loading"></div>
-</body>
-
+  </body>
 </html>

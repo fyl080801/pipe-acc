@@ -23,10 +23,7 @@
     }
   }
 
-  if (
-    document.getElementsByTagName('html')[0].getAttribute('data-html-type') ===
-    'no-js lte-ie8'
-  ) {
+  if (document.getElementsByTagName('html')[0].getAttribute('data-html-type') === 'no-js lte-ie8') {
     requires = options.patchs.concat(requires);
   }
 

@@ -73,14 +73,8 @@ class Controller {
               var childCount = cluster.getChildCount();
               return new L.DivIcon({
                 html:
-                  '<div><span>总数:' +
-                  childCount +
-                  '</span><br/><span>故障:' +
-                  brokenCount +
-                  '</span></div>',
-                className:
-                  'marker-cluster marker-cluster-' +
-                  (brokenCount > 0 ? 'alert' : 'normal'),
+                  '<div><span>总数:' + childCount + '</span><br/><span>故障:' + brokenCount + '</span></div>',
+                className: 'marker-cluster marker-cluster-' + (brokenCount > 0 ? 'alert' : 'normal'),
                 iconSize: new L.Point(60, 60)
               });
             }
@@ -176,10 +170,7 @@ class Controller {
   toggleArea(scope, $event) {
     scope.toggle();
 
-    if (
-      !scope.collapsed &&
-      (!scope.area.$children || scope.area.$children.length <= 0)
-    ) {
+    if (!scope.collapsed && (!scope.area.$children || scope.area.$children.length <= 0)) {
       var areaPromise = this.requestService
         .url('/api/node?parentId=' + scope.area.$key)
         .options({ showLoading: false })

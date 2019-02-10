@@ -1,15 +1,33 @@
-<div class="list-group-item" ng-click="vm.selectArea(area)" ng-class="{ 'active' : currentArea && currentArea.$key === area.$key }">
-    <span class="glyphicon" ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }" ng-click="vm.toggleArea(this, $event)"></span>
-    <span ng-bind="area.$data.name"></span>
-    <span class="pull-right">
-        <button class="btn btn-default btn-xs" ng-click="vm.editArea(this, $event)">
-            <i class="glyphicon glyphicon-edit"></i>
-        </button>
-        <button class="btn btn-danger btn-xs" ng-click="vm.removeArea(this)">
-            <i class="glyphicon glyphicon-remove"></i>
-        </button>
-    </span>
+<div
+  class="list-group-item"
+  ng-click="vm.selectArea(area)"
+  ng-class="{ 'active' : currentArea && currentArea.$key === area.$key }"
+>
+  <span
+    class="glyphicon"
+    ng-class="{ 'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed }"
+    ng-click="vm.toggleArea(this, $event)"
+  ></span>
+  <span ng-bind="area.$data.name"></span>
+  <span class="pull-right">
+    <button class="btn btn-default btn-xs" ng-click="vm.editArea(this, $event)">
+      <i class="glyphicon glyphicon-edit"></i>
+    </button>
+    <button class="btn btn-danger btn-xs" ng-click="vm.removeArea(this)">
+      <i class="glyphicon glyphicon-remove"></i>
+    </button>
+  </span>
 </div>
-<ol ui-tree-nodes ng-model="area.$children" ng-class="{ hidden: collapsed }" ng-if="area.$children !== undefined">
-    <li ng-repeat="area in area.$children" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/templates/areaNode.html'"></li>
+<ol
+  ui-tree-nodes
+  ng-model="area.$children"
+  ng-class="{ hidden: collapsed }"
+  ng-if="area.$children !== undefined"
+>
+  <li
+    ng-repeat="area in area.$children"
+    ui-tree-node
+    data-collapsed="true"
+    ng-include="'modules/broadcast/templates/areaNode.html'"
+  ></li>
 </ol>

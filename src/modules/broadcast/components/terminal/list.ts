@@ -1,9 +1,6 @@
 import mod = require('modules/broadcast/module');
 import angular = require('angular');
-import {
-  areaForm,
-  terminalForm
-} from 'modules/broadcast/components/terminal/forms';
+import { areaForm, terminalForm } from 'modules/broadcast/components/terminal/forms';
 import { AreaLevels } from 'modules/broadcast/configs/enums/areas';
 
 class Controller {
@@ -107,8 +104,7 @@ class Controller {
                 var node = t.$children[0];
                 if (this.$scope.currentArea) {
                   node.$parent = this.$scope.currentArea;
-                  this.$scope.currentArea.$children =
-                    this.$scope.currentArea.$children || [];
+                  this.$scope.currentArea.$children = this.$scope.currentArea.$children || [];
                   this.$scope.currentArea.$children.push(node);
                 } else {
                   this.$scope.areas.push(node);
@@ -189,9 +185,7 @@ class Controller {
   selectArea(area) {
     if (!area) return;
     this.$scope.currentArea =
-      this.$scope.currentArea && this.$scope.currentArea.$key === area.$key
-        ? null
-        : area;
+      this.$scope.currentArea && this.$scope.currentArea.$key === area.$key ? null : area;
     this.requestService
       .url('/api/device/?parentId=' + this.$scope.currentArea.$key)
       .options({ showLoading: false })
@@ -281,14 +275,7 @@ class Controller {
         size: 'sm'
       })
       .result.then(data => {
-        this.requestService
-          .url(
-            '/device/configDownload/?deviceId=' +
-              id +
-              '&configFile=' +
-              data.file
-          )
-          .get();
+        this.requestService.url('/device/configDownload/?deviceId=' + id + '&configFile=' + data.file).get();
       });
   }
 }

@@ -2,12 +2,7 @@ import mod = require('modules/broadcast/module');
 
 class Controller {
   static $inject = ['$scope', 'leafletMapEvents', '$appConfig', 'leafletData'];
-  constructor(
-    private $scope,
-    private leafletMapEvents,
-    private $appConfig,
-    private leafletData
-  ) {
+  constructor(private $scope, private leafletMapEvents, private $appConfig, private leafletData) {
     $scope.vm = this;
 
     $scope.mapDefaults = {
@@ -26,7 +21,7 @@ class Controller {
     $scope.markers = {};
 
     $scope.mapTiles = {
-      url: $appConfig.serverUrl + 'static/map/{z}/{x}/{y}.png' //'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}'
+      url: $appConfig.serverUrl + '/static/map/{z}/{x}/{y}.png' //'http://webst03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}'
     };
 
     var mapEvents = leafletMapEvents.getAvailableMapEvents();

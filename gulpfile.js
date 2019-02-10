@@ -54,6 +54,7 @@ gulp.task('pack_resources', function() {
       '!src/modules/**/*.js',
       '!src/modules/**/*.ts',
       '!src/modules/**/*.map',
+      '!src/modules/.DS_Store/**/*',
       '!src/app/**/*.js',
       '!src/app/**/*.ts',
       '!src/app/**/*.map',
@@ -92,6 +93,8 @@ gulp.task('pack_modules', function() {
   var moduleConfigs = [];
 
   fs.readdirSync('src/modules').forEach(function(current) {
+    if (current === '.DS_Store') return;
+
     modules.push('modules/' + current + '/module');
 
     if (namedModule && current !== namedModule) return;

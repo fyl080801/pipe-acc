@@ -1,77 +1,82 @@
-<div- ng-controller="modules/broadcast/components/terminal/list" ng-init="vm.load()">
-    <section class="content-header">
-        <h1>
-            终端管理
-            <small>管理区域及终端</small>
-        </h1>
-    </section>
-    <section class="content">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">
-                            区域：
-                            <span ng-show="currentArea" class="text-primary" ng-bind="currentArea.name"></span>
-                            <span ng-show="!currentArea"><i class="text-muted">请选择区域</i></span>
-                        </h3>
-                        <div class="box-tools">
-                            <button class="btn btn-sm btn-success" ng-click="vm.addArea()">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                添加
-                            </button>
-                        </div>
-                    </div>
-                    <div ui-tree class="box-body no-padding list-group">
-                        <ol ui-tree-nodes class="panel-group" ng-model="areas">
-                            <li ng-repeat="area in areas" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/templates/areaNode.html'"></li>
-                        </ol>
-                    </div>
-                </div>
+<div ng-controller="modules/broadcast/components/terminal/list" ng-init="vm.load()">
+  <section class="content-header">
+    <h1>
+      终端管理
+      <small>管理区域及终端</small>
+    </h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">
+              区域：
+              <span ng-show="currentArea" class="text-primary" ng-bind="currentArea.name"></span>
+              <span ng-show="!currentArea"><i class="text-muted">请选择区域</i></span>
+            </h3>
+            <div class="box-tools">
+              <button class="btn btn-sm btn-success" ng-click="vm.addArea()">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加
+              </button>
             </div>
-            <div class="col-md-8">
-                <div class="box box-primary" ng-show="currentArea">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">
-                            设备
-                        </h3>
-                        <div class="box-tools">
-                            <button class="btn btn-sm btn-success" ng-click="vm.addTerminal()">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                添加
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body no-padding">
-                        <table class="table table-condensed" ng-table>
-                            <colgroup>
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col width="200" />
-                            </colgroup>
-                            <tr ng-repeat="row in dataList">
-                                <td title="'编号'">{{row.code}}</td>
-                                <td title="'名称'">{{row.name}}</td>
-                                <td title="'类型'">{{row.deviceType}}</td>
-                                <td title="'IP'">{{row.address}}</td>
-                                <td title="'操作'">
-                                    <a href="" ng-click="vm.uploadProfile(row.id)">
-                                        <i class="glyphicon glyphicon-upload"></i> 配置文件
-                                    </a>
-                                    <a href="" ng-click="vm.editTerminal(this)">
-                                        <i class="glyphicon glyphicon-edit"></i> 编辑
-                                    </a>
-                                    <a href="" class="text-danger" ng-click="vm.removeTreminal(this)">
-                                        <i class="glyphicon glyphicon-trash"></i> 删除
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div ui-tree class="box-body no-padding list-group">
+            <ol ui-tree-nodes class="panel-group" ng-model="areas">
+              <li
+                ng-repeat="area in areas"
+                ui-tree-node
+                data-collapsed="true"
+                ng-include="'modules/broadcast/templates/areaNode.html'"
+              ></li>
+            </ol>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="col-md-8">
+        <div class="box box-primary" ng-show="currentArea">
+          <div class="box-header with-border">
+            <h3 class="box-title">
+              设备
+            </h3>
+            <div class="box-tools">
+              <button class="btn btn-sm btn-success" ng-click="vm.addTerminal()">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加
+              </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <table class="table table-condensed" ng-table>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+                <col width="200" />
+              </colgroup>
+              <tr ng-repeat="row in dataList">
+                <td title="'编号'">{{ row.code }}</td>
+                <td title="'名称'">{{ row.name }}</td>
+                <td title="'类型'">{{ row.deviceType }}</td>
+                <td title="'IP'">{{ row.address }}</td>
+                <td title="'操作'">
+                  <a href="" ng-click="vm.uploadProfile(row.id)">
+                    <i class="glyphicon glyphicon-upload"></i> 配置文件
+                  </a>
+                  <a href="" ng-click="vm.editTerminal(this)">
+                    <i class="glyphicon glyphicon-edit"></i> 编辑
+                  </a>
+                  <a href="" class="text-danger" ng-click="vm.removeTreminal(this)">
+                    <i class="glyphicon glyphicon-trash"></i> 删除
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+</div>

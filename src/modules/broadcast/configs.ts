@@ -5,8 +5,4 @@ import 'ui-leaflet';
 import 'leaflet-dom-markers';
 import '../../../bower_components/ngDraggable/ngDraggable';
 
-export = angular.module('modules.broadcast.configs', [
-  'ui.router',
-  'ngDraggable',
-  'ui-leaflet'
-]);
+export = angular.module('modules.broadcast.configs', ['ui.router', 'ngDraggable', 'ui-leaflet']);

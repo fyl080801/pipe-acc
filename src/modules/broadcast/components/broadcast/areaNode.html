@@ -1,16 +1,30 @@
 <div class="list-group-item">
-    <span ng-show="area.$data.isDevice" class="glyphicon glyphicon-volume-up"></span>
-    <span ng-show="!area.$data.isDevice" class="glyphicon" ng-class="{ 'glyphicon-folder-close': collapsed, 'glyphicon-folder-open': !collapsed }"
-        ng-click="vm.toggleArea(this, $event)"></span>
-    <a href="" ng-click="vm.checkArea(this)">
-        <i ng-show="!area.$data.checked" class="glyphicon glyphicon-unchecked"></i>
-        <i ng-show="area.$data.checked" class="glyphicon glyphicon-check"></i>
-        <!-- <i ng-show="area.checkStatus===2" class="glyphicon glyphicon-record"></i> -->
-    </a>
-    <a href="" ng-click="vm.toArea(this)">
-        <span ng-bind="area.$data.name"></span>
-    </a>
+  <span ng-show="area.$data.isDevice" class="glyphicon glyphicon-volume-up"></span>
+  <span
+    ng-show="!area.$data.isDevice"
+    class="glyphicon"
+    ng-class="{ 'glyphicon-folder-close': collapsed, 'glyphicon-folder-open': !collapsed }"
+    ng-click="vm.toggleArea(this, $event)"
+  ></span>
+  <a href="" ng-click="vm.checkArea(this)">
+    <i ng-show="!area.$data.checked" class="glyphicon glyphicon-unchecked"></i>
+    <i ng-show="area.$data.checked" class="glyphicon glyphicon-check"></i>
+    <!-- <i ng-show="area.checkStatus===2" class="glyphicon glyphicon-record"></i> -->
+  </a>
+  <a href="" ng-click="vm.toArea(this)">
+    <span ng-bind="area.$data.name"></span>
+  </a>
 </div>
-<ol ui-tree-nodes ng-model="area.$children" ng-class="{ hidden: collapsed }" ng-if="area.$children !== undefined">
-    <li ng-repeat="area in area.$children | orderBy: '-$data.isDevice'" ui-tree-node data-collapsed="true" ng-include="'modules/broadcast/components/broadcast/areaNode.html'"></li>
+<ol
+  ui-tree-nodes
+  ng-model="area.$children"
+  ng-class="{ hidden: collapsed }"
+  ng-if="area.$children !== undefined"
+>
+  <li
+    ng-repeat="area in area.$children | orderBy: '-$data.isDevice'"
+    ui-tree-node
+    data-collapsed="true"
+    ng-include="'modules/broadcast/components/broadcast/areaNode.html'"
+  ></li>
 </ol>

@@ -76,14 +76,8 @@ class Controller {
               var childCount = cluster.getChildCount();
               return new L.DivIcon({
                 html:
-                  '<div><span>总数:' +
-                  childCount +
-                  '</span><br/><span>故障:' +
-                  brokenCount +
-                  '</span></div>',
-                className:
-                  'marker-cluster marker-cluster-' +
-                  (brokenCount > 0 ? 'alert' : 'normal'),
+                  '<div><span>总数:' + childCount + '</span><br/><span>故障:' + brokenCount + '</span></div>',
+                className: 'marker-cluster marker-cluster-' + (brokenCount > 0 ? 'alert' : 'normal'),
                 iconSize: new L.Point(60, 60)
               });
             }
